@@ -4,7 +4,7 @@ import toString from './util/toString'
 
 const defaultContainsOptions = {
   ignoreCase: false,
-  minOccurrences: 1
+  minOccurrences: 1,
 }
 
 /**
@@ -15,7 +15,7 @@ const defaultContainsOptions = {
  * @param options - Options object
  * @returns The processed string
  */
-export default function contains(str, elem, options): string {
+export default function contains(str, elem, options): boolean {
   assertString(str)
   options = merge(options, defaultContainsOptions)
 

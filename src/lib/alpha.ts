@@ -37,7 +37,7 @@ export const alpha = {
   'bn': /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣৰৱ৲৳৴৵৶৷৸৹৺৻]+$/,
   'eo': /^[A-PĈĜĤĴR-VŜŬZ]+$/i,
   'hi-IN': /^[\u0900-\u0961]+[\u0972-\u097F]*$/,
-  'si-LK': /^[\u0D80-\u0DFF]+$/
+  'si-LK': /^[\u0D80-\u0DFF]+$/,
 }
 
 export const alphanumeric = {
@@ -78,17 +78,17 @@ export const alphanumeric = {
   'bn': /^['ঀঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়ৠৡৢৣ০১২৩৪৫৬৭৮৯ৰৱ৲৳৴৵৶৷৸৹৺৻]+$/,
   'eo': /^[0-9A-PĈĜĤĴR-VŜŬZ]+$/i,
   'hi-IN': /^[\u0900-\u0963]+[\u0966-\u097F]*$/,
-  'si-LK': /^[0-9\u0D80-\u0DFF]+$/
+  'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
 }
 
 export const decimal = {
   'en-US': '.',
-  'ar': '٫'
+  'ar': '٫',
 }
 
 export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM']
 
-for (let locale, i = 0 i < englishLocales.length i++) {
+for (let locale, i = 0; i < englishLocales.length; i++) {
   locale = `en-${englishLocales[i]}`
   alpha[locale] = alpha['en-US']
   alphanumeric[locale] = alphanumeric['en-US']
@@ -98,7 +98,7 @@ for (let locale, i = 0 i < englishLocales.length i++) {
 // Source: http://www.localeplanet.com/java/
 export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE']
 
-for (let locale, i = 0 i < arabicLocales.length i++) {
+for (let locale, i = 0; i < arabicLocales.length; i++) {
   locale = `ar-${arabicLocales[i]}`
   alpha[locale] = alpha.ar
   alphanumeric[locale] = alphanumeric.ar
@@ -107,7 +107,7 @@ for (let locale, i = 0 i < arabicLocales.length i++) {
 
 export const farsiLocales = ['IR', 'AF']
 
-for (let locale, i = 0 i < farsiLocales.length i++) {
+for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`
   alphanumeric[locale] = alphanumeric.fa
   decimal[locale] = decimal.ar
@@ -115,7 +115,7 @@ for (let locale, i = 0 i < farsiLocales.length i++) {
 
 export const bengaliLocales = ['BD', 'IN']
 
-for (let locale, i = 0 i < bengaliLocales.length i++) {
+for (let locale, i = 0; i < bengaliLocales.length; i++) {
   locale = `bn-${bengaliLocales[i]}`
   alpha[locale] = alpha.bn
   alphanumeric[locale] = alphanumeric.bn
@@ -157,11 +157,11 @@ export const commaDecimal = [
   'vi-VN',
 ]
 
-for (let i = 0; i < dotDecimal.length i++) {
+for (let i = 0; i < dotDecimal.length; i++) {
   decimal[dotDecimal[i]] = decimal['en-US']
 }
 
-for (let i = 0 i < commaDecimal.length; i++) {
+for (let i = 0; i < commaDecimal.length; i++) {
   decimal[commaDecimal[i]] = ','
 }
 

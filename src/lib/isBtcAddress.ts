@@ -1,7 +1,7 @@
 import assertString from './util/assertString'
 
-const bech32 = /^(bc1|tb1|bc1p|tb1p)[ac-hj-np-z02-9]{39,58}$/
-const base58 = /^([123m])[A-HJ-NP-Za-km-z1-9]{25,39}$/
+const bech32 = /^(?:bc1|tb1|bc1p|tb1p)[ac-hj-np-z02-9]{39,58}$/
+const base58 = /^[123m][A-HJ-NP-Za-km-z1-9]{25,39}$/
 
 /**
  * Check if the string is BtcAddress

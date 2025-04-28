@@ -7,7 +7,7 @@ import assertString from './util/assertString'
  * @param chars - Options object
  * @returns The processed string
  */
-export default function blacklist(str, chars): boolean {
+export default function blacklist(str, chars): string {
   assertString(str)
   return str.replace(new RegExp(`[${chars}]+`, 'g'), '')
 }
