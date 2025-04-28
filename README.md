@@ -192,28 +192,6 @@ export default config
 2. **Early returns**: Set `strictMode: true` to stop on first error when validating complex objects
 3. **Reuse validators**: Create validators once and reuse them instead of creating new ones for each validation
 
-## License
-
-MIT
-
-## Get Started
-
-It's rather simple to get your package development started:
-
-```bash
-# you may use this GitHub template or the following command:
-bunx degit stacksjs/ts-validation my-pkg
-cd my-pkg
-
-bun i # install all deps
-bun run build # builds the library for production-ready use
-
-# after you have successfully committed, you may create a "release"
-bun run release # automates git commits, versioning, and changelog generations
-```
-
-_Check out the package.json scripts for more commands._
-
 ## Testing
 
 ```bash
