@@ -11,7 +11,6 @@ export interface IsFloatOptions {
   gt?: boolean | string
 }
 
-
 /**
  * Check if the string is Float
  *
@@ -19,19 +18,19 @@ export interface IsFloatOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isFloat(str, options): boolean {
+export default function isFloat(str: string, options: IsFloatOptions): boolean {
   assertString(str)
   options = options || {}
-  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${options.locale ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`)
+  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${typeof options.locale === 'string' ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`)
   if (str === '' || str === '.' || str === ',' || str === '-' || str === '+') {
     return false
   }
   const value = Number.parseFloat(str.replace(',', '.'))
   return float.test(str)
-    && (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || value >= options.min)
-    && (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || value <= options.max)
-    && (!options.hasOwnProperty('lt') || isNullOrUndefined(options.lt) || value < options.lt)
-    && (!options.hasOwnProperty('gt') || isNullOrUndefined(options.gt) || value > options.gt)
+    && (!('min' in options) || isNullOrUndefined(options.min) || value >= (options.min as unknown as number))
+    && (!('max' in options) || isNullOrUndefined(options.max) || value <= (options.max as unknown as number))
+    && (!('lt' in options) || isNullOrUndefined(options.lt) || value < (options.lt as unknown as number))
+    && (!('gt' in options) || isNullOrUndefined(options.gt) || value > (options.gt as unknown as number))
 }
 
 export const locales = Object.keys(decimal)

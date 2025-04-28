@@ -1,17 +1,29 @@
 import merge from './util/merge'
 
+interface DateOptions {
+  format: string
+  delimiters: string[]
+  strictMode: boolean
+}
+
+interface DateObj {
+  y: string
+  m: string
+  d: string
+}
+
 const default_date_options = {
   format: 'YYYY/MM/DD',
   delimiters: ['/', '-'],
-  strictMode: false
+  strictMode: false,
 }
 
-function isValidFormat(format) {
-  return /(^(y{4}|y{2})[./-](m{1,2})[./-](d{1,2})$)|(^(m{1,2})[./-](d{1,2})[./-]((y{4}|y{2})$))|(^(d{1,2})[./-](m{1,2})[./-]((y{4}|y{2})$))/i.test(format)
+function isValidFormat(format: string): boolean {
+  return /^(?:y{4}|y{2})[./-]m{1,2}[./-]d{1,2}$|^m{1,2}[./-]d{1,2}[./-](?:y{4}|y{2})$|^d{1,2}[./-]m{1,2}[./-](?:y{4}|y{2})$/i.test(format)
 }
 
-function zip(date, format) {
-  const zippedArr = []
+function zip(date: string[], format: string[]): [string, string][] {
+  const zippedArr: [string, string][] = []
   const len = Math.max(date.length, format.length)
 
   for (let i = 0; i < len; i++) {
@@ -28,26 +40,29 @@ function zip(date, format) {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isDate(input, options): boolean {
-  if (typeof options === 'string') { // Allow backward compatibility for old format isDate(input [, format])
-    options = merge({ format: options }, default_date_options)
+export default function isDate(input: string | Date, options: string | DateOptions): boolean {
+  let mergedOptions: DateOptions
+
+  if (typeof options === 'string') {
+    mergedOptions = merge({ format: options }, default_date_options) as DateOptions
   }
   else {
-    options = merge(options, default_date_options)
+    mergedOptions = merge(options, default_date_options) as DateOptions
   }
-  if (typeof input === 'string' && isValidFormat(options.format)) {
-    if (options.strictMode && input.length !== options.format.length)
+
+  if (typeof input === 'string' && isValidFormat(mergedOptions.format)) {
+    if (mergedOptions.strictMode && input.length !== mergedOptions.format.length)
       return false
-    const formatDelimiter = options.delimiters
-      .find(delimiter => options.format.includes(delimiter))
-    const dateDelimiter = options.strictMode
+    const formatDelimiter = mergedOptions.delimiters
+      .find(delimiter => mergedOptions.format.includes(delimiter))
+    const dateDelimiter = mergedOptions.strictMode
       ? formatDelimiter
-      : options.delimiters.find(delimiter => input.includes(delimiter))
+      : mergedOptions.delimiters.find(delimiter => input.includes(delimiter))
     const dateAndFormat = zip(
-      input.split(dateDelimiter),
-      options.format.toLowerCase().split(formatDelimiter),
+      input.split(dateDelimiter!),
+      mergedOptions.format.toLowerCase().split(formatDelimiter!),
     )
-    const dateObj = {}
+    const dateObj: DateObj = {} as DateObj
 
     for (const [dateWord, formatWord] of dateAndFormat) {
       if (!dateWord || !formatWord || dateWord.length !== formatWord.length) {
@@ -67,7 +82,7 @@ export default function isDate(input, options): boolean {
     if (dateObj.y.length === 2) {
       const parsedYear = Number.parseInt(dateObj.y, 10)
 
-      if (isNaN(parsedYear)) {
+      if (Number.isNaN(parsedYear)) {
         return false
       }
 
@@ -96,8 +111,8 @@ export default function isDate(input, options): boolean {
     return new Date(`${fullYear}-${month}-${day}T00:00:00.000Z`).getUTCDate() === +dateObj.d
   }
 
-  if (!options.strictMode) {
-    return Object.prototype.toString.call(input) === '[object Date]' && isFinite(input)
+  if (!mergedOptions.strictMode) {
+    return Object.prototype.toString.call(input) === '[object Date]' && Number.isFinite(input)
   }
 
   return false

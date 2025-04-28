@@ -9,7 +9,7 @@ const base58 = /^[123m][A-HJ-NP-Za-km-z1-9]{25,39}$/
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isBtcAddress(str): boolean {
+export default function isBtcAddress(str: string): boolean {
   assertString(str)
   return bech32.test(str) || base58.test(str)
 }

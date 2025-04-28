@@ -9,7 +9,7 @@ const base58Reg = /^[A-HJ-NP-Za-km-z1-9]*$/
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isBase58(str): boolean {
+export default function isBase58(str: string): boolean {
   assertString(str)
   if (base58Reg.test(str)) {
     return true

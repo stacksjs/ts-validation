@@ -10,7 +10,7 @@ const ascii = /^[\x00-\x7F]+$/
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isAscii(str): boolean {
+export default function isAscii(str: string): boolean {
   assertString(str)
   return ascii.test(str)
 }

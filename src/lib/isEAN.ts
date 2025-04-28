@@ -21,7 +21,7 @@ import assertString from './util/assertString'
  */
 const LENGTH_EAN_8 = 8
 const LENGTH_EAN_14 = 14
-const validEanRegex = /^(\d{8}|\d{13}|\d{14})$/
+const validEanRegex = /^(?:\d{8}|\d{13}|\d{14})$/
 
 /**
  * Get position weight given:
@@ -31,7 +31,7 @@ const validEanRegex = /^(\d{8}|\d{13}|\d{14})$/
  * @param {number} index
  * @return {number}
  */
-function getPositionWeightThroughLengthAndIndex(length, index) {
+function getPositionWeightThroughLengthAndIndex(length: number, index: number): number {
   if (length === LENGTH_EAN_8 || length === LENGTH_EAN_14) {
     return (index % 2 === 0) ? 3 : 1
   }
@@ -46,7 +46,7 @@ function getPositionWeightThroughLengthAndIndex(length, index) {
  * @param {string} ean
  * @return {number}
  */
-function calculateCheckDigit(ean) {
+function calculateCheckDigit(ean: string): number {
   const checksum = ean
     .slice(0, -1)
     .split('')
@@ -66,7 +66,7 @@ function calculateCheckDigit(ean) {
  * @param {string} str
  * @return {boolean}
  */
-export default function isEAN(str): boolean {
+export default function isEAN(str: string): boolean {
   assertString(str)
   const actualCheckDigit = Number(str.slice(-1))
 

@@ -1,9 +1,8 @@
 import toDate from './toDate'
 
 export interface IsAfterOptions {
-  comparisonDate?: boolean | string
+  comparisonDate?: string | number | Date
 }
-
 
 /**
  * Check if the string is After
@@ -12,7 +11,7 @@ export interface IsAfterOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isAfter(date, options): boolean {
+export default function isAfter(date: string, options: IsAfterOptions): boolean {
   // For backwards compatibility:
   // isAfter(str [, date]), i.e. `options` could be used as argument for the legacy `date`
   const comparisonDate = (typeof options === 'object' ? options.comparisonDate : options) || String(new Date()).toString()

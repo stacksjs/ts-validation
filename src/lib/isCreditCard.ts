@@ -33,7 +33,7 @@ interface CreditCardOptions {
  * @param options = {} - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isCreditCard(card, options: CreditCardOptions = {}): boolean {
+export default function isCreditCard(card: string, options: CreditCardOptions = {}): boolean {
   assertString(card)
   const { provider } = options
   const sanitized = card.replace(/[- ]+/g, '')

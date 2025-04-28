@@ -8,7 +8,7 @@ import assertString from './util/assertString'
  * @param num - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isDivisibleBy(str, num): boolean {
+export default function isDivisibleBy(str: string, num: number): boolean {
   assertString(str)
-  return toFloat(str) % Number.parseInt(num, 10) === 0
+  return toFloat(str) % num === 0
 }

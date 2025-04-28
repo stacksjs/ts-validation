@@ -10,7 +10,7 @@ const isBICReg = /^[A-Z]{6}[A-Z0-9]{2}(?:[A-Z0-9]{3})?$/i
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isBIC(str): boolean {
+export default function isBIC(str: string): boolean {
   assertString(str)
 
   // toUpperCase() should be removed when a new major version goes out that changes

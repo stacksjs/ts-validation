@@ -1,7 +1,7 @@
 import assertString from './util/assertString'
 import merge from './util/merge'
 
-function currencyRegex(options) {
+function currencyRegex(options: CurrencyOptions): RegExp {
   let decimal_digits = `\\d{${options.digits_after_decimal[0]}}`
   options.digits_after_decimal.forEach((digit, index) => {
     if (index !== 0)
@@ -64,7 +64,25 @@ function currencyRegex(options) {
   return new RegExp(`^(?!-? )(?=.*\\d)${pattern}$`)
 }
 
-const default_currency_options = {
+interface CurrencyOptions {
+  symbol: string
+  require_symbol: boolean
+  allow_space_after_symbol: boolean
+  symbol_after_digits: boolean
+  allow_negatives: boolean
+  parens_for_negatives: boolean
+  negative_sign_before_digits: boolean
+  negative_sign_after_digits: boolean
+  allow_negative_sign_placeholder: boolean
+  thousands_separator: string
+  decimal_separator: string
+  allow_decimal: boolean
+  require_decimal: boolean
+  digits_after_decimal: number[]
+  allow_space_after_digits: boolean
+}
+
+const default_currency_options: CurrencyOptions = {
   symbol: '$',
   require_symbol: false,
   allow_space_after_symbol: false,
@@ -79,7 +97,7 @@ const default_currency_options = {
   allow_decimal: true,
   require_decimal: false,
   digits_after_decimal: [2],
-  allow_space_after_digits: false
+  allow_space_after_digits: false,
 }
 
 /**
@@ -89,8 +107,8 @@ const default_currency_options = {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isCurrency(str, options): boolean {
+export default function isCurrency(str: string, options?: Partial<CurrencyOptions>): boolean {
   assertString(str)
-  options = merge(options, default_currency_options)
-  return currencyRegex(options).test(str)
+  const mergedOptions = merge(options, default_currency_options) as CurrencyOptions
+  return currencyRegex(mergedOptions).test(str)
 }

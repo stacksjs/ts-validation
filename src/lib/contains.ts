@@ -7,6 +7,11 @@ const defaultContainsOptions = {
   minOccurrences: 1,
 }
 
+interface ContainsOptions {
+  ignoreCase: boolean
+  minOccurrences: number
+}
+
 /**
  * contains
  *
@@ -15,7 +20,7 @@ const defaultContainsOptions = {
  * @param options - Options object
  * @returns The processed string
  */
-export default function contains(str, elem, options): boolean {
+export default function contains(str: string, elem: string, options: ContainsOptions): boolean {
   assertString(str)
   options = merge(options, defaultContainsOptions)
 

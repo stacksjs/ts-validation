@@ -13,7 +13,7 @@ const lengths = {
   tiger160: 40,
   tiger192: 48,
   crc32: 8,
-  crc32b: 8
+  crc32b: 8,
 }
 
 /**
@@ -23,7 +23,7 @@ const lengths = {
  * @param algorithm - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isHash(str, algorithm): boolean {
+export default function isHash(str: string, algorithm: string): boolean {
   assertString(str)
   const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`)
   return hash.test(str)

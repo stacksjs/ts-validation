@@ -10,14 +10,13 @@ export interface IsFQDNOptions {
   allow_underscores?: boolean | string
 }
 
-
 const default_fqdn_options = {
   require_tld: true,
   allow_underscores: false,
   allow_trailing_dot: false,
   allow_numeric_tld: false,
   allow_wildcard: false,
-  ignore_max_length: false
+  ignore_max_length: false,
 }
 
 /**
@@ -27,7 +26,7 @@ const default_fqdn_options = {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isFQDN(str, options): boolean {
+export default function isFQDN(str: string, options: IsFQDNOptions = {}): boolean {
   assertString(str)
   options = merge(options, default_fqdn_options)
 
@@ -50,7 +49,7 @@ export default function isFQDN(str, options): boolean {
       return false
     }
 
-    if (!options.allow_numeric_tld && !/^([a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+    if (!options.allow_numeric_tld && !/^(?:[a-z\u00A1-\u00A8\u00AA-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
       return false
     }
 

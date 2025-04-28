@@ -1,9 +1,8 @@
 import toDate from './toDate'
 
 export interface IsBeforeOptions {
-  comparisonDate?: boolean | string
+  comparisonDate?: string | number | Date
 }
-
 
 /**
  * Check if the string is Before
@@ -12,7 +11,7 @@ export interface IsBeforeOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isBefore(date, options): boolean {
+export default function isBefore(date: string, options: IsBeforeOptions): boolean {
   // For backwards compatibility:
   // isBefore(str [, date]), i.e. `options` could be used as argument for the legacy `date`
   const comparisonDate = (typeof options === 'object' ? options.comparisonDate : options) || String(new Date()).toString()

@@ -7,7 +7,7 @@ import assertString from './util/assertString'
  * @param comparison - Options object
  * @returns The processed string
  */
-export default function equals(str, comparison): boolean {
+export default function equals(str: string, comparison: string): boolean {
   assertString(str)
   return str === comparison
 }

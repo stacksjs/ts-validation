@@ -8,7 +8,7 @@ export const fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isFullWidth(str): boolean {
+export default function isFullWidth(str: string): boolean {
   assertString(str)
   return fullWidth.test(str)
 }

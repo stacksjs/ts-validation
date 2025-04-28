@@ -5,7 +5,6 @@ export interface IsByteLengthOptions {
   max?: number
 }
 
-
 /* eslint-disable prefer-rest-params */
 /**
  * Check if the string is ByteLength
@@ -14,7 +13,7 @@ export interface IsByteLengthOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isByteLength(str, options): boolean {
+export default function isByteLength(str: string, options: IsByteLengthOptions): boolean {
   assertString(str)
   let min
   let max

@@ -11,7 +11,7 @@ const isRoutingReg = /^(?!1[3-9]|20|3[3-9]|4\d|5\d|60|7[3-9]|8[1-9]|9[0-2]|9[3-9
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isAbaRouting(str): boolean {
+export default function isAbaRouting(str: string): boolean {
   assertString(str)
 
   if (!isRoutingReg.test(str))
