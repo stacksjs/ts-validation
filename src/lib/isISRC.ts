@@ -9,7 +9,7 @@ const isrc = /^[A-Z]{2}[0-9A-Z]{3}\d{7}$/
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isISRC(str: string) {
+export default function isISRC(str: string): boolean {
   assertString(str)
   return isrc.test(str)
 }

@@ -3,7 +3,7 @@ import assertString from './util/assertString'
 import includes from './util/includesArray'
 
 const validators = {
-  'PL': (str) => {
+  'PL': (str: string) => {
     assertString(str)
 
     const weightOfDigits = {
@@ -17,8 +17,8 @@ const validators = {
       8: 9,
       9: 1,
       10: 3,
-      11: 0
-}
+      11: 0,
+    }
 
     if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
       const digits = str.split('').slice(0, -1)
@@ -35,7 +35,7 @@ const validators = {
 
     return false
   },
-  'ES': (str) => {
+  'ES': (str: string): boolean => {
     assertString(str)
 
     const DNI = /^[0-9X-Z]\d{7}[TRWAD-HJ-NYPXBZSQVC]$/
@@ -43,8 +43,8 @@ const validators = {
     const charsValue = {
       X: 0,
       Y: 1,
-      Z: 2
-}
+      Z: 2,
+    }
 
     const controlDigits = [
       'T',
@@ -81,11 +81,11 @@ const validators = {
     }
 
     // validate the control digit
-    const number = sanitized.slice(0, -1).replace(/[X,YZ]/g, char => charsValue[char])
+    const number = Number(sanitized.slice(0, -1).replace(/[X,YZ]/g, char => charsValue[char]))
 
     return sanitized.endsWith(controlDigits[number % 23])
   },
-  'FI': (str) => {
+  'FI': (str: string): boolean => {
     // https://dvv.fi/en/personal-identity-code#:~:text=control%20character%20for%20a-,personal,-identity%20code%20calculated
     assertString(str)
 
@@ -105,7 +105,7 @@ const validators = {
 
     return checkDigit === str.slice(10, 11)
   },
-  'IN': (str) => {
+  'IN': (str: string): boolean => {
     const DNI = /^[1-9]\d{3}\s?\d{4}\s?\d{4}$/
 
     // multiplication table
@@ -150,7 +150,7 @@ const validators = {
 
     return c === 0
   },
-  'IR': (str) => {
+  'IR': (str: string): boolean => {
     if (!str.match(/^\d{10}$/))
       return false
     str = (`0000${str}`).slice(str.length - 6)
@@ -161,7 +161,7 @@ const validators = {
     const lastNumber = Number.parseInt(str.slice(9, 10), 10)
     let sum = 0
 
-    for (let i = 0; i < 9 i++) {
+    for (let i = 0; i < 9; i++) {
       sum += Number.parseInt(str.slice(i, i + 1), 10) * (10 - i)
     }
 
@@ -171,16 +171,16 @@ const validators = {
       (sum < 2 && lastNumber === sum) || (sum >= 2 && lastNumber === 11 - sum)
     )
   },
-  'IT': function IT(str) {
+  'IT': (str: string): boolean => {
     if (str.length !== 9)
       return false
     if (str === 'CA00000AA')
       return false // https://it.wikipedia.org/wiki/Carta_d%27identit%C3%A0_elettronica_italiana
     return str.search(/C[A-Z]\d{5}[A-Z]{2}/i) > -1
   },
-  'NO': (str) => {
+  'NO': (str: string): boolean => {
     const sanitized = str.trim()
-    if (isNaN(Number(sanitized)))
+    if (Number.isNaN(Number(sanitized)))
       return false
     if (sanitized.length !== 11)
       return false
@@ -200,18 +200,18 @@ const validators = {
       return false
     return true
   },
-  'TH': (str) => {
+  'TH': (str: string): boolean => {
     if (!str.match(/^[1-8]\d{12}$/))
       return false
 
     // validate check digit
     let sum = 0
-    for (let i = 0 i < 12 i++) {
+    for (let i = 0; i < 12; i++) {
       sum += Number.parseInt(str[i], 10) * (13 - i)
     }
     return str[12] === ((11 - (sum % 11)) % 10).toString()
   },
-  'LK': (str) => {
+  'LK': (str: string): boolean => {
     const old_nic = /^[1-9]\d{8}[vx]$/i
     const new_nic = /^[1-9]\d{11}$/
 
@@ -221,7 +221,7 @@ const validators = {
       return true
     return false
   },
-  'he-IL': (str) => {
+  'he-IL': (str: string): boolean => {
     const DNI = /^\d{9}$/
 
     // sanitize user input
@@ -236,15 +236,15 @@ const validators = {
 
     let sum = 0
     let incNum
-    for (let i = 0 i < id.length i++) {
+    for (let i = 0; i < id.length; i++) {
       incNum = Number(id[i]) * ((i % 2) + 1) // Multiply number by 1 or 2
       sum += incNum > 9 ? incNum - 9 : incNum // Sum the digits up and add to total
     }
     return sum % 10 === 0
   },
-  'ar-LY': (str) => {
+  'ar-LY': (str: string): boolean => {
     // Libya National Identity Number NIN is 12 digits, the first digit is either 1 or 2
-    const NIN = /^(1|2)\d{11}$/
+    const NIN = /^(?:1|2)\d{11}$/
 
     // sanitize user input
     const sanitized = str.trim()
@@ -255,7 +255,7 @@ const validators = {
     }
     return true
   },
-  'ar-TN': (str) => {
+  'ar-TN': (str: string): boolean => {
     const DNI = /^\d{8}$/
 
     // sanitize user input
@@ -267,7 +267,7 @@ const validators = {
     }
     return true
   },
-  'zh-CN': (str) => {
+  'zh-CN': (str: string): boolean => {
     const provincesAndCities = [
       '11', // 北京
       '12', // 天津
@@ -310,9 +310,9 @@ const validators = {
 
     const parityBit = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']
 
-    const checkAddressCode = addressCode => includes(provincesAndCities, addressCode)
+    const checkAddressCode = (addressCode: string): boolean => includes(provincesAndCities, addressCode)
 
-    const checkBirthDayCode = (birDayCode) => {
+    const checkBirthDayCode = (birDayCode: string): boolean => {
       const yyyy = Number.parseInt(birDayCode.substring(0, 4), 10)
       const mm = Number.parseInt(birDayCode.substring(4, 6), 10)
       const dd = Number.parseInt(birDayCode.substring(6), 10)
@@ -326,11 +326,11 @@ const validators = {
       return false
     }
 
-    const getParityBit = (idCardNo) => {
+    const getParityBit = (idCardNo: string): string => {
       const id17 = idCardNo.substring(0, 17)
 
       let power = 0
-      for (let i = 0 i < 17 i++) {
+      for (let i = 0; i < 17; i++) {
         power += Number.parseInt(id17.charAt(i), 10) * Number.parseInt(powers[i], 10)
       }
 
@@ -340,38 +340,38 @@ const validators = {
 
     const checkParityBit = idCardNo => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase()
 
-    const check15IdCardNo = (idCardNo) => {
-      let check = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([12]\d)|(3[01]))\d{3}$/.test(idCardNo)
-      if (!check)
+    const check15IdCardNo = (idCardNo: string): boolean => {
+      if (!/^[1-9]\d{7}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}$/.test(idCardNo)) {
         return false
+      }
       const addressCode = idCardNo.substring(0, 2)
-      check = checkAddressCode(addressCode)
-      if (!check)
+      if (!checkAddressCode(addressCode)) {
         return false
-      const birDayCode = `19${idCardNo.substring(6, 12)}`
-      check = checkBirthDayCode(birDayCode)
-      if (!check)
+      }
+      const birDayCode = idCardNo.substring(6, 12)
+      if (!checkBirthDayCode(birDayCode)) {
         return false
+      }
       return true
     }
 
-    const check18IdCardNo = (idCardNo) => {
-      let check = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([12]\d)|(3[01]))\d{3}([\dx])$/i.test(idCardNo)
-      if (!check)
+    const check18IdCardNo = (idCardNo: string): boolean => {
+      if (!/^[1-9]\d{5}[1-9]\d{3}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}[\dx]$/i.test(idCardNo)) {
         return false
+      }
       const addressCode = idCardNo.substring(0, 2)
-      check = checkAddressCode(addressCode)
-      if (!check)
+      if (!checkAddressCode(addressCode)) {
         return false
+      }
       const birDayCode = idCardNo.substring(6, 14)
-      check = checkBirthDayCode(birDayCode)
-      if (!check)
+      if (!checkBirthDayCode(birDayCode)) {
         return false
+      }
       return checkParityBit(idCardNo)
     }
 
-    const checkIdCardNo = (idCardNo) => {
-      const check = /^\d{15}|(\d{17}([\dx]))$/i.test(idCardNo)
+    const checkIdCardNo = (idCardNo: string): boolean => {
+      const check = /^\d{15}|\d{17}[\dx]$/i.test(idCardNo)
       if (!check)
         return false
       if (idCardNo.length === 15) {
@@ -381,13 +381,13 @@ const validators = {
     }
     return checkIdCardNo(str)
   },
-  'zh-HK': (str) => {
+  'zh-HK': (str: string): boolean => {
     // sanitize user input
     str = str.trim()
 
     // HKID number starts with 1 or 2 letters, followed by 6 digits,
     // then a checksum contained in square / round brackets or nothing
-    const regexHKID = /^[A-Z]{1,2}\d{6}((\([0-9A]\))|(\[[0-9A]\])|([0-9A]))$/
+    const regexHKID = /^[A-Z]{1,2}\d{6}(?:\([0-9A]\)|\[[0-9A]\]|[0-9A])$/
     const regexIsDigit = /^\d$/
 
     // convert the user input to all uppercase and apply regex
@@ -399,7 +399,7 @@ const validators = {
     if (str.length === 8)
       str = `3${str}`
     let checkSumVal = 0
-    for (let i = 0 i <= 7; i++) {
+    for (let i = 0; i <= 7; i++) {
       let convertedChar
       if (!regexIsDigit.test(str[i]))
         convertedChar = (str[i].charCodeAt(0) - 55) % 11
@@ -418,7 +418,7 @@ const validators = {
       return true
     return false
   },
-  'zh-TW': (str) => {
+  'zh-TW': (str: string): boolean => {
     const ALPHABET_CODES = {
       A: 10,
       B: 11,
@@ -445,29 +445,28 @@ const validators = {
       W: 32,
       X: 30,
       Y: 31,
-      Z: 33
-}
+      Z: 33,
+    }
 
     const sanitized = str.trim().toUpperCase()
 
     if (!/^[A-Z]\d{9}$/.test(sanitized))
       return false
 
-    return Array.from(sanitized).reduce((sum, number, index) => {
+    return Array.from(sanitized).reduce<number>((sum, number, index) => {
       if (index === 0) {
-        const code = ALPHABET_CODES[number]
-
+        const code = ALPHABET_CODES[number as keyof typeof ALPHABET_CODES]
         return ((code % 10) * 9) + Math.floor(code / 10)
       }
 
       if (index === 9) {
-        return ((10 - (sum % 10)) - Number(number)) % 10 === 0
+        return ((10 - (sum % 10)) - Number(number)) % 10
       }
 
       return sum + (Number(number) * (9 - index))
-    }, 0)
+    }, 0) === 0
   },
-  'PK': (str) => {
+  'PK': (str: string): boolean => {
     // Pakistani National Identity Number CNIC is 13 digits
     const CNIC = /^[1-7]\d{4}-\d{7}-[1-9]$/
 
@@ -476,17 +475,10 @@ const validators = {
 
     // validate the data structure
     return CNIC.test(sanitized)
-  }
+  },
 }
 
-/**
- * Check if the string is IdentityCard
- *
- * @param str - The string to check
- * @param locale - Options object
- * @returns True if the string matches the validation, false otherwise
- */
-export default function isIdentityCard(str, locale): boolean {
+export default function isIdentityCard(str: string, locale: string): boolean {
   assertString(str)
   if (locale in validators) {
     return validators[locale](str)
@@ -495,7 +487,7 @@ export default function isIdentityCard(str, locale): boolean {
     for (const key in validators) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
-      if (validators.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(validators, key)) {
         const validator = validators[key]
         if (validator(str)) {
           return true

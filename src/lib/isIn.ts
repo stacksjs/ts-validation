@@ -7,7 +7,6 @@ export interface IsInOptions {
   includes?: boolean | string
 }
 
-
 /**
  * Check if the string is In
  *
@@ -19,7 +18,7 @@ export default function isIn(str, options): boolean {
   assertString(str)
   let i
   if (Object.prototype.toString.call(options) === '[object Array]') {
-    const array = []
+    const array: string[] = []
     for (i in options) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
@@ -30,7 +29,7 @@ export default function isIn(str, options): boolean {
     return array.includes(str)
   }
   else if (typeof options === 'object') {
-    return options.hasOwnProperty(str)
+    return Object.prototype.hasOwnProperty.call(options, str)
   }
   else if (options && typeof options.indexOf === 'function') {
     return options.includes(str)

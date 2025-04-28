@@ -194,7 +194,7 @@ const isISO6391Set = new Set([
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isISO6391(str: string) {
+export default function isISO6391(str: string): boolean {
   assertString(str)
   return isISO6391Set.has(str)
 }

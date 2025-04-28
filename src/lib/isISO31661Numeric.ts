@@ -259,7 +259,7 @@ const validISO31661NumericCountriesCodes = new Set([
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isISO31661Numeric(str: string) {
+export default function isISO31661Numeric(str: string): boolean {
   assertString(str)
   return validISO31661NumericCountriesCodes.has(str)
 }

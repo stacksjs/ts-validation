@@ -10,7 +10,6 @@ export interface IsIntOptions {
   gt?: boolean | string
 }
 
-
 const int = /^[-+]?(?:0|[1-9]\d*)$/
 const intLeadingZeroes = /^[-+]?\d+$/
 
@@ -30,10 +29,10 @@ export default function isInt(str, options): boolean {
   const regex = options.allow_leading_zeroes === false ? int : intLeadingZeroes
 
   // Check min/max/lt/gt
-  const minCheckPassed = (!options.hasOwnProperty('min') || isNullOrUndefined(options.min) || str >= options.min)
-  const maxCheckPassed = (!options.hasOwnProperty('max') || isNullOrUndefined(options.max) || str <= options.max)
-  const ltCheckPassed = (!options.hasOwnProperty('lt') || isNullOrUndefined(options.lt) || str < options.lt)
-  const gtCheckPassed = (!options.hasOwnProperty('gt') || isNullOrUndefined(options.gt) || str > options.gt)
+  const minCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'min') || isNullOrUndefined(options.min) || str >= options.min)
+  const maxCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'max') || isNullOrUndefined(options.max) || str <= options.max)
+  const ltCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'lt') || isNullOrUndefined(options.lt) || str < options.lt)
+  const gtCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'gt') || isNullOrUndefined(options.gt) || str > options.gt)
 
   return regex.test(str) && minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed
 }

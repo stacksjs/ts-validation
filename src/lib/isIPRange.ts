@@ -5,14 +5,18 @@ const subnetMaybe = /^\d{1,3}$/
 const v4Subnet = 32
 const v6Subnet = 128
 
+interface IsIPOptions {
+  version?: number
+}
+
 /**
  * Check if the string is IPRange
  *
  * @param str - The string to check
- * @param version = '' - Options object
+ * @param version - IP version (4 or 6)
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isIPRange(str, version = ''): boolean {
+export default function isIPRange(str: string, version: number | string = ''): boolean {
   assertString(str)
   const parts = str.split('/')
 
@@ -30,25 +34,26 @@ export default function isIPRange(str, version = ''): boolean {
     return false
   }
 
-  const isValidIP = isIP(parts[0], version)
+  const options: IsIPOptions = typeof version === 'string' ? { version: Number.parseInt(version, 10) } : { version }
+  const isValidIP = isIP(parts[0], options)
   if (!isValidIP) {
     return false
   }
 
   // Define valid subnet according to IP's version
-  let expectedSubnet = null
-  switch (String(version)) {
-    case '4':
-      expectedSubnet = v4Subnet
-      break
-
-    case '6':
-      expectedSubnet = v6Subnet
-      break
-
-    default:
-      expectedSubnet = isIP(parts[0], '6') ? v6Subnet : v4Subnet
+  let expectedSubnet: number = 0
+  const versionStr = String(version)
+  if (versionStr === '4') {
+    expectedSubnet = v4Subnet
+  }
+  else if (versionStr === '6') {
+    expectedSubnet = v6Subnet
+  }
+  else {
+    const defaultOptions: IsIPOptions = { version: 6 }
+    expectedSubnet = isIP(parts[0], defaultOptions) ? v6Subnet : v4Subnet
   }
 
-  return parts[1] <= expectedSubnet && parts[1] >= 0
+  const subnet = Number.parseInt(parts[1], 10)
+  return subnet <= expectedSubnet && subnet >= 0
 }

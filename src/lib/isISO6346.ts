@@ -3,7 +3,7 @@ import assertString from './util/assertString'
 // https://en.wikipedia.org/wiki/ISO_6346
 // according to ISO6346 standard, checksum digit is mandatory for freight container but recommended
 // for other container types (J and Z)
-const isISO6346Str = /^[A-Z]{3}(U\d{7})|([J,Z]\d{6,7})$/
+const isISO6346Str = /^[A-Z]{3}U\d{7}|[J,Z]\d{6,7}$/
 const isDigit = /^\d$/
 
 export function isISO6346(str: string) {
@@ -30,7 +30,7 @@ export function isISO6346(str: string) {
         sum += convertedCode * (2 ** i)
       }
       else {
-        sum += str[i] * (2 ** i)
+        sum += Number(str[i]) * (2 ** i)
       }
     }
 

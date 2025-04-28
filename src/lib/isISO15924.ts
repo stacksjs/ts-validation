@@ -281,7 +281,7 @@ const validISO15924Codes = new Set([
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isISO15924(str: string) {
+export default function isISO15924(str: string): boolean {
   assertString(str)
   return validISO15924Codes.has(str)
 }

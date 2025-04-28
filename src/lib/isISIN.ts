@@ -9,13 +9,7 @@ const isin = /^[A-Z]{2}[0-9A-Z]{9}\d$/
 // each alpha character is handled as 2 characters within
 // the loop.
 
-/**
- * Check if the string is ISIN
- *
- * @param str - The string to check
- * @returns True if the string matches the validation, false otherwise
- */
-export default function isISIN(str: string) {
+export default function isISIN(str: string): boolean {
   assertString(str)
   if (!isin.test(str)) {
     return false
@@ -24,7 +18,7 @@ export default function isISIN(str: string) {
   let double = true
   let sum = 0
   // convert values
-  for (let i = str.length - 2 i >= 0 i--) {
+  for (let i = str.length - 2; i >= 0; i--) {
     if (str[i] >= 'A' && str[i] <= 'Z') {
       const value = str[i].charCodeAt(0) - 55
       const lo = value % 10

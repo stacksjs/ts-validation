@@ -86,7 +86,7 @@ const ibanRegexThroughCountryCode = {
   UA: /^(UA\d{2})\d{6}[A-Z0-9]{19}$/,
   VA: /^(VA\d{2})\d{18}$/,
   VG: /^(VG\d{2})[A-Z]{4}\d{16}$/,
-  XK: /^(XK\d{2})\d{16}$/
+  XK: /^(XK\d{2})\d{16}$/,
 }
 
 /**
@@ -97,7 +97,7 @@ const ibanRegexThroughCountryCode = {
  * @return {boolean}
  */
 
-function hasOnlyValidCountryCodes(countryCodeArray) {
+function hasOnlyValidCountryCodes(countryCodeArray: string[]): boolean {
   const countryCodeArrayFilteredWithObjectIbanCode = countryCodeArray
     .filter(countryCode => !(countryCode in ibanRegexThroughCountryCode))
 
@@ -120,7 +120,7 @@ function hasOnlyValidCountryCodes(countryCodeArray) {
  * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
  * @return {boolean}
  */
-function hasValidIbanFormat(str, options) {
+function hasValidIbanFormat(str: string, options: { whitelist?: string[], blacklist?: string[] } = {}): boolean {
   // Strip white spaces and hyphens
   const strippedStr = str.replace(/[\s\-]+/g, '').toUpperCase()
   const isoCountryCode = strippedStr.slice(0, 2).toUpperCase()
@@ -164,18 +164,18 @@ function hasValidIbanFormat(str, options) {
  * @param {string} str
  * @return {boolean}
  */
-function hasValidIbanChecksum(str) {
+function hasValidIbanChecksum(str: string): boolean {
   const strippedStr = str.replace(/[^A-Z0-9]+/gi, '').toUpperCase() // Keep only digits and A-Z latin alphabetic
   const rearranged = strippedStr.slice(4) + strippedStr.slice(0, 4)
-  const alphaCapsReplacedWithDigits = rearranged.replace(/[A-Z]/g, char => char.charCodeAt(0) - 55)
+  const alphaCapsReplacedWithDigits = rearranged.replace(/[A-Z]/g, char => String(char.charCodeAt(0) - 55))
 
   const remainder = alphaCapsReplacedWithDigits.match(/\d{1,7}/g)
-    .reduce((acc, value) => Number(acc + value) % 97, '')
+    ?.reduce((acc, value) => (Number(acc) + Number(value)) % 97, 0)
 
   return remainder === 1
 }
 
-export default function isIBAN(str, options = {}): boolean {
+export default function isIBAN(str: string, options: { whitelist?: string[], blacklist?: string[] } = {}): boolean {
   assertString(str)
 
   return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str)
