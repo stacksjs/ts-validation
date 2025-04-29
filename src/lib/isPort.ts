@@ -6,6 +6,6 @@ import isInt from './isInt'
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isPort(str: string) {
+export default function isPort(str: string): boolean {
   return isInt(str, { allow_leading_zeroes: false, min: 0, max: 65535 })
 }

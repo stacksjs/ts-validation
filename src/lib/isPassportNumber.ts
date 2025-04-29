@@ -79,7 +79,7 @@ export const locales = Object.keys(passportRegexByCountryCode)
  * @param {string} countryCode
  * @return {boolean}
  */
-export default function isPassportNumber(str: string, countryCode: any) {
+export default function isPassportNumber(str: string, countryCode: string): boolean {
   assertString(str)
   /** Remove All Whitespaces, Convert to UPPERCASE */
   const normalizedStr = str.replace(/\s/g, '').toUpperCase()

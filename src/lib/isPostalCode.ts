@@ -75,7 +75,7 @@ const patterns = {
   UA: fiveDigit,
   US: /^\d{5}(-\d{4})?$/,
   ZA: fourDigit,
-  ZM: fiveDigit
+  ZM: fiveDigit,
 }
 
 export const locales = Object.keys(patterns)
@@ -87,7 +87,7 @@ export const locales = Object.keys(patterns)
  * @param locale - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isPostalCode(str: string, locale: any) {
+export default function isPostalCode(str: string, locale: string): boolean {
   assertString(str)
   if (locale in patterns) {
     return patterns[locale].test(str)
@@ -96,7 +96,7 @@ export default function isPostalCode(str: string, locale: any) {
     for (const key in patterns) {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
-      if (patterns.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(patterns, key)) {
         const pattern = patterns[key]
         if (pattern.test(str)) {
           return true

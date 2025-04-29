@@ -2,17 +2,18 @@ import assertString from './util/assertString'
 
 export interface IsMACAddressOptions {
   eui?: boolean | string
+  no_separators?: boolean
+  no_colons?: boolean
 }
 
+const macAddress48 = /^[0-9a-f]{2}([-:\s])(?:[0-9a-f]{2}\1){4}[0-9a-f]{2}$/i
+const macAddress48NoSeparators = /^[0-9a-f]{12}$/i
+const macAddress48WithDots = /^(?:[0-9a-f]{4}\.){2}[0-9a-f]{4}$/i
+const macAddress64 = /^[0-9a-f]{2}([-:\s])(?:[0-9a-f]{2}\1){6}[0-9a-f]{2}$/i
+const macAddress64NoSeparators = /^[0-9a-f]{16}$/i
+const macAddress64WithDots = /^(?:[0-9a-f]{4}\.){3}[0-9a-f]{4}$/i
 
-const macAddress48 = /^[0-9a-f]{2}([-:\s])([0-9a-f]{2}\1){4}([0-9a-f]{2})$/i
-const macAddress48NoSeparators = /^([0-9a-f]){12}$/i
-const macAddress48WithDots = /^([0-9a-f]{4}\.){2}([0-9a-f]{4})$/i
-const macAddress64 = /^[0-9a-f]{2}([-:\s])([0-9a-f]{2}\1){6}([0-9a-f]{2})$/i
-const macAddress64NoSeparators = /^([0-9a-f]){16}$/i
-const macAddress64WithDots = /^([0-9a-f]{4}\.){3}([0-9a-f]{4})$/i
-
-export default function isMACAddress(str: string, options: IsMACAddressOptions: any) {
+export default function isMACAddress(str: string, options: IsMACAddressOptions): boolean {
   assertString(str)
   if (options?.eui) {
     options.eui = String(options.eui)

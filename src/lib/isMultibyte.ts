@@ -10,7 +10,7 @@ const multibyte = /[^\x00-\x7F]/
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isMultibyte(str: string) {
+export default function isMultibyte(str: string): boolean {
   assertString(str)
   return multibyte.test(str)
 }

@@ -27,7 +27,7 @@ const rfc3339 = new RegExp(`^${fullDate.source}[ tT]${fullTime.source}$`)
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isRFC3339(str: string) {
+export default function isRFC3339(str: string): boolean {
   assertString(str)
   return rfc3339.test(str)
 }

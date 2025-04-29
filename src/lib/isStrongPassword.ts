@@ -18,7 +18,16 @@ const defaultOptions = {
   pointsForContainingLower: 10,
   pointsForContainingUpper: 10,
   pointsForContainingNumber: 10,
-  pointsForContainingSymbol: 10
+  pointsForContainingSymbol: 10,
+}
+
+interface PasswordAnalysis {
+  length: number
+  uniqueChars: number
+  uppercaseCount: number
+  lowercaseCount: number
+  numberCount: number
+  symbolCount: number
 }
 
 /* Counts number of occurrences of each char in a string
@@ -47,8 +56,8 @@ function analyzePassword(password: string) {
     uppercaseCount: 0,
     lowercaseCount: 0,
     numberCount: 0,
-    symbolCount: 0
-}
+    symbolCount: 0,
+  }
   Object.keys(charMap).forEach((char) => {
     /* istanbul ignore else */
     if (upperCaseRegex.test(char)) {
@@ -67,7 +76,7 @@ function analyzePassword(password: string) {
   return analysis
 }
 
-function scorePassword(analysis: string, scoringOptions: any) {
+function scorePassword(analysis: PasswordAnalysis, scoringOptions: any) {
   let points = 0
   points += analysis.uniqueChars * scoringOptions.pointsPerUnique
   points += (analysis.length - analysis.uniqueChars) * scoringOptions.pointsPerRepeat
@@ -93,7 +102,7 @@ function scorePassword(analysis: string, scoringOptions: any) {
  * @param options = null - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isStrongPassword(str, options = null): boolean {
+export default function isStrongPassword(str: string, options: typeof defaultOptions = defaultOptions): boolean | number {
   assertString(str)
   const analysis = analyzePassword(str)
   options = merge(options || {}, defaultOptions)

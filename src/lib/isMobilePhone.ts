@@ -159,7 +159,7 @@ const phones = {
   'ar-YE': /^(((\+|00)9677|0?7)[0137]\d{7}|((\+|00)967|0)[1-7]\d{6})$/,
   'ar-EH': /^(\+?212|0)[\s\-]?(5288|5289)[\s\-]?\d{5}$/,
   'fa-AF': /^(\+93|0)?(2[0-8]|[3-5][0-4])(\d{7})$/,
-  'mk-MK': /^(\+?389|0)?(2[2-9]\d{6}|(?:3[1-4]|4[2-8])\d{6}|500\d{5}|5[2-9]\d{6}|7\d[2-9]\d{5}|8[1-9]\d{6}|800\d{5}|8009\d{4})$/
+  'mk-MK': /^(\+?389|0)?(2[2-9]\d{6}|(?:3[1-4]|4[2-8])\d{6}|500\d{5}|5[2-9]\d{6}|7\d[2-9]\d{5}|8[1-9]\d{6}|800\d{5}|8009\d{4})$/,
 }
 
 // aliases
@@ -189,7 +189,7 @@ export default function isMobilePhone(str, locale, options): boolean {
     return locale.some((key) => {
       // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
       // istanbul ignore else
-      if (phones.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(phones, key)) {
         const phone = phones[key]
         if (phone.test(str)) {
           return true
@@ -205,7 +205,7 @@ export default function isMobilePhone(str, locale, options): boolean {
   else if (!locale || locale === 'any') {
     for (const key in phones) {
       // istanbul ignore else
-      if (phones.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(phones, key)) {
         const phone = phones[key]
         if (phone.test(str)) {
           return true

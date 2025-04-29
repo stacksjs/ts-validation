@@ -111,7 +111,7 @@ const languageTagRegex = new RegExp(`(^${privateuse}$)|(^${grandfathered}$)|(^${
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isLocale(str: string) {
+export default function isLocale(str: string): boolean {
   assertString(str)
   return languageTagRegex.test(str)
 }

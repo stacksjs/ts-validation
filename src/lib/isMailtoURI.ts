@@ -2,7 +2,7 @@ import isEmail from './isEmail'
 import trim from './trim'
 import assertString from './util/assertString'
 
-function parseMailtoQueryString(queryString: string) {
+function parseMailtoQueryString(queryString: string): Record<string, string> | false {
   const allowedParams = new Set(['subject', 'body', 'cc', 'bcc'])
   const query = { cc: '', bcc: '' }
   let isParseFailed = false
