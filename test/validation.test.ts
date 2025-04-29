@@ -120,12 +120,17 @@ describe('Validation Library', () => {
     const isEven = (val: number) => val % 2 === 0
     const validator = v.custom(isEven, 'Number must be even')
 
+
+
     expect(validator.test(2)).toBe(true)
     expect(validator.test(3)).toBe(false)
 
     const result = validator.validate(3)
+
+    console.log(result.errors)
+
     expect(result.valid).toBe(false)
-    expect(result.errors[0].message).toBe('Number must be even')
+    expect(result.errors[0].rule).toBe('Number must be even')
   })
 
   // Nested object validation

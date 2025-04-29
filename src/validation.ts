@@ -17,9 +17,18 @@ const resultsCache = new Map<string, ValidationResult>()
 /**
  * Format error message with placeholders
  */
-function formatMessage(message: string, params: Record<string, any>): string {
+function formatMessage(message: string | ((field: string, value: any, options?: any) => string), params: Record<string, any>): string {
+  // If the message is a function, call it with the params
+  if (typeof message === 'function') {
+    return message(params.field, params.value, params)
+  }
+
+  // Replace placeholders in the message
   return message.replace(/\{([^}]+)\}/g, (_, key) => {
-    return params[key] !== undefined ? String(params[key]) : `{${key}}`
+    console.log(key)
+    // Handle nested properties (e.g., options.min)
+    const value = key.split('.').reduce((obj, k) => obj?.[k], params)
+    return value !== undefined ? String(value) : `{${key}}`
   })
 }
 
@@ -27,9 +36,8 @@ function formatMessage(message: string, params: Record<string, any>): string {
  * Create a validation error
  */
 function createError(field: string, rule: string, value: any, options?: any): ValidationError {
-  const template = config.errorMessages?.[rule] || '{field} is invalid'
+  const template = config.errorMessages?.[rule] || rule
   const message = formatMessage(template, { field, ...options, value })
-
   return {
     field,
     message,
@@ -77,9 +85,12 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
 
       const errors: ValidationError[] = []
 
+   
+
       for (const rule of rules) {
         if (!rule.test(value)) {
           errors.push(createError('value', rule.message, value, rule.options))
+          
           if (config.strictMode)
             break // Stop on first error in strict mode
         }
@@ -91,6 +102,8 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
       if (config.cacheResults && cacheKey) {
         resultsCache.set(cacheKey, result)
       }
+
+  
 
       return result
     },
@@ -121,90 +134,92 @@ function createStringValidator(): StringValidator {
   const validator = baseValidator as unknown as StringValidator
 
   // Add string-specific validation methods
-  validator.min = (min: number) => {
+  validator.min = (min: number): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || val.length >= min,
-      message: config.errorMessages?.min || `Must be at least ${min} characters`,
+      message: 'min',
       options: { min },
     }
+
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.max = (max: number) => {
+  validator.max = (max: number): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || val.length <= max,
-      message: config.errorMessages?.max || `Must be at most ${max} characters`,
+      message: 'max',
       options: { max },
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.length = (length: number) => {
+  validator.length = (length: number): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || val.length === length,
-      message: config.errorMessages?.length || `Must be exactly ${length} characters`,
+      message: 'length',
       options: { length },
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.email = () => {
+  validator.email = (): StringValidator => {
     // Fast but effective email regex
     const emailRegex = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
     const rule = {
       test: (val: string) => val === undefined || val === null || emailRegex.test(val),
-      message: config.errorMessages?.email || 'Must be a valid email address',
+      message: 'email',
     }
+
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.url = () => {
+  validator.url = (): StringValidator => {
     // Simple URL regex for performance
     const urlRegex = /^https?:\/\/[^\s/$.?#].\S*$/i
     const rule = {
       test: (val: string) => val === undefined || val === null || urlRegex.test(val),
-      message: config.errorMessages?.url || 'Must be a valid URL',
+      message: 'url',
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.matches = (pattern: RegExp) => {
+  validator.matches = (pattern: RegExp): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || pattern.test(val),
-      message: config.errorMessages?.matches || 'Does not match the required format',
+      message: 'matches',
       options: { pattern: pattern.toString() },
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.alphanumeric = () => {
+  validator.alphanumeric = (): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || /^[a-z0-9]+$/i.test(val),
-      message: config.errorMessages?.alphanumeric || 'Must only contain letters and numbers',
+      message: 'alphanumeric',
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.alpha = () => {
+  validator.alpha = (): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || /^[a-z]+$/i.test(val),
-      message: config.errorMessages?.alpha || 'Must only contain letters',
+      message: 'alpha',
     }
     baseValidator.rules.push(rule)
     return validator
   }
 
-  validator.numeric = () => {
+  validator.numeric = (): StringValidator => {
     const rule = {
       test: (val: string) => val === undefined || val === null || /^\d+$/.test(val),
-      message: config.errorMessages?.numeric || 'Must only contain numbers',
+      message: 'numeric',
     }
     baseValidator.rules.push(rule)
     return validator
@@ -456,7 +471,10 @@ function createCustomValidator<T>(
     message,
   }
 
+
+
   baseValidator.rules.push(rule)
+
   return baseValidator as unknown as Validator<T>
 }
 
