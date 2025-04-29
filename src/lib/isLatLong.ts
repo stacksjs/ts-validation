@@ -1,10 +1,7 @@
+import type { IsLatLongOptions } from '../types'
 import assertString from './util/assertString'
 import includes from './util/includesString'
 import merge from './util/merge'
-
-export interface IsLatLongOptions {
-  checkDMS?: boolean | string
-}
 
 const lat = /^\(?[+-]?(?:90(?:\.0+)?|[1-8]?\d(?:\.\d+)?)$/
 const long = /^\s?[+-]?(?:180(?:\.0+)?|1[0-7]\d(?:\.\d+)?|\d{1,2}(?:\.\d+)?)\)?$/

@@ -1,9 +1,5 @@
+import type { IsTimeOptions } from '../types'
 import merge from './util/merge'
-
-export interface IsTimeOptions {
-  hourFormat: 'hour24' | 'hour12'
-  mode: 'default' | 'withSeconds' | 'withOptionalSeconds'
-}
 
 const default_time_options: IsTimeOptions = {
   hourFormat: 'hour24',

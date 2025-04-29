@@ -1,11 +1,4 @@
 import assertString from './util/assertString'
-import toString from './util/toString'
-
-export interface IsInOptions {
-  hasOwnProperty?: boolean | string
-  indexOf?: boolean | string
-  includes?: boolean | string
-}
 
 /**
  * Check if the string is In
@@ -14,19 +7,10 @@ export interface IsInOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isIn(str, options): boolean {
+export default function isIn(str: string, options: string[] | Record<string, any> | string): boolean {
   assertString(str)
-  let i
-  if (Object.prototype.toString.call(options) === '[object Array]') {
-    const array: string[] = []
-    for (i in options) {
-      // https://github.com/gotwarlost/istanbul/blob/master/ignoring-code-for-coverage.md#ignoring-code-for-coverage-purposes
-      // istanbul ignore else
-      if ({}.hasOwnProperty.call(options, i)) {
-        array[i] = toString(options[i])
-      }
-    }
-    return array.includes(str)
+  if (Array.isArray(options)) {
+    return options.includes(str)
   }
   else if (typeof options === 'object') {
     return Object.prototype.hasOwnProperty.call(options, str)

@@ -1,10 +1,6 @@
+import type { NumericOptions } from '../types'
 import { decimal } from './locales/decimal'
 import assertString from './util/assertString'
-
-export interface NumericOptions {
-  no_symbols?: boolean
-  locale?: string
-}
 
 const numericNoSymbols = /^\d+$/
 

@@ -1,9 +1,5 @@
+import type { IsIMEIOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsIMEIOptions {
-  allow_hyphens?: boolean | string
-}
-
 
 const imeiRegexWithoutHyphens = /^\d{15}$/
 const imeiRegexWithHyphens = /^\d{2}-\d{6}-\d{6}-\d$/
@@ -15,7 +11,7 @@ const imeiRegexWithHyphens = /^\d{2}-\d{6}-\d{6}-\d$/
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isIMEI(str, options): boolean {
+export default function isIMEI(str: string, options: IsIMEIOptions): boolean {
   assertString(str)
   options = options || {}
 

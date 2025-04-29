@@ -1,13 +1,10 @@
+import type { IsIPOptions } from '../types'
 import isIP from './isIP'
 import assertString from './util/assertString'
 
 const subnetMaybe = /^\d{1,3}$/
 const v4Subnet = 32
 const v6Subnet = 128
-
-interface IsIPOptions {
-  version?: number
-}
 
 /**
  * Check if the string is IPRange

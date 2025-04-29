@@ -1,14 +1,6 @@
+import type { IsIntOptions } from '../types'
 import assertString from './util/assertString'
 import isNullOrUndefined from './util/nullUndefinedCheck'
-
-export interface IsIntOptions {
-  allow_leading_zeroes?: boolean | string
-  hasOwnProperty?: boolean | string
-  min?: number
-  max?: number
-  lt?: boolean | string
-  gt?: boolean | string
-}
 
 const int = /^[-+]?(?:0|[1-9]\d*)$/
 const intLeadingZeroes = /^[-+]?\d+$/
@@ -20,7 +12,7 @@ const intLeadingZeroes = /^[-+]?\d+$/
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isInt(str, options): boolean {
+export default function isInt(str: string, options: IsIntOptions): boolean {
   assertString(str)
   options = options || {}
 
@@ -29,10 +21,11 @@ export default function isInt(str, options): boolean {
   const regex = options.allow_leading_zeroes === false ? int : intLeadingZeroes
 
   // Check min/max/lt/gt
-  const minCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'min') || isNullOrUndefined(options.min) || str >= options.min)
-  const maxCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'max') || isNullOrUndefined(options.max) || str <= options.max)
-  const ltCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'lt') || isNullOrUndefined(options.lt) || str < options.lt)
-  const gtCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'gt') || isNullOrUndefined(options.gt) || str > options.gt)
+  const num = Number.parseInt(str, 10)
+  const minCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'min') || isNullOrUndefined(options.min) || num >= (options.min ?? 0))
+  const maxCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'max') || isNullOrUndefined(options.max) || num <= (options.max ?? 0))
+  const ltCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'lt') || isNullOrUndefined(options.lt) || num < (options.lt ?? 0))
+  const gtCheckPassed = (!Object.prototype.hasOwnProperty.call(options, 'gt') || isNullOrUndefined(options.gt) || num > (options.gt ?? 0))
 
   return regex.test(str) && minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed
 }

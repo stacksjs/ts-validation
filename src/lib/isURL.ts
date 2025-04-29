@@ -1,3 +1,4 @@
+import type { IsURLOptions } from '../types'
 import isFQDN from './isFQDN'
 import isIP from './isIP'
 import assertString from './util/assertString'
@@ -5,25 +6,6 @@ import assertString from './util/assertString'
 import checkHost from './util/checkHost'
 import includes from './util/includesString'
 import merge from './util/merge'
-
-export interface IsURLOptions {
-  protocols?: string[]
-  require_tld?: boolean
-  require_protocol?: boolean
-  require_host?: boolean
-  require_port?: boolean
-  require_valid_protocol?: boolean
-  allow_underscores?: boolean
-  allow_trailing_dot?: boolean
-  allow_protocol_relative_urls?: boolean
-  allow_fragments?: boolean
-  allow_query_components?: boolean
-  validate_length?: boolean
-  max_allowed_length?: number
-  host_whitelist?: (string | RegExp)[]
-  host_blacklist?: (string | RegExp)[]
-  disallow_auth?: boolean
-}
 
 /*
 options for isURL method

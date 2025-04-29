@@ -1,3 +1,4 @@
+import type { PasswordAnalysis } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
 
@@ -19,15 +20,6 @@ const defaultOptions = {
   pointsForContainingUpper: 10,
   pointsForContainingNumber: 10,
   pointsForContainingSymbol: 10,
-}
-
-interface PasswordAnalysis {
-  length: number
-  uniqueChars: number
-  uppercaseCount: number
-  lowercaseCount: number
-  numberCount: number
-  symbolCount: number
 }
 
 /* Counts number of occurrences of each char in a string

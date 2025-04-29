@@ -1,20 +1,5 @@
+import type { NormalizeEmailOptions } from '../types'
 import merge from './util/merge'
-
-export interface NormalizeEmailOptions {
-  gmail_remove_subaddress?: boolean | string
-  gmail_remove_dots?: boolean | string
-  all_lowercase?: boolean | string
-  gmail_lowercase?: boolean | string
-  gmail_convert_googlemaildotcom?: boolean | string
-  icloud_remove_subaddress?: boolean | string
-  icloud_lowercase?: boolean | string
-  outlookdotcom_remove_subaddress?: boolean | string
-  outlookdotcom_lowercase?: boolean | string
-  yahoo_remove_subaddress?: boolean | string
-  yahoo_lowercase?: boolean | string
-  yandex_lowercase?: boolean | string
-  yandex_convert_yandexru?: boolean | string
-}
 
 const default_normalize_email_options = {
   // The following options apply to all email addresses

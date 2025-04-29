@@ -1,10 +1,7 @@
+import type { IsJSONOptions } from '../types'
 import assertString from './util/assertString'
 import includes from './util/includesArray'
 import merge from './util/merge'
-
-export interface IsJSONOptions {
-  allow_primitives?: boolean | string
-}
 
 const default_json_options = {
   allow_primitives: false,

@@ -1,15 +1,7 @@
+import type { IsFloatOptions } from '../types'
 import { decimal } from './alpha'
 import assertString from './util/assertString'
 import isNullOrUndefined from './util/nullUndefinedCheck'
-
-export interface IsFloatOptions {
-  locale?: boolean | string
-  hasOwnProperty?: boolean | string
-  min?: number
-  max?: number
-  lt?: boolean | string
-  gt?: boolean | string
-}
 
 /**
  * Check if the string is Float

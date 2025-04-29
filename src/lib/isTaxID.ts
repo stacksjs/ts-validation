@@ -1,6 +1,5 @@
 import isDate from './isDate'
 import * as algorithms from './util/algorithms'
-import assertString from './util/assertString'
 
 /**
  * TIN Validation

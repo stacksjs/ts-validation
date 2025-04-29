@@ -1,10 +1,5 @@
+import type { IsLengthOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsLengthOptions {
-  min?: number
-  max?: number
-  discreteLengths?: boolean | string
-}
 
 /* eslint-disable prefer-rest-params */
 /**

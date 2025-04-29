@@ -1,10 +1,5 @@
+import type { IsMACAddressOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsMACAddressOptions {
-  eui?: boolean | string
-  no_separators?: boolean
-  no_colons?: boolean
-}
 
 const macAddress48 = /^[0-9a-f]{2}([-:\s])(?:[0-9a-f]{2}\1){4}[0-9a-f]{2}$/i
 const macAddress48NoSeparators = /^[0-9a-f]{12}$/i

@@ -1,14 +1,6 @@
+import type { IsFQDNOptions } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
-
-export interface IsFQDNOptions {
-  allow_trailing_dot?: boolean | string
-  allow_wildcard?: boolean | string
-  require_tld?: boolean | string
-  allow_numeric_tld?: boolean | string
-  ignore_max_length?: number
-  allow_underscores?: boolean | string
-}
 
 const default_fqdn_options = {
   require_tld: true,

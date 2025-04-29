@@ -1,10 +1,6 @@
 /* eslint-disable prefer-rest-params */
+import type { IsRgbColorOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsRgbColorOptions {
-  allowSpaces?: boolean
-  includePercentValues?: boolean
-}
 
 const rgbColor = /^rgb\((?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5],){2}(?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\)$/
 const rgbaColor = /^rgba\((?:\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5],){3}(?:0?\.\d\d?|1(?:\.0)?|0(?:\.0)?)\)$/

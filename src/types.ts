@@ -166,3 +166,125 @@ export interface IsEmptyOptions {
    */
   ignoreWhitespace?: boolean
 }
+
+export interface IsFloatOptions {
+  locale?: boolean | string
+  hasOwnProperty?: boolean | string
+  min?: number
+  max?: number
+  lt?: boolean | string
+  gt?: boolean | string
+}
+
+export interface IsFQDNOptions {
+  allow_trailing_dot?: boolean | string
+  allow_wildcard?: boolean | string
+  require_tld?: boolean | string
+  allow_numeric_tld?: boolean | string
+  ignore_max_length?: number
+  allow_underscores?: boolean | string
+}
+
+export interface IsIMEIOptions {
+  allow_hyphens?: boolean | string
+}
+export interface IsInOptions {
+  hasOwnProperty?: boolean | string
+  indexOf?: boolean | string
+  includes?: boolean | string
+}
+
+export interface IsIntOptions {
+  allow_leading_zeroes?: boolean
+  min?: number
+  max?: number
+  lt?: number
+  gt?: number
+}
+
+export interface IsIPOptions {
+  version?: number
+}
+
+export interface IsISBNOptions {
+  version?: string | number
+}
+
+export interface ISO8601Options {
+  strictSeparator?: boolean
+  strict?: boolean
+}
+export interface IsJSONOptions {
+  allow_primitives?: boolean | string
+}
+export interface IsLatLongOptions {
+  checkDMS?: boolean | string
+}
+
+export interface IsLengthOptions {
+  min?: number
+  max?: number
+  discreteLengths?: boolean | string
+}
+export interface IsMACAddressOptions {
+  eui?: boolean | string
+  no_separators?: boolean
+  no_colons?: boolean
+}
+export interface NumericOptions {
+  no_symbols?: boolean
+  locale?: string
+}
+export interface IsRgbColorOptions {
+  allowSpaces?: boolean
+  includePercentValues?: boolean
+}
+
+export interface PasswordAnalysis {
+  length: number
+  uniqueChars: number
+  uppercaseCount: number
+  lowercaseCount: number
+  numberCount: number
+  symbolCount: number
+}
+
+export interface IsTimeOptions {
+  hourFormat: 'hour24' | 'hour12'
+  mode: 'default' | 'withSeconds' | 'withOptionalSeconds'
+}
+
+export interface IsURLOptions {
+  protocols?: string[]
+  require_tld?: boolean
+  require_protocol?: boolean
+  require_host?: boolean
+  require_port?: boolean
+  require_valid_protocol?: boolean
+  allow_underscores?: boolean
+  allow_trailing_dot?: boolean
+  allow_protocol_relative_urls?: boolean
+  allow_fragments?: boolean
+  allow_query_components?: boolean
+  validate_length?: boolean
+  max_allowed_length?: number
+  host_whitelist?: (string | RegExp)[]
+  host_blacklist?: (string | RegExp)[]
+  disallow_auth?: boolean
+}
+
+export interface NormalizeEmailOptions {
+  gmail_remove_subaddress?: boolean | string
+  gmail_remove_dots?: boolean | string
+  all_lowercase?: boolean | string
+  gmail_lowercase?: boolean | string
+  gmail_convert_googlemaildotcom?: boolean | string
+  icloud_remove_subaddress?: boolean | string
+  icloud_lowercase?: boolean | string
+  outlookdotcom_remove_subaddress?: boolean | string
+  outlookdotcom_lowercase?: boolean | string
+  yahoo_remove_subaddress?: boolean | string
+  yahoo_lowercase?: boolean | string
+  yandex_lowercase?: boolean | string
+  yandex_convert_yandexru?: boolean | string
+}

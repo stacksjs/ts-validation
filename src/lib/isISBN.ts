@@ -1,8 +1,5 @@
+import type { IsISBNOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsISBNOptions {
-  version?: string | number
-}
 
 const possibleIsbn10 = /^(?:\d{9}X|\d{10})$/
 const possibleIsbn13 = /^\d{13}$/
