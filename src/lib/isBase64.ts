@@ -1,10 +1,6 @@
+import type { IsBase64Options } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
-
-export interface IsBase64Options {
-  urlSafe?: boolean | string
-  padding?: boolean | string
-}
 
 const base64WithPadding = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=|[A-Z0-9+/]{4})$/i
 const base64WithoutPadding = /^[A-Z0-9+/]+$/i

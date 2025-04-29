@@ -1,8 +1,5 @@
+import type { IsBeforeOptions } from '../types'
 import toDate from './toDate'
-
-export interface IsBeforeOptions {
-  comparisonDate?: string | number | Date
-}
 
 /**
  * Check if the string is Before

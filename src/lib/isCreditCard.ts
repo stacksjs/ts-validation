@@ -1,3 +1,4 @@
+import type { CreditCardOptions } from '../types'
 import isLuhnValid from './isLuhnNumber'
 import assertString from './util/assertString'
 
@@ -21,10 +22,6 @@ const allCards = (() => {
   }
   return tmpCardsArray
 })()
-
-interface CreditCardOptions {
-  provider?: string
-}
 
 /**
  * Check if the string is CreditCard

@@ -7,21 +7,23 @@ import includes from './util/includesString'
 import merge from './util/merge'
 
 export interface IsURLOptions {
-  validate_length?: boolean | string
+  protocols?: string[]
+  require_tld?: boolean
+  require_protocol?: boolean
+  require_host?: boolean
+  require_port?: boolean
+  require_valid_protocol?: boolean
+  allow_underscores?: boolean
+  allow_trailing_dot?: boolean
+  allow_protocol_relative_urls?: boolean
+  allow_fragments?: boolean
+  allow_query_components?: boolean
+  validate_length?: boolean
   max_allowed_length?: number
-  allow_fragments?: boolean | string
-  allow_query_components?: boolean | string
-  require_valid_protocol?: boolean | string
-  protocols?: boolean | string
-  require_protocol?: boolean | string
-  allow_protocol_relative_urls?: boolean | string
-  require_host?: boolean | string
-  disallow_auth?: boolean | string
-  require_port?: boolean | string
-  host_whitelist?: boolean | string
-  host_blacklist?: boolean | string
+  host_whitelist?: (string | RegExp)[]
+  host_blacklist?: (string | RegExp)[]
+  disallow_auth?: boolean
 }
-
 
 /*
 options for isURL method
@@ -64,7 +66,7 @@ const default_url_options = {
   allow_fragments: true,
   allow_query_components: true,
   validate_length: true,
-  max_allowed_length: 2084
+  max_allowed_length: 2084,
 }
 
 const wrapped_ipv6 = /^\[([^\]]+)\](?::(\d+))?$/
@@ -76,7 +78,7 @@ const wrapped_ipv6 = /^\[([^\]]+)\](?::(\d+))?$/
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isURL(url: string, options: any) {
+export default function isURL(url: string, options?: Partial<IsURLOptions>) {
   assertString(url)
   if (!url || /[\s<>]/.test(url)) {
     return false
@@ -86,7 +88,7 @@ export default function isURL(url: string, options: any) {
   }
   options = merge(options, default_url_options)
 
-  if (options.validate_length && url.length > options.max_allowed_length) {
+  if (options?.validate_length && url.length > (options?.max_allowed_length ?? default_url_options.max_allowed_length)) {
     return false
   }
 
@@ -98,7 +100,9 @@ export default function isURL(url: string, options: any) {
     return false
   }
 
-  let protocol, auth, host, hostname, port, port_str, split, ipv6
+  let protocol, auth, host, port, port_str, split, ipv6
+
+  const hostname = split.join('@')
 
   split = url.split('#')
   url = split.shift()
@@ -109,7 +113,7 @@ export default function isURL(url: string, options: any) {
   split = url.split('://')
   if (split.length > 1) {
     protocol = split.shift().toLowerCase()
-    if (options.require_valid_protocol && !options.protocols.includes(protocol)) {
+    if (options?.require_valid_protocol && !(options?.protocols ?? default_url_options.protocols).includes(protocol)) {
       return false
     }
   }
@@ -152,7 +156,6 @@ export default function isURL(url: string, options: any) {
       return false
     }
   }
-  hostname = split.join('@')
 
   port_str = null
   ipv6 = null
@@ -188,7 +191,7 @@ export default function isURL(url: string, options: any) {
     return true
   }
 
-  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, 6))) {
+  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, { version: 6 }))) {
     return false
   }
 

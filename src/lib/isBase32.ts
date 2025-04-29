@@ -1,9 +1,6 @@
+import type { IsBase32Options } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
-
-export interface IsBase32Options {
-  crockford?: boolean | string
-}
 
 const base32 = /^[A-Z2-7]+=*$/
 const crockfordBase32 = /^[A-HJKMNP-TV-Z0-9]+$/

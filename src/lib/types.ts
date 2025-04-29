@@ -210,3 +210,11 @@ export interface StrongPasswordOptions {
   pointsForContainingNumber?: number
   pointsForContainingSymbol?: number
 }
+
+export interface IsAfterOptions {
+  comparisonDate?: string | number | Date
+}
+
+export interface IsAlphaOptions {
+  ignore?: string | RegExp
+}

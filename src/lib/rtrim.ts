@@ -7,7 +7,7 @@ import assertString from './util/assertString'
  * @param chars - Options object
  * @returns The processed string
  */
-export default function rtrim(str: string, chars: any) {
+export default function rtrim(str: string, chars: string): string {
   assertString(str)
   if (chars) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping

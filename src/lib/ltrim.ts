@@ -7,7 +7,7 @@ import assertString from './util/assertString'
  * @param chars - Options object
  * @returns The processed string
  */
-export default function ltrim(str: string, chars: any) {
+export default function ltrim(str: string, chars: string): string {
   assertString(str)
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
   const pattern = chars ? new RegExp(`^[${chars.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}]+`, 'g') : /^\s+/g

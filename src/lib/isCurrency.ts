@@ -1,3 +1,4 @@
+import type { CurrencyOptions } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
 
@@ -62,24 +63,6 @@ function currencyRegex(options: CurrencyOptions): RegExp {
   // ensure there's a dollar and/or decimal amount, and that
   // it doesn't start with a space or a negative sign followed by a space
   return new RegExp(`^(?!-? )(?=.*\\d)${pattern}$`)
-}
-
-interface CurrencyOptions {
-  symbol: string
-  require_symbol: boolean
-  allow_space_after_symbol: boolean
-  symbol_after_digits: boolean
-  allow_negatives: boolean
-  parens_for_negatives: boolean
-  negative_sign_before_digits: boolean
-  negative_sign_after_digits: boolean
-  allow_negative_sign_placeholder: boolean
-  thousands_separator: string
-  decimal_separator: string
-  allow_decimal: boolean
-  require_decimal: boolean
-  digits_after_decimal: number[]
-  allow_space_after_digits: boolean
 }
 
 const default_currency_options: CurrencyOptions = {

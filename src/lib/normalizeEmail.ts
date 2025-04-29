@@ -16,7 +16,6 @@ export interface NormalizeEmailOptions {
   yandex_convert_yandexru?: boolean | string
 }
 
-
 const default_normalize_email_options = {
   // The following options apply to all email addresses
   // Lowercases the local part of the email address.
@@ -56,7 +55,7 @@ const default_normalize_email_options = {
   // Lowercases the local part of the iCloud address (known to be case-insensitive)
   icloud_lowercase: true,
   // Removes the subaddress (e.g. "+foo") from the email address
-  icloud_remove_subaddress: true
+  icloud_remove_subaddress: true,
 }
 
 // List of domains used by iCloud
@@ -193,13 +192,17 @@ function dotsReplacer(match: string) {
  * @param options - Options object
  * @returns The processed string
  */
-export default function normalizeEmail(email: string, options: any) {
+export default function normalizeEmail(email: string, options: Partial<NormalizeEmailOptions> = {}): string | false {
   options = merge(options, default_normalize_email_options)
 
   const raw_parts = email.split('@')
   const domain = raw_parts.pop()
   const user = raw_parts.join('@')
   const parts = [user, domain]
+
+  if (!parts[0] || !parts[1]) {
+    return false
+  }
 
   // The domain is always lowercased, as it's case-insensitive per RFC 1035
   parts[1] = parts[1].toLowerCase()

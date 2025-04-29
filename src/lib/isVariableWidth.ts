@@ -9,7 +9,7 @@ import assertString from './util/assertString'
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isVariableWidth(str: string) {
+export default function isVariableWidth(str: string): boolean {
   assertString(str)
   return fullWidth.test(str) && halfWidth.test(str)
 }

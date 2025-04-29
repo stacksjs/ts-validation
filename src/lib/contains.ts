@@ -1,3 +1,4 @@
+import type { ContainsOptions } from '../types'
 import assertString from './util/assertString'
 import merge from './util/merge'
 import toString from './util/toString'
@@ -5,11 +6,6 @@ import toString from './util/toString'
 const defaultContainsOptions = {
   ignoreCase: false,
   minOccurrences: 1,
-}
-
-interface ContainsOptions {
-  ignoreCase: boolean
-  minOccurrences: number
 }
 
 /**

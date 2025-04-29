@@ -1,16 +1,5 @@
+import type { DateOptions } from '../types'
 import merge from './util/merge'
-
-interface DateOptions {
-  format: string
-  delimiters: string[]
-  strictMode: boolean
-}
-
-interface DateObj {
-  y: string
-  m: string
-  d: string
-}
 
 const default_date_options = {
   format: 'YYYY/MM/DD',

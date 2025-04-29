@@ -1,9 +1,5 @@
+import type { IsByteLengthOptions } from '../types'
 import assertString from './util/assertString'
-
-export interface IsByteLengthOptions {
-  min?: number
-  max?: number
-}
 
 /* eslint-disable prefer-rest-params */
 /**

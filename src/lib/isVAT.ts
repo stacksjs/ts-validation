@@ -126,10 +126,10 @@ export const vatMatchers = {
   PE: str => /^(PE)?\d{11}$/.test(str),
   DO: str => /^(DO)?(\d{11}|(\d{3}-\d{7}-\d)|[1,45]\d{8}|([1,45])-\d{2}-\d{5}-\d)$/.test(str),
   UY: str => /^(UY)?\d{12}$/.test(str),
-  VE: str => /^(VE)?[J,GVE]-(\d{9}|(\d{8}-\d))$/.test(str)
+  VE: str => /^(VE)?[J,GVE]-(\d{9}|(\d{8}-\d))$/.test(str),
 }
 
-export default function isVAT(str: string, countryCode: any) {
+export default function isVAT(str: string, countryCode: string): boolean {
   assertString(str)
   assertString(countryCode)
 

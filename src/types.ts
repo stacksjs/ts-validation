@@ -1,3 +1,5 @@
+import type { alphanumeric } from './lib/isAlphanumeric'
+
 export interface ValidationConfig {
   verbose: boolean
   strictMode?: boolean
@@ -79,4 +81,88 @@ export interface ValidationInstance {
   object: <T = Record<string, any>>() => ObjectValidator<T>
   custom: <T = any>(validator: (value: T) => boolean, message: string) => Validator<T>
   clearCache: () => void
+}
+
+export interface ContainsOptions {
+  ignoreCase: boolean
+  minOccurrences: number
+}
+
+export interface AlphanumericOptions {
+  ignore?: string | RegExp
+  locale?: LocaleInstance
+}
+
+export type LocaleInstance = keyof typeof alphanumeric
+
+export interface IsBase32Options {
+  crockford?: boolean | string
+}
+
+export interface IsBase64Options {
+  urlSafe?: boolean | string
+  padding?: boolean | string
+}
+
+export interface IsBeforeOptions {
+  comparisonDate?: string | number | Date
+}
+
+export interface IsBooleanOptions {
+  loose?: boolean
+}
+
+export interface IsByteLengthOptions {
+  min?: number
+  max?: number
+}
+
+export interface CreditCardOptions {
+  provider?: string
+}
+
+export interface CurrencyOptions {
+  symbol: string
+  require_symbol: boolean
+  allow_space_after_symbol: boolean
+  symbol_after_digits: boolean
+  allow_negatives: boolean
+  parens_for_negatives: boolean
+  negative_sign_before_digits: boolean
+  negative_sign_after_digits: boolean
+  allow_negative_sign_placeholder: boolean
+  thousands_separator: string
+  decimal_separator: string
+  allow_decimal: boolean
+  require_decimal: boolean
+  digits_after_decimal: number[]
+  allow_space_after_digits: boolean
+}
+
+export interface DateOptions {
+  format: string
+  delimiters: string[]
+  strictMode: boolean
+}
+
+export interface DateObj {
+  y: string
+  m: string
+  d: string
+}
+
+export interface DecimalOptions {
+  force_decimal: boolean
+  decimal_digits: string
+  locale: string
+}
+
+/**
+ * Options for the isEmpty function
+ */
+export interface IsEmptyOptions {
+  /**
+   * Consider spaces as empty
+   */
+  ignoreWhitespace?: boolean
 }

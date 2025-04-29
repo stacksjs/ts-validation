@@ -1,9 +1,6 @@
+import type { IsBooleanOptions } from '../types'
 import assertString from './util/assertString'
 import includes from './util/includesArray'
-
-export interface IsBooleanOptions {
-  loose?: boolean
-}
 
 const defaultOptions: IsBooleanOptions = { loose: false }
 const strictBooleans = ['true', 'false', '1', '0']

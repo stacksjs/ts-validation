@@ -6,7 +6,7 @@ import assertString from './util/assertString'
  * @param str - The string to check
  * @returns The processed string
  */
-export default function unescape(str: string) {
+export default function unescape(str: string): string {
   assertString(str)
   return (str.replace(/&quot/g, '"')
     .replace(/&#x27/g, '\'')

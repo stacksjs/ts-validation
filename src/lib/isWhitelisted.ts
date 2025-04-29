@@ -7,9 +7,9 @@ import assertString from './util/assertString'
  * @param chars - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isWhitelisted(str: string, chars: any) {
+export default function isWhitelisted(str: string, chars: string[]): boolean {
   assertString(str)
-  for (let i = str.length - 1 i >= 0 i--) {
+  for (let i = str.length - 1; i >= 0; i--) {
     if (!chars.includes(str[i])) {
       return false
     }

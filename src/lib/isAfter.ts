@@ -1,8 +1,5 @@
+import type { IsAfterOptions } from './types'
 import toDate from './toDate'
-
-export interface IsAfterOptions {
-  comparisonDate?: string | number | Date
-}
 
 /**
  * Check if the string is After

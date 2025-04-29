@@ -76,7 +76,7 @@ function analyzePassword(password: string) {
   return analysis
 }
 
-function scorePassword(analysis: PasswordAnalysis, scoringOptions: any) {
+function scorePassword(analysis: PasswordAnalysis, scoringOptions: typeof defaultOptions) {
   let points = 0
   points += analysis.uniqueChars * scoringOptions.pointsPerUnique
   points += (analysis.length - analysis.uniqueChars) * scoringOptions.pointsPerRepeat

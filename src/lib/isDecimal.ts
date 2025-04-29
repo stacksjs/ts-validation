@@ -1,13 +1,8 @@
+import type { DecimalOptions } from '../types'
 import { decimal } from './alpha'
 import assertString from './util/assertString'
 import includes from './util/includesArray'
 import merge from './util/merge'
-
-interface DecimalOptions {
-  force_decimal: boolean
-  decimal_digits: string
-  locale: string
-}
 
 function decimalRegExp(options: DecimalOptions): RegExp {
   const regExp = new RegExp(`^[-+]?([0-9]+)?(\\${decimal[options.locale]}[0-9]{${options.decimal_digits}})${options.force_decimal ? '' : '?'}$`)

@@ -1,9 +1,6 @@
+import type { IsAlphaOptions } from './types'
 import { alpha } from './alpha'
 import assertString from './util/assertString'
-
-interface IsAlphaOptions {
-  ignore?: string | RegExp
-}
 
 export default function isAlpha(_str, locale = 'en-US', options: IsAlphaOptions = {}) {
   assertString(_str)

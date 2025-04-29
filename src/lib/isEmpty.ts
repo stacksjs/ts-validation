@@ -1,14 +1,5 @@
+import type { IsEmptyOptions } from '../types'
 import assertString from './util/assertString'
-
-/**
- * Options for the isEmpty function
- */
-export interface IsEmptyOptions {
-  /**
-   * Consider spaces as empty
-   */
-  ignoreWhitespace?: boolean
-}
 
 /**
  * Check if the string is empty.
