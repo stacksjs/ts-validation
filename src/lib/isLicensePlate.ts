@@ -19,17 +19,10 @@ const validators = {
     /^[A-Z]{2}[- ]?((\d{3}[- ]?(([A-Z]{2})|T))|(R[- ]?\d{3}))$/.test(str),
   'sv-SE': str =>
     /^[A-HJ-PR-UW-Z]{3} ?\d{2}[A-HJ-PR-UW-Z1-9]$|(^[A-ZÅÄÖ ]{2,7}$)/.test(str.trim()),
-  'en-PK': str => /(^[A-Z]{2}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]{3}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]{4}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]((\s|-)?)\d{4}((\s|-)\d{2})?$)/.test(str.trim())
+  'en-PK': str => /(^[A-Z]{2}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]{3}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]{4}((\s|-)?)\d{3,4}((\s|-)\d{2})?$)|(^[A-Z]((\s|-)?)\d{4}((\s|-)\d{2})?$)/.test(str.trim()),
 }
 
-/**
- * Check if the string is LicensePlate
- *
- * @param str - The string to check
- * @param locale - Options object
- * @returns True if the string matches the validation, false otherwise
- */
-export default function isLicensePlate(str: string, locale: any) {
+export default function isLicensePlate(str: string, locale: string): boolean {
   assertString(str)
   if (locale in validators) {
     return validators[locale](str)

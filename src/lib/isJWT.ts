@@ -7,7 +7,7 @@ import assertString from './util/assertString'
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isJWT(str: string) {
+export default function isJWT(str: string): boolean {
   assertString(str)
 
   const dotSplit = str.split('.')

@@ -6,7 +6,6 @@ export interface IsLengthOptions {
   discreteLengths?: boolean | string
 }
 
-
 /* eslint-disable prefer-rest-params */
 /**
  * Check if the string is Length
@@ -15,7 +14,7 @@ export interface IsLengthOptions {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isLength(str: string, options: IsLengthOptions: any) {
+export default function isLength(str: string, options: IsLengthOptions): boolean {
   assertString(str)
   let min
   let max

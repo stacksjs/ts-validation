@@ -6,15 +6,14 @@ export interface IsLatLongOptions {
   checkDMS?: boolean | string
 }
 
+const lat = /^\(?[+-]?(?:90(?:\.0+)?|[1-8]?\d(?:\.\d+)?)$/
+const long = /^\s?[+-]?(?:180(?:\.0+)?|1[0-7]\d(?:\.\d+)?|\d{1,2}(?:\.\d+)?)\)?$/
 
-const lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/
-const long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/
-
-const latDMS = /^(([1-8]?\d)\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+$/
-const longDMS = /^\s*([1-7]?\d{1,2}\D+([1-5]?\d|60)\D+([1-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+$/
+const latDMS = /^(?:[1-8]?\d\D+(?:[1-5]?\d|60)\D+(?:[1-5]?\d|60)(?:\.\d+)?|90\D+0\D+0)\D+$/
+const longDMS = /^\s*[1-7]?\d{1,2}\D+(?:[1-5]?\d|60)\D+(?:[1-5]?\d|60)(?:\.\d+)?\D+$/
 
 const defaultLatLongOptions = {
-  checkDMS: false
+  checkDMS: false,
 }
 
 /**
@@ -24,7 +23,7 @@ const defaultLatLongOptions = {
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isLatLong(str: string, options: IsLatLongOptions: any) {
+export default function isLatLong(str: string, options: IsLatLongOptions): boolean {
   assertString(str)
   options = merge(options, defaultLatLongOptions)
 

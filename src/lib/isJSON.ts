@@ -29,6 +29,6 @@ export default function isJSON(str: string, options: IsJSONOptions = {}): boolea
     const obj = JSON.parse(str)
     return includes(primitives, obj) || (!!obj && typeof obj === 'object')
   }
-  catch (e) { /* ignore */ }
+  catch { /* ignore */ }
   return false
 }
