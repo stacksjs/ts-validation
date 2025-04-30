@@ -1,4 +1,16 @@
 
+## v0.1.0...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.1.0...main)
+
+### 🏡 Chore
+
+- Add tsconfig ([c2cdb65](https://github.com/stacksjs/ts-validation/commit/c2cdb65))
+
+### ❤️ Contributors
+
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## ...main
 
 
