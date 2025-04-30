@@ -85,12 +85,10 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
 
       const errors: ValidationError[] = []
 
-   
-
       for (const rule of rules) {
         if (!rule.test(value)) {
           errors.push(createError('value', rule.message, value, rule.options))
-          
+
           if (config.strictMode)
             break // Stop on first error in strict mode
         }
@@ -102,8 +100,6 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
       if (config.cacheResults && cacheKey) {
         resultsCache.set(cacheKey, result)
       }
-
-  
 
       return result
     },
@@ -470,8 +466,6 @@ function createCustomValidator<T>(
     test: (val: T) => val === undefined || val === null || validationFn(val),
     message,
   }
-
-
 
   baseValidator.rules.push(rule)
 

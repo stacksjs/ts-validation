@@ -200,22 +200,22 @@ describe('Validation Library', () => {
     const validator = v.object().shape({
       name: v.string().min(2).required(),
       age: v.number().min(0).optional(),
-      email: v.string().email().optional()
+      email: v.string().email().optional(),
     })
 
     expect(validator.test({
       name: 'John',
       age: 25,
-      email: 'john@example.com'
+      email: 'john@example.com',
     })).toBe(true)
 
     expect(validator.test({
-      name: 'John' // only required field
+      name: 'John', // only required field
     })).toBe(true)
 
     expect(validator.test({
       name: 'J', // name too short
-      email: 'invalid-email' // invalid email
+      email: 'invalid-email', // invalid email
     })).toBe(false)
   })
 
