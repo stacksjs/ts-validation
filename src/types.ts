@@ -57,6 +57,7 @@ export type NumberValidator = Validator<number> & {
   positive: () => NumberValidator
   negative: () => NumberValidator
   integer: () => NumberValidator
+  timestamp: () => NumberValidator
 }
 
 export type BooleanValidator = Validator<boolean>

@@ -246,6 +246,25 @@ describe('Validation Library', () => {
     expect(validator.test(11)).toBe(false) // too large
   })
 
+  // Timestamp validation
+  test('timestamp validation', () => {
+    const validator = v.number().timestamp()
+
+    // Valid timestamps
+    expect(validator.test(1234567890)).toBe(true) // 10 digits (seconds)
+    expect(validator.test(1234567890123)).toBe(true) // 13 digits (milliseconds)
+
+    // Invalid timestamps
+    expect(validator.test(123456789)).toBe(false) // 9 digits (too short)
+    expect(validator.test(12345678901234)).toBe(false) // 14 digits (too long)
+    expect(validator.test(123456789.5)).toBe(false) // not an integer
+
+    // Test with other validators
+    const combinedValidator = v.number().timestamp().positive()
+    expect(combinedValidator.test(1234567890)).toBe(true)
+    expect(combinedValidator.test(-1234567890)).toBe(false) // negative timestamp
+  })
+
   // String pattern validation
   test('string pattern validation', () => {
     const validator = v.string().matches(/^[A-Z][a-z]+$/)

@@ -251,6 +251,20 @@ function createNumberValidator(): NumberValidator {
     return validator
   }
 
+  validator.timestamp = () => {
+    const rule = {
+      test: (val: number) => {
+        if (val === undefined || val === null)
+          return true
+        const timestampStr = String(val)
+        return timestampStr.length >= 10 && timestampStr.length <= 13
+      },
+      message: config.errorMessages?.timestamp || 'Must be a valid JavaScript timestamp (10-13 digits)',
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
   validator.positive = () => {
     const rule = {
       test: (val: number) => val === undefined || val === null || val > 0,
