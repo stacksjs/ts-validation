@@ -1,6 +1,6 @@
 import assertString from './util/assertString'
 
-const phones = {
+const phones: { [key: string]: RegExp } = {
   'am-AM': /^(\+?374|0)(33|4[134]|55|77|88|9[13-689])\d{6}$/,
   'ar-AE': /^((\+?971)|0)?5[024568]\d{7}$/,
   'ar-BH': /^(\+?973)?(3|6)\d{7}$/,
@@ -176,11 +176,12 @@ phones['it-CH'] = phones['fr-CH']
  * Check if the string is MobilePhone
  *
  * @param str - The string to check
- * @param locale - Options object
+ * @param locale - Locale to check
  * @param options - Options object
+ * @param options.strictMode - Whether to check strict mode
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isMobilePhone(str, locale, options): boolean {
+export default function isMobilePhone(str: string, locale: string | string[], options?: { strictMode?: boolean }): boolean {
   assertString(str)
   if (options && options.strictMode && !str.startsWith('+')) {
     return false
@@ -217,4 +218,4 @@ export default function isMobilePhone(str, locale, options): boolean {
   throw new Error(`Invalid locale '${locale}'`)
 }
 
-export const locales = Object.keys(phones)
+export const locales: string[] = Object.keys(phones)

@@ -1,6 +1,6 @@
 import assertString from './util/assertString'
 
-const charsetRegex = /^[^\s\-_](?!.*?[\-_]{2,})[a-z0-9\-\\]\S*[^\-_\s]$/
+const charsetRegex = /^[^\s\-_](?!.*?[\-_]{2})[a-z0-9\-\\]\S*[^\-_\s]$/
 
 /**
  * Check if the string is a valid slug.

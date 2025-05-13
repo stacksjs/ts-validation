@@ -1,4 +1,4 @@
-export const alpha = {
+export const alpha: { [key: string]: RegExp } = {
   'en-US': /^[A-Z]+$/i,
   'az-AZ': /^[A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[А-Я]+$/i,
@@ -40,7 +40,7 @@ export const alpha = {
   'si-LK': /^[\u0D80-\u0DFF]+$/,
 }
 
-export const alphanumeric = {
+export const alphanumeric: { [key: string]: RegExp } = {
   'en-US': /^[0-9A-Z]+$/i,
   'az-AZ': /^[0-9A-VXYZÇƏĞİıÖŞÜ]+$/i,
   'bg-BG': /^[0-9А-Я]+$/i,
@@ -81,12 +81,12 @@ export const alphanumeric = {
   'si-LK': /^[0-9\u0D80-\u0DFF]+$/,
 }
 
-export const decimal = {
+export const decimal: { [key: string]: string } = {
   'en-US': '.',
   'ar': '٫',
 }
 
-export const englishLocales = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM']
+export const englishLocales: string[] = ['AU', 'GB', 'HK', 'IN', 'NZ', 'ZA', 'ZM']
 
 for (let locale, i = 0; i < englishLocales.length; i++) {
   locale = `en-${englishLocales[i]}`
@@ -96,7 +96,7 @@ for (let locale, i = 0; i < englishLocales.length; i++) {
 }
 
 // Source: http://www.localeplanet.com/java/
-export const arabicLocales = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE']
+export const arabicLocales: string[] = ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'QM', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE']
 
 for (let locale, i = 0; i < arabicLocales.length; i++) {
   locale = `ar-${arabicLocales[i]}`
@@ -105,7 +105,7 @@ for (let locale, i = 0; i < arabicLocales.length; i++) {
   decimal[locale] = decimal.ar
 }
 
-export const farsiLocales = ['IR', 'AF']
+export const farsiLocales: string[] = ['IR', 'AF']
 
 for (let locale, i = 0; i < farsiLocales.length; i++) {
   locale = `fa-${farsiLocales[i]}`
@@ -113,7 +113,7 @@ for (let locale, i = 0; i < farsiLocales.length; i++) {
   decimal[locale] = decimal.ar
 }
 
-export const bengaliLocales = ['BD', 'IN']
+export const bengaliLocales: string[] = ['BD', 'IN']
 
 for (let locale, i = 0; i < bengaliLocales.length; i++) {
   locale = `bn-${bengaliLocales[i]}`
@@ -123,8 +123,8 @@ for (let locale, i = 0; i < bengaliLocales.length; i++) {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY']
-export const commaDecimal = [
+export const dotDecimal: string[] = ['ar-EG', 'ar-LB', 'ar-LY']
+export const commaDecimal: string[] = [
   'bg-BG',
   'cs-CZ',
   'da-DK',

@@ -6,7 +6,7 @@ import includes from './util/includesArray'
  * corresponding IBAN regular expression
  * Reference: https://en.wikipedia.org/wiki/International_Bank_Account_Number
  */
-const ibanRegexThroughCountryCode = {
+const ibanRegexThroughCountryCode: { [key: string]: RegExp } = {
   AD: /^(AD\d{2})\d{8}[A-Z0-9]{12}$/,
   AE: /^(AE\d{2})\d{19}$/,
   AL: /^(AL\d{2})\d{8}[A-Z0-9]{16}$/,
@@ -118,6 +118,8 @@ function hasOnlyValidCountryCodes(countryCodeArray: string[]): boolean {
  *
  * @param {string} str - string under validation
  * @param {object} options - object to pass the countries to be either whitelisted or blacklisted
+ * @param {string[]} options.whitelist - Array of country codes to be whitelisted
+ * @param {string[]} options.blacklist - Array of country codes to be blacklisted
  * @return {boolean}
  */
 function hasValidIbanFormat(str: string, options: { whitelist?: string[], blacklist?: string[] } = {}): boolean {
@@ -181,4 +183,4 @@ export default function isIBAN(str: string, options: { whitelist?: string[], bla
   return hasValidIbanFormat(str, options) && hasValidIbanChecksum(str)
 }
 
-export const locales = Object.keys(ibanRegexThroughCountryCode)
+export const locales: string[] = Object.keys(ibanRegexThroughCountryCode)

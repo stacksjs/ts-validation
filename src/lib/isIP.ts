@@ -48,7 +48,7 @@ interface IsIPOptions {
   version?: number
 }
 
-export default function isIP(ipAddress: string, options: IsIPOptions = {}) {
+export default function isIP(ipAddress: string, options: IsIPOptions = {}): boolean {
   assertString(ipAddress)
 
   // accessing 'arguments' for backwards compatibility: isIP(ipAddress [, version])

@@ -125,8 +125,6 @@ describe('Validation Library', () => {
 
     const result = validator.validate(3)
 
-    console.log(result.errors)
-
     expect(result.valid).toBe(false)
     expect(result.errors[0].rule).toBe('Number must be even')
   })

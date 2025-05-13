@@ -6,7 +6,9 @@ const issn = '^\\d{4}-?\\d{3}[\\dX]$'
  * Check if the string is ISSN
  *
  * @param str - The string to check
- * @param options = {} - Options object
+ * @param options - Options object
+ * @param options.require_hyphen - Whether to require hyphen in ISSN
+ * @param options.case_sensitive - Whether to check case sensitivity
  * @returns True if the string matches the validation, false otherwise
  */
 export default function isISSN(str: string, options: { require_hyphen?: boolean, case_sensitive?: boolean } = {}): boolean {

@@ -53,7 +53,7 @@ const passportRegexByCountryCode = {
   MX: /^\d{10,11}$/, // MEXICO
   NL: /^[A-Z]{2}[A-Z0-9]{6}\d$/, // NETHERLANDS
   NZ: /^(L([ADFH])|E(A|P)|N)\d{6}$/i, // NEW ZEALAND
-  PH: /^([A-Z](\d{6}|\d{7}[A-Z]))|([A-Z]{2}(\d{6}|\d{7}))$/, // PHILIPPINES
+  PH: /^[A-Z](\d{7}[A-Z]|\d{6})|[A-Z]{2}(\d{6}|\d{7})$/, // PHILIPPINES
   PK: /^[A-Z]{2}\d{7}$/, // PAKISTAN
   PL: /^[A-Z]{2}\d{7}$/, // POLAND
   PT: /^[A-Z]\d{6}$/, // PORTUGAL
@@ -69,7 +69,7 @@ const passportRegexByCountryCode = {
   ZA: /^[TAMD]\d{8}$/, // SOUTH AFRICA
 }
 
-export const locales = Object.keys(passportRegexByCountryCode)
+export const locales: string[] = Object.keys(passportRegexByCountryCode)
 
 /**
  * Check if str is a valid passport number
@@ -85,5 +85,5 @@ export default function isPassportNumber(str: string, countryCode: string): bool
   const normalizedStr = str.replace(/\s/g, '').toUpperCase()
 
   return (countryCode.toUpperCase() in passportRegexByCountryCode)
-    && passportRegexByCountryCode[countryCode].test(normalizedStr)
+    && passportRegexByCountryCode[countryCode.toUpperCase() as keyof typeof passportRegexByCountryCode].test(normalizedStr)
 }
