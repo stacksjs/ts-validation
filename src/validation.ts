@@ -6,6 +6,7 @@ import type {
   ObjectValidator,
   StringValidator,
   ValidationError,
+  ValidationInstance,
   ValidationResult,
   Validator,
 } from './types'
@@ -25,7 +26,6 @@ function formatMessage(message: string | ((field: string, value: any, options?: 
 
   // Replace placeholders in the message
   return message.replace(/\{([^}]+)\}/g, (_, key) => {
-    console.log(key)
     // Handle nested properties (e.g., options.min)
     const value = key.split('.').reduce((obj, k) => obj?.[k], params)
     return value !== undefined ? String(value) : `{${key}}`
@@ -493,7 +493,7 @@ function createCustomValidator<T>(
 /**
  * Main validation API
  */
-export const v = {
+export const v: ValidationInstance = {
   string: createStringValidator,
   number: createNumberValidator,
   boolean: createBooleanValidator,
