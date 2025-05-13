@@ -256,8 +256,12 @@ function createNumberValidator(): NumberValidator {
       test: (val: number) => {
         if (val === undefined || val === null)
           return true
-        const timestampStr = String(val)
-        return timestampStr.length >= 10 && timestampStr.length <= 13
+        // Check if it's an integer
+        if (!Number.isInteger(val))
+          return false
+        // Count digits using Math.log10
+        const digits = Math.floor(Math.log10(Math.abs(val))) + 1
+        return digits >= 10 && digits <= 13
       },
       message: config.errorMessages?.timestamp || 'Must be a valid JavaScript timestamp (10-13 digits)',
     }
