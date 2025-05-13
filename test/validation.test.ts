@@ -271,4 +271,31 @@ describe('Validation Library', () => {
     expect(validator.test('hello')).toBe(false) // doesn't start with uppercase
     expect(validator.test('H1')).toBe(false) // contains numbers
   })
+
+  // Enum validation
+  test('enum validation', () => {
+    // String enum
+    const stringEnum = v.enum<string>().values(['active', 'inactive', 'pending'])
+    expect(stringEnum.test('active')).toBe(true)
+    expect(stringEnum.test('inactive')).toBe(true)
+    expect(stringEnum.test('invalid')).toBe(false)
+
+    // Number enum
+    const numberEnum = v.enum<number>().values([1, 2, 3, 4, 5])
+    expect(numberEnum.test(3)).toBe(true)
+    expect(numberEnum.test(6)).toBe(false)
+    expect(numberEnum.test('3' as any)).toBe(false) // wrong type
+
+    // Required enum
+    const requiredEnum = v.enum<string>().values(['yes', 'no']).required()
+    expect(requiredEnum.test('yes')).toBe(true)
+    expect(requiredEnum.test(undefined as any)).toBe(false)
+
+    // Error message test
+    const result = stringEnum.validate('invalid')
+    expect(result.valid).toBe(false)
+    expect(result.errors[0].message).toContain('active')
+    expect(result.errors[0].message).toContain('inactive')
+    expect(result.errors[0].message).toContain('pending')
+  })
 })

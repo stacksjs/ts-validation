@@ -2,6 +2,7 @@ import type {
   ArrayValidator,
   BaseValidator,
   BooleanValidator,
+  EnumValidator,
   NumberValidator,
   ObjectValidator,
   StringValidator,
@@ -491,11 +492,25 @@ function createCustomValidator<T>(
 }
 
 /**
- * Schema validator implementation
+ * Enum validator implementation
  */
-function createSchemaValidator<T extends Record<string, any>>(schema: Record<string, Validator>): Validator<T> {
-  const objectValidator = createObjectValidator<T>()
-  return objectValidator.shape(schema)
+function createEnumValidator<T = string | number>(): EnumValidator<T> {
+  const baseValidator = createBaseValidator<T>('enum')
+  const validator = baseValidator as unknown as EnumValidator<T>
+  let allowedValues: T[] = []
+
+  validator.values = (values: T[]) => {
+    allowedValues = values
+    const rule = {
+      test: (val: T) => val === undefined || val === null || allowedValues.includes(val),
+      message: config.errorMessages?.enum || `Value must be one of: ${allowedValues.join(', ')}`,
+      options: { values: allowedValues },
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
+  return validator
 }
 
 /**
@@ -508,7 +523,7 @@ export const v: ValidationInstance = {
   array: createArrayValidator,
   object: createObjectValidator,
   custom: createCustomValidator,
-  schema: createSchemaValidator,
+  enum: createEnumValidator,
 
   // Clear cache if needed
   clearCache: () => {

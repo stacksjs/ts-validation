@@ -74,6 +74,10 @@ export type ObjectValidator<T = Record<string, any>> = Validator<T> & {
   strict: (strict?: boolean) => ObjectValidator<T>
 }
 
+export type EnumValidator<T = string | number> = Validator<T> & {
+  values: (values: T[]) => EnumValidator<T>
+}
+
 export interface ValidationInstance {
   string: () => StringValidator
   number: () => NumberValidator
@@ -81,7 +85,7 @@ export interface ValidationInstance {
   array: <T = any>() => ArrayValidator<T>
   object: <T = Record<string, any>>() => ObjectValidator<T>
   custom: <T = any>(validator: (value: T) => boolean, message: string) => Validator<T>
-  schema: <T extends Record<string, any>>(schema: Record<string, Validator>) => Validator<T>
+  enum: <T = string | number>() => EnumValidator<T>
   clearCache: () => void
 }
 
