@@ -32,5 +32,5 @@ export default function isUUID(str: string, version?: string): boolean {
     version = 'all'
   }
 
-  return version in uuid ? uuid[version].test(str) : false
+  return version in uuid ? (uuid[version as keyof typeof uuid] as RegExp).test(str) : false
 }

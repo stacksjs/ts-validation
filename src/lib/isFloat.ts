@@ -25,4 +25,4 @@ export default function isFloat(str: string, options: IsFloatOptions): boolean {
     && (!('gt' in options) || isNullOrUndefined(options.gt) || value > (options.gt as unknown as number))
 }
 
-export const locales = Object.keys(decimal)
+export const locales: string[] = Object.keys(decimal)

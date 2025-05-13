@@ -6,7 +6,7 @@ const fourDigit = /^\d{4}$/
 const fiveDigit = /^\d{5}$/
 const sixDigit = /^\d{6}$/
 
-const patterns = {
+const patterns: { [key: string]: RegExp } = {
   AD: /^AD\d{3}$/,
   AT: fourDigit,
   AU: fourDigit,
@@ -78,7 +78,7 @@ const patterns = {
   ZM: fiveDigit,
 }
 
-export const locales = Object.keys(patterns)
+export const locales: string[] = Object.keys(patterns)
 
 /**
  * Check if the string is PostalCode

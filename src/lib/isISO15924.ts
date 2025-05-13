@@ -286,4 +286,4 @@ export default function isISO15924(str: string): boolean {
   return validISO15924Codes.has(str)
 }
 
-export const ScriptCodes = validISO15924Codes
+export const ScriptCodes: Set<string> = validISO15924Codes

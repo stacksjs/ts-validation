@@ -27,7 +27,7 @@ function formatMessage(message: string | ((field: string, value: any, options?: 
   // Replace placeholders in the message
   return message.replace(/\{([^}]+)\}/g, (_, key) => {
     // Handle nested properties (e.g., options.min)
-    const value = key.split('.').reduce((obj, k) => obj?.[k], params)
+    const value = key.split('.').reduce((obj: Record<string, any>, k: string) => obj?.[k], params)
     return value !== undefined ? String(value) : `{${key}}`
   })
 }

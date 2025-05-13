@@ -8,7 +8,7 @@
  * Called with a string of numbers (incl. check digit)
  * to validate according to ISO 7064 (MOD 11, 10).
  */
-export function iso7064Check(str) {
+export function iso7064Check(str: string): boolean {
   let checkvalue = 10
   for (let i = 0; i < str.length - 1; i++) {
     checkvalue = (Number.parseInt(str[i], 10) + checkvalue) % 10 === 0
@@ -24,7 +24,7 @@ export function iso7064Check(str) {
  * Called with a string of numbers (incl. check digit)
  * to validate according to the Luhn algorithm.
  */
-export function luhnCheck(str) {
+export function luhnCheck(str: string): boolean {
   let checksum = 0
   let second = false
   for (let i = str.length - 1; i >= 0; i--) {
@@ -52,7 +52,7 @@ export function luhnCheck(str) {
  * to calculate the sum of the digits multiplied in reverse.
  * Normally used in variations of MOD 11 algorithmic checks.
  */
-export function reverseMultiplyAndSum(digits, base) {
+export function reverseMultiplyAndSum(digits: number[], base: number): number {
   let total = 0
   for (let i = 0; i < digits.length; i++) {
     total += digits[i] * (base - i)
@@ -65,7 +65,7 @@ export function reverseMultiplyAndSum(digits, base) {
  * Called with a string of numbers
  * to validate according to the Verhoeff algorithm.
  */
-export function verhoeffCheck(str) {
+export function verhoeffCheck(str: string): boolean {
   const d_table = [
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],

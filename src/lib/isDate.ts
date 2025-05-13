@@ -1,4 +1,4 @@
-import type { DateOptions } from '../types'
+import type { DateObj, DateOptions } from '../types'
 import merge from './util/merge'
 
 const default_date_options = {
@@ -58,7 +58,7 @@ export default function isDate(input: string | Date, options: string | DateOptio
         return false
       }
 
-      dateObj[formatWord.charAt(0)] = dateWord
+      dateObj[formatWord.charAt(0) as keyof DateObj] = dateWord
     }
 
     let fullYear = dateObj.y

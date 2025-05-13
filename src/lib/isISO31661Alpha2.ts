@@ -264,4 +264,4 @@ export default function isISO31661Alpha2(str: string): boolean {
   return validISO31661Alpha2CountriesCodes.has(str.toUpperCase())
 }
 
-export const CountryCodes = validISO31661Alpha2CountriesCodes
+export const CountryCodes: Set<string> = validISO31661Alpha2CountriesCodes

@@ -1,6 +1,6 @@
-import { fullWidth } from './isFullWidth'
+import isFullWidth from './isFullWidth'
 
-import { halfWidth } from './isHalfWidth'
+import isHalfWidth from './isHalfWidth'
 import assertString from './util/assertString'
 
 /**
@@ -11,5 +11,5 @@ import assertString from './util/assertString'
  */
 export default function isVariableWidth(str: string): boolean {
   assertString(str)
-  return fullWidth.test(str) && halfWidth.test(str)
+  return isFullWidth(str) && isHalfWidth(str)
 }

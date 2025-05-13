@@ -6,7 +6,7 @@ import assertString from './util/assertString'
 const isISO6346Str = /^[A-Z]{3}U\d{7}|[J,Z]\d{6,7}$/
 const isDigit = /^\d$/
 
-export function isISO6346(str: string) {
+export function isISO6346(str: string): boolean {
   assertString(str)
 
   str = str.toUpperCase()
@@ -43,4 +43,4 @@ export function isISO6346(str: string) {
   return true
 }
 
-export const isFreightContainerID = isISO6346
+export const isFreightContainerID: (str: string) => boolean = isISO6346

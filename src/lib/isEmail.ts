@@ -33,7 +33,7 @@ const defaultMaxEmailLength = 254
  * Validate display name according to the RFC2822: https://tools.ietf.org/html/rfc2822#appendix-A.1.2
  * @param {string} display_name
  */
-function validateDisplayName(display_name) {
+function validateDisplayName(display_name: string): boolean {
   const display_name_without_quotes = display_name.replace(/^"(.+)"$/, '$1')
   // display name with only spaces is not valid
   if (!display_name_without_quotes.trim()) {
@@ -60,7 +60,7 @@ function validateDisplayName(display_name) {
   return true
 }
 
-export default function isEmail(str, options) {
+export default function isEmail(str: string, options: any): boolean {
   assertString(str)
   options = merge(options, default_email_options)
 
@@ -95,6 +95,8 @@ export default function isEmail(str, options) {
 
   const parts = str.split('@')
   const domain = parts.pop()
+  if (!domain)
+    return false
   const lower_domain = domain.toLowerCase()
 
   if (options.host_blacklist.length > 0 && checkHost(lower_domain, options.host_blacklist)) {

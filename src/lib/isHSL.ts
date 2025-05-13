@@ -9,7 +9,7 @@ const hslSpace = /^hsla?\(((\+|-)?(\d+(\.\d+)?(e(\+|-)?\d+)?|\.\d+(e(\+|-)?\d+)?
  * @param str - The string to check
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isHSL(str): boolean {
+export default function isHSL(str: string): boolean {
   assertString(str)
 
   // Strip duplicate spaces before calling the validation regex (See  #1598 for more info)

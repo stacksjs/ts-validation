@@ -2,11 +2,11 @@ import isInt from './isInt'
 import assertString from './util/assertString'
 import includes from './util/includesArray'
 
-const validators = {
+const validators: { [key: string]: (str: string) => boolean } = {
   'PL': (str: string) => {
     assertString(str)
 
-    const weightOfDigits = {
+    const weightOfDigits: { [key: number]: number } = {
       1: 1,
       2: 3,
       3: 7,
@@ -22,7 +22,7 @@ const validators = {
 
     if (str != null && str.length === 11 && isInt(str, { allow_leading_zeroes: true })) {
       const digits = str.split('').slice(0, -1)
-      const sum = digits.reduce((acc, digit, index) =>
+      const sum = digits.reduce((acc: number, digit: string, index: number) =>
         acc + (Number(digit) * weightOfDigits[index + 1]), 0)
 
       const modulo = sum % 10
@@ -40,7 +40,7 @@ const validators = {
 
     const DNI = /^[0-9X-Z]\d{7}[TRWAD-HJ-NYPXBZSQVC]$/
 
-    const charsValue = {
+    const charsValue: { [key: string]: number } = {
       X: 0,
       Y: 1,
       Z: 2,
@@ -81,7 +81,7 @@ const validators = {
     }
 
     // validate the control digit
-    const number = Number(sanitized.slice(0, -1).replace(/[X,YZ]/g, char => charsValue[char]))
+    const number = Number(sanitized.slice(0, -1).replace(/[X,YZ]/g, char => String(charsValue[char])))
 
     return sanitized.endsWith(controlDigits[number % 23])
   },
@@ -338,7 +338,7 @@ const validators = {
       return parityBit[mod]
     }
 
-    const checkParityBit = idCardNo => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase()
+    const checkParityBit = (idCardNo: string) => getParityBit(idCardNo) === idCardNo.charAt(17).toUpperCase()
 
     const check15IdCardNo = (idCardNo: string): boolean => {
       if (!/^[1-9]\d{7}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}$/.test(idCardNo)) {
@@ -403,7 +403,7 @@ const validators = {
       let convertedChar
       if (!regexIsDigit.test(str[i]))
         convertedChar = (str[i].charCodeAt(0) - 55) % 11
-      else convertedChar = str[i]
+      else convertedChar = Number(str[i])
       checkSumVal += (convertedChar * (9 - i))
     }
     checkSumVal %= 11

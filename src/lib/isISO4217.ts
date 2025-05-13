@@ -194,4 +194,4 @@ export default function isISO4217(str: string): boolean {
   return validISO4217CurrencyCodes.has(str.toUpperCase())
 }
 
-export const CurrencyCodes = validISO4217CurrencyCodes
+export const CurrencyCodes: Set<string> = validISO4217CurrencyCodes

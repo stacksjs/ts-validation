@@ -41,7 +41,7 @@ function parseMailtoQueryString(queryString: string): Record<string, string> | f
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isMailtoURI(url: string, options: any) {
+export default function isMailtoURI(url: string, options: any): boolean {
   assertString(url)
 
   if (url.indexOf('mailto:') !== 0) {

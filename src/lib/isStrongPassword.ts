@@ -26,7 +26,7 @@ const defaultOptions = {
  * could be moved to util/ ?
 */
 function countChars(str: string) {
-  const result = {}
+  const result: { [key: string]: number } = {}
   Array.from(str).forEach((char) => {
     const curVal = result[char]
     if (curVal) {

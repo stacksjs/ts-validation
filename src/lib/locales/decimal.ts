@@ -7,8 +7,8 @@ export const decimal: Record<string, string> = {
 }
 
 // Source: https://en.wikipedia.org/wiki/Decimal_mark
-export const dotDecimal = ['ar-EG', 'ar-LB', 'ar-LY']
-export const commaDecimal = [
+export const dotDecimal: string[] = ['ar-EG', 'ar-LB', 'ar-LY']
+export const commaDecimal: string[] = [
   'bg-BG',
   'cs-CZ',
   'da-DK',

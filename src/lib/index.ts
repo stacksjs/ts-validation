@@ -137,7 +137,7 @@ import whitelist from './whitelist'
 const version = '1.0.0' // will be automatically updated with releases
 
 // Main validator object
-const validator = {
+const validator: { [key: string]: any } = {
   version,
 
   // Conversion methods

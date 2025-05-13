@@ -16,6 +16,8 @@ const lengths = {
   crc32b: 8,
 }
 
+type HashAlgorithm = keyof typeof lengths
+
 /**
  * Check if the string is Hash
  *
@@ -23,7 +25,7 @@ const lengths = {
  * @param algorithm - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isHash(str: string, algorithm: string): boolean {
+export default function isHash(str: string, algorithm: HashAlgorithm): boolean {
   assertString(str)
   const hash = new RegExp(`^[a-fA-F0-9]{${lengths[algorithm]}}$`)
   return hash.test(str)

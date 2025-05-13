@@ -1,6 +1,6 @@
 import assertString from './util/assertString'
 
-export const fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE]/
+const fullWidth: RegExp = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE]/
 
 /**
  * Check if the string is FullWidth

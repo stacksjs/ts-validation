@@ -2,7 +2,7 @@ import type { IsAlphaOptions } from './types'
 import { alpha } from './alpha'
 import assertString from './util/assertString'
 
-export default function isAlpha(_str, locale = 'en-US', options: IsAlphaOptions = {}) {
+export default function isAlpha(_str: string, locale = 'en-US', options: IsAlphaOptions = {}): boolean {
   assertString(_str)
 
   let str = _str
@@ -26,4 +26,4 @@ export default function isAlpha(_str, locale = 'en-US', options: IsAlphaOptions 
   throw new Error(`Invalid locale '${locale}'`)
 }
 
-export const locales = Object.keys(alpha)
+export const locales: string[] = Object.keys(alpha)

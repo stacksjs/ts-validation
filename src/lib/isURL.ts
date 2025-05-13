@@ -60,7 +60,7 @@ const wrapped_ipv6 = /^\[([^\]]+)\](?::(\d+))?$/
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isURL(url: string, options?: Partial<IsURLOptions>) {
+export default function isURL(url: string, options?: Partial<IsURLOptions>): boolean {
   assertString(url)
   if (!url || /[\s<>]/.test(url)) {
     return false
@@ -82,19 +82,20 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>) {
     return false
   }
 
-  let protocol, auth, host, port, port_str, split, ipv6
+  let protocol, auth, host, port, port_str, ipv6
+  let split: string[] = []
 
   const hostname = split.join('@')
 
   split = url.split('#')
-  url = split.shift()
+  url = split.shift() ?? ''
 
   split = url.split('?')
-  url = split.shift()
+  url = split.shift() ?? ''
 
   split = url.split('://')
   if (split.length > 1) {
-    protocol = split.shift().toLowerCase()
+    protocol = split.shift()?.toLowerCase() ?? ''
     if (options?.require_valid_protocol && !(options?.protocols ?? default_url_options.protocols).includes(protocol)) {
       return false
     }
@@ -115,7 +116,7 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>) {
   }
 
   split = url.split('/')
-  url = split.shift()
+  url = split.shift() ?? ''
 
   if (url === '' && !options.require_host) {
     return true
@@ -129,7 +130,7 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>) {
     if (split[0] === '') {
       return false
     }
-    auth = split.shift()
+    auth = split.shift() ?? ''
     if (auth.includes(':') && auth.split(':').length > 2) {
       return false
     }
@@ -166,18 +167,18 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>) {
   }
 
   if (options.host_whitelist) {
-    return checkHost(host, options.host_whitelist)
+    return checkHost(host ?? '', options.host_whitelist)
   }
 
   if (host === '' && !options.require_host) {
     return true
   }
 
-  if (!isIP(host) && !isFQDN(host, options) && (!ipv6 || !isIP(ipv6, { version: 6 }))) {
+  if (!isIP(host ?? '') && !isFQDN(host ?? '', options) && (!ipv6 || !isIP(ipv6, { version: 6 }))) {
     return false
   }
 
-  host = host || ipv6
+  host = (host || ipv6) ?? ''
 
   if (options.host_blacklist && checkHost(host, options.host_blacklist)) {
     return false

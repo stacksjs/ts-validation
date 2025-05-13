@@ -4,7 +4,7 @@
  * @param defaults The default values object
  * @returns The merged object
  */
-export default function merge<T extends object, U extends object>(obj: T = {} as T, defaults: U): T & U {
+export default function merge<T extends object, U extends object>(obj: T | undefined = {} as T, defaults: U): T & U {
   for (const key in defaults) {
     // Using unknown as an intermediate type for type safety
     const objKey = key as unknown as keyof T

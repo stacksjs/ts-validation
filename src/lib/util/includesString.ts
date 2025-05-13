@@ -1,3 +1,3 @@
-const includes = (str, val) => str.includes(val)
+const includes = (str: string, val: string): boolean => str.includes(val)
 
 export default includes
