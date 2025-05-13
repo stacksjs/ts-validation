@@ -491,6 +491,14 @@ function createCustomValidator<T>(
 }
 
 /**
+ * Schema validator implementation
+ */
+function createSchemaValidator<T extends Record<string, any>>(schema: Record<string, Validator>): Validator<T> {
+  const objectValidator = createObjectValidator<T>()
+  return objectValidator.shape(schema)
+}
+
+/**
  * Main validation API
  */
 export const v: ValidationInstance = {
@@ -500,6 +508,7 @@ export const v: ValidationInstance = {
   array: createArrayValidator,
   object: createObjectValidator,
   custom: createCustomValidator,
+  schema: createSchemaValidator,
 
   // Clear cache if needed
   clearCache: () => {

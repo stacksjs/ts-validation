@@ -81,6 +81,7 @@ export interface ValidationInstance {
   array: <T = any>() => ArrayValidator<T>
   object: <T = Record<string, any>>() => ObjectValidator<T>
   custom: <T = any>(validator: (value: T) => boolean, message: string) => Validator<T>
+  schema: <T extends Record<string, any>>(schema: Record<string, Validator>) => Validator<T>
   clearCache: () => void
 }
 
