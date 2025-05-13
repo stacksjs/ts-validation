@@ -272,6 +272,49 @@ describe('Validation Library', () => {
     expect(validator.test('H1')).toBe(false) // contains numbers
   })
 
+  // Date validation
+  test('date validation', () => {
+    // Basic date validation
+    const validator = v.date()
+    expect(validator.test(new Date())).toBe(true)
+    expect(validator.test(new Date('2024-03-20'))).toBe(true)
+    expect(validator.test(new Date(1710940800000))).toBe(true) // timestamp
+    const invalidDate = new Date('invalid')
+
+    expect(validator.test(invalidDate)).toBe(false) // invalid date
+
+    // Required date
+    const requiredDate = v.date().required()
+    expect(requiredDate.test(new Date())).toBe(true)
+    expect(requiredDate.test(undefined as any)).toBe(false)
+
+    // Date range
+    const minDate = new Date('2024-01-01')
+    const maxDate = new Date('2024-12-31')
+    const rangeValidator = v.date().min(minDate).max(maxDate)
+    expect(rangeValidator.test(new Date('2024-06-15'))).toBe(true)
+    expect(rangeValidator.test(new Date('2023-12-31'))).toBe(false) // before min
+    expect(rangeValidator.test(new Date('2025-01-01'))).toBe(false) // after max
+
+    // Format validation
+    const formatValidator = v.date().format('YYYY-MM-DD')
+    expect(formatValidator.test(new Date('2024-03-20'))).toBe(true)
+    expect(formatValidator.test(new Date('2024-03-20T12:00:00Z'))).toBe(false) // wrong format
+
+    // Valid date check
+    const validDateValidator = v.date().isValid()
+    expect(validDateValidator.test(new Date())).toBe(true)
+    const anotherInvalidDate = new Date('invalid')
+    anotherInvalidDate.setTime(Number.NaN) // Make it truly invalid
+    expect(validDateValidator.test(anotherInvalidDate)).toBe(false) // invalid date
+
+    // Error messages
+    const result = rangeValidator.validate(new Date('2023-12-31'))
+    expect(result.valid).toBe(false)
+    expect(result.errors[0].message).toContain('after')
+    expect(result.errors[0].message).toContain('2024-01-01')
+  })
+
   // Enum validation
   test('enum validation', () => {
     // String enum

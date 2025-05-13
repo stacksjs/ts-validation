@@ -2,6 +2,7 @@ import type {
   ArrayValidator,
   BaseValidator,
   BooleanValidator,
+  DateValidator,
   EnumValidator,
   NumberValidator,
   ObjectValidator,
@@ -47,6 +48,15 @@ function createError(field: string, rule: string, value: any, options?: any): Va
   }
 }
 
+// Helper function to validate date
+function isValidDate(val: any): boolean {
+  if (!(val instanceof Date))
+    return false
+  // Check if the date is valid by comparing with itself
+  // This catches both NaN and Invalid Date
+  return val.toString() !== 'Invalid Date' && !Number.isNaN(val.getTime())
+}
+
 /**
  * Base validator implementation
  */
@@ -64,6 +74,16 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
         case 'string': return typeof val === 'string'
         case 'number': return typeof val === 'number' && !Number.isNaN(val as number & {})
         case 'boolean': return typeof val === 'boolean'
+        case 'date': {
+          if (val instanceof Date) {
+            return isValidDate(val)
+          }
+          if (typeof val === 'string' || typeof val === 'number') {
+            const date = new Date(val)
+            return !Number.isNaN(date.getTime())
+          }
+          return false
+        }
         case 'array': return Array.isArray(val)
         case 'object': return val !== null && typeof val === 'object' && !Array.isArray(val)
         default: return true
@@ -83,6 +103,8 @@ function createBaseValidator<T>(type: string): BaseValidator<T> {
         if (cached)
           return cached
       }
+
+      console.log(rules)
 
       const errors: ValidationError[] = []
 
@@ -514,6 +536,113 @@ function createEnumValidator<T = string | number>(): EnumValidator<T> {
 }
 
 /**
+ * Date validator implementation
+ */
+function createDateValidator(): DateValidator {
+  const baseValidator = createBaseValidator<Date>('date')
+  const validator = baseValidator as unknown as DateValidator
+  let isRequired = true
+
+  validator.min = (minDate: Date | string | number) => {
+    const min = new Date(minDate)
+    const rule = {
+      test: (val: Date) => {
+        if (val === undefined || val === null)
+          return true
+        if (!isValidDate(val))
+          return false
+        const date = val instanceof Date ? val : new Date(val)
+        return date.getTime() >= min.getTime()
+      },
+      message: config.errorMessages?.min || `Date must be after ${min.toISOString()}`,
+      options: { min },
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
+  validator.max = (maxDate: Date | string | number) => {
+    const max = new Date(maxDate)
+    const rule = {
+      test: (val: Date) => {
+        if (val === undefined || val === null)
+          return true
+        if (!isValidDate(val))
+          return false
+        const date = val instanceof Date ? val : new Date(val)
+        return date.getTime() <= max.getTime()
+      },
+      message: config.errorMessages?.max || `Date must be before ${max.toISOString()}`,
+      options: { max },
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
+  validator.format = (format: string) => {
+    const rule = {
+      test: (val: Date) => {
+        if (val === undefined || val === null)
+          return true
+        if (!isValidDate(val))
+          return false
+        try {
+          // Basic format validation - you might want to enhance this
+          const dateStr = val.toISOString()
+          return dateStr.length === format.length
+        }
+        catch {
+          return false
+        }
+      },
+      message: config.errorMessages?.format || `Date must match format: ${format}`,
+      options: { format },
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
+  validator.isValid = () => {
+    const rule = {
+      test: (val: Date) => {
+        if (val === undefined || val === null)
+          return true
+        return isValidDate(val)
+      },
+      message: config.errorMessages?.date || 'Must be a valid date',
+    }
+    baseValidator.rules.push(rule)
+    return validator
+  }
+
+  // Override required/optional methods to track state
+  const originalRequired = validator.required
+  validator.required = () => {
+    isRequired = true
+    return originalRequired()
+  }
+
+  const originalOptional = validator.optional
+  validator.optional = () => {
+    isRequired = false
+    return originalOptional()
+  }
+
+  // Override the base type check to handle string/number inputs
+  const originalRules = baseValidator.rules
+  baseValidator.rules = [{
+    test: (val: any) => {
+      if (val === undefined || val === null)
+        return !isRequired
+      return isValidDate(val)
+    },
+    message: config.errorMessages?.date || 'Must be a valid date',
+  }, ...originalRules]
+
+  return validator
+}
+
+/**
  * Main validation API
  */
 export const v: ValidationInstance = {
@@ -524,6 +653,7 @@ export const v: ValidationInstance = {
   object: createObjectValidator,
   custom: createCustomValidator,
   enum: createEnumValidator,
+  date: createDateValidator,
 
   // Clear cache if needed
   clearCache: () => {

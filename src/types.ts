@@ -78,6 +78,13 @@ export type EnumValidator<T = string | number> = Validator<T> & {
   values: (values: T[]) => EnumValidator<T>
 }
 
+export type DateValidator = Validator<Date> & {
+  min: (date: Date | string | number) => DateValidator
+  max: (date: Date | string | number) => DateValidator
+  format: (format: string) => DateValidator
+  isValid: () => DateValidator
+}
+
 export interface ValidationInstance {
   string: () => StringValidator
   number: () => NumberValidator
@@ -86,6 +93,7 @@ export interface ValidationInstance {
   object: <T = Record<string, any>>() => ObjectValidator<T>
   custom: <T = any>(validator: (value: T) => boolean, message: string) => Validator<T>
   enum: <T = string | number>() => EnumValidator<T>
+  date: () => DateValidator
   clearCache: () => void
 }
 
