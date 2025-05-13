@@ -1,4 +1,16 @@
 
+## v0.1.9...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.1.9...main)
+
+### 🏡 Chore
+
+- Wip ([47d3999](https://github.com/stacksjs/ts-validation/commit/47d3999))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.1.8...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.1.8...main)
