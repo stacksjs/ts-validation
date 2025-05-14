@@ -1,4 +1,27 @@
 
+## v0.2.0...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.0...main)
+
+### 🚀 Enhancements
+
+- Date validation ([0aec0cc](https://github.com/stacksjs/ts-validation/commit/0aec0cc))
+- Object and shape validation ([e2482a0](https://github.com/stacksjs/ts-validation/commit/e2482a0))
+- Custom validation ([2c3c410](https://github.com/stacksjs/ts-validation/commit/2c3c410))
+
+### 🏡 Chore
+
+- Wip ([794d441](https://github.com/stacksjs/ts-validation/commit/794d441))
+- Wip ([4b25e33](https://github.com/stacksjs/ts-validation/commit/4b25e33))
+- Wip ([25793d8](https://github.com/stacksjs/ts-validation/commit/25793d8))
+- Wip ([40a67c8](https://github.com/stacksjs/ts-validation/commit/40a67c8))
+- Cleanup ([00e4e56](https://github.com/stacksjs/ts-validation/commit/00e4e56))
+- Lint and types ([bab722f](https://github.com/stacksjs/ts-validation/commit/bab722f))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.1.9...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.1.9...main)
