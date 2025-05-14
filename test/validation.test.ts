@@ -451,4 +451,37 @@ describe('Validation Library', () => {
       expect(result.errors).toHaveLength(2)
     })
   })
+
+  describe('custom validation', () => {
+    test('should validate using custom validation function', () => {
+      const result = v.custom(
+        (value: string) => value.startsWith('test-'),
+        'Must start with "test-"',
+      ).validate('test-123')
+
+      expect(result.valid).toBe(true)
+      expect(result.errors).toHaveLength(0)
+    })
+
+    test('should fail with custom error message', () => {
+      const result = v.custom(
+        (value: string) => value.startsWith('test-'),
+        'Must start with "test-"',
+      ).validate('invalid-123')
+
+      expect(result.valid).toBe(false)
+      expect(result.errors).toHaveLength(1)
+      expect(result.errors[0].message).toBe('Must start with "test-"')
+    })
+
+    test('should handle optional values', () => {
+      const result = v.custom(
+        (value: string) => value.startsWith('test-'),
+        'Must start with "test-"',
+      ).optional().validate(undefined)
+
+      expect(result.valid).toBe(true)
+      expect(result.errors).toHaveLength(0)
+    })
+  })
 })

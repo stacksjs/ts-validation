@@ -1,5 +1,6 @@
 import type { ArrayValidator } from './validators/arrays'
 import type { BooleanValidator } from './validators/booleans'
+import type { CustomValidator } from './validators/custom'
 import type { DateValidator } from './validators/dates'
 import type { EnumValidator } from './validators/enums'
 import type { NumberValidator } from './validators/numbers'
@@ -8,6 +9,7 @@ import type { StringValidator } from './validators/strings'
 
 import { array } from './validators/arrays'
 import { boolean } from './validators/booleans'
+import { custom } from './validators/custom'
 import { date } from './validators/dates'
 import { enum_ } from './validators/enums'
 import { number } from './validators/numbers'
@@ -22,6 +24,7 @@ interface Validator {
   enum: <T extends string | number>(values: readonly T[]) => EnumValidator<T>
   date: () => DateValidator
   object: <T extends Record<string, any>>() => ObjectValidator<T>
+  custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidator<T>
 }
 
 export const v: Validator = {
@@ -32,4 +35,5 @@ export const v: Validator = {
   enum: enum_,
   date,
   object,
+  custom,
 }
