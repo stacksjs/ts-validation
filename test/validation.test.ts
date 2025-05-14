@@ -129,6 +129,37 @@ describe('Validation Library', () => {
     })
   })
 
+  describe('Boolean Validator', () => {
+    test('basic boolean validation', () => {
+      const validator = v.boolean()
+      expect(validator.test(true)).toBe(true)
+      expect(validator.test(false)).toBe(true)
+      expect(validator.test('true' as any)).toBe(false)
+      expect(validator.test(1 as any)).toBe(false)
+    })
+
+    test('isTrue validation', () => {
+      const validator = v.boolean().isTrue()
+      expect(validator.test(true)).toBe(true)
+      expect(validator.test(false)).toBe(false)
+    })
+
+    test('isFalse validation', () => {
+      const validator = v.boolean().isFalse()
+      expect(validator.test(false)).toBe(true)
+      expect(validator.test(true)).toBe(false)
+    })
+
+    test('custom boolean validation', () => {
+      const validator = v.boolean().custom(
+        value => value === true || value === false,
+        'Must be a boolean value',
+      )
+      expect(validator.test(true)).toBe(true)
+      expect(validator.test(false)).toBe(true)
+    })
+  })
+
   describe('Validation Results', () => {
     test('validate returns detailed results', () => {
       const validator = v.string().min(5).max(10)
