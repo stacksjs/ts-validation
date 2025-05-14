@@ -85,8 +85,6 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>): boo
   let protocol, auth, host, port, port_str, ipv6
   let split: string[] = []
 
-  const hostname = split.join('@')
-
   split = url.split('#')
   url = split.shift() ?? ''
 
@@ -116,13 +114,13 @@ export default function isURL(url: string, options?: Partial<IsURLOptions>): boo
   }
 
   split = url.split('/')
-  url = split.shift() ?? ''
+  const hostname = split.shift() ?? ''
 
-  if (url === '' && !options.require_host) {
+  if (hostname === '' && !options.require_host) {
     return true
   }
 
-  split = url.split('@')
+  split = hostname.split('@')
   if (split.length > 1) {
     if (options.disallow_auth) {
       return false

@@ -287,6 +287,154 @@ describe('Validation Library', () => {
     })
   })
 
+  describe('Object Validator', () => {
+    test('basic object validation', () => {
+      const validator = v.object()
+      expect(validator.test({})).toBe(true)
+      expect(validator.test({ foo: 'bar' })).toBe(true)
+      expect(validator.test(null as any)).toBe(false)
+      expect(validator.test([] as any)).toBe(false)
+      expect(validator.test('not an object' as any)).toBe(false)
+    })
+
+    test('shape validation', () => {
+      const validator = v.object().shape({
+        name: v.string().min(2),
+        age: v.number().min(18),
+        email: v.string().email(),
+      })
+
+      expect(validator.test({
+        name: 'John',
+        age: 25,
+        email: 'john@example.com',
+      })).toBe(true)
+
+      expect(validator.test({
+        name: 'J', // too short
+        age: 25,
+        email: 'john@example.com',
+      })).toBe(false)
+
+      expect(validator.test({
+        name: 'John',
+        age: 16, // too young
+        email: 'john@example.com',
+      })).toBe(false)
+
+      expect(validator.test({
+        name: 'John',
+        age: 25,
+        email: 'invalid-email', // invalid email
+      })).toBe(false)
+    })
+
+    test('nested object validation', () => {
+      const validator = v.object().shape({
+        user: v.object().shape({
+          name: v.string().min(2),
+          age: v.number().min(18),
+        }),
+        settings: v.object().shape({
+          theme: v.string(),
+          notifications: v.boolean(),
+        }),
+      })
+
+      expect(validator.test({
+        user: {
+          name: 'John',
+          age: 25,
+        },
+        settings: {
+          theme: 'dark',
+          notifications: true,
+        },
+      })).toBe(true)
+
+      expect(validator.test({
+        user: {
+          name: 'J', // too short
+          age: 25,
+        },
+        settings: {
+          theme: 'dark',
+          notifications: true,
+        },
+      })).toBe(false)
+    })
+
+    test('strict mode validation', () => {
+      const validator = v.object().shape({
+        name: v.string(),
+        age: v.number(),
+      }).strict()
+
+      expect(validator.test({
+        name: 'John',
+        age: 25,
+      })).toBe(true)
+
+      expect(validator.test({
+        name: 'John',
+        age: 25,
+        extra: 'field', // extra field not allowed in strict mode
+      })).toBe(false)
+    })
+
+    test('complex object validation', () => {
+      const validator = v.object().shape({
+        name: v.string().min(2).max(50),
+        email: v.string().email(),
+        age: v.number().min(18).integer(),
+        website: v.string().url().optional(),
+        tags: v.array<string>().each(v.string()).optional(),
+        address: v.object().shape({
+          street: v.string(),
+          city: v.string(),
+          zip: v.string(),
+        }).optional(),
+      })
+
+      expect(validator.test({
+        name: 'John Doe',
+        email: 'john@example.com',
+        age: 25,
+        website: 'https://example.com',
+        tags: ['developer', 'typescript'],
+        address: {
+          street: '123 Main St',
+          city: 'New York',
+          zip: '10001',
+        },
+      })).toBe(true)
+
+      const result = validator.validate({
+        name: 'J', // too short
+        email: 'invalid-email',
+        age: 16, // too young
+        website: 'not-a-url',
+        tags: [123], // invalid tag type
+        address: {
+          street: '123 Main St',
+          city: 'New York',
+          zip: '10001',
+        },
+      })
+
+      expect(result.valid).toBe(false)
+      expect(result.errors).toHaveLength(5)
+
+      // Check specific error messages
+      const errorMessages = result.errors.map(e => e.message)
+      expect(errorMessages).toContain('name: Must be at least 2 characters long') // name too short
+      expect(errorMessages).toContain('email: Must be a valid email address') // invalid email
+      expect(errorMessages).toContain('age: Must be at least 18') // age too young
+      expect(errorMessages).toContain('website: Must be a valid URL') // invalid URL
+      expect(errorMessages).toContain('tags: Each item in array is invalid') // invalid array item type
+    })
+  })
+
   describe('Validation Results', () => {
     test('validate returns detailed results', () => {
       const validator = v.string().min(5).max(10)
