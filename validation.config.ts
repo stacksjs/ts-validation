@@ -1,6 +1,6 @@
-import type { ValidationOptions } from './src/types'
+import type { ValidationConfig } from './src/types'
 
-const config: ValidationOptions = {
+const config: ValidationConfig = {
   verbose: true,
 }
 

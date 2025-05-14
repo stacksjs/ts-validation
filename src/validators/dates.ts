@@ -5,7 +5,7 @@ export class DateValidator extends BaseValidator<Date> {
     super()
     this.addRule({
       name: 'date',
-      test: (value: unknown): value is Date => value instanceof Date && !isNaN(value.getTime()),
+      test: (value: unknown): value is Date => value instanceof Date && !Number.isNaN(value.getTime()),
       message: 'Must be a valid date',
     })
   }

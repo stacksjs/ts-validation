@@ -1,7 +1,4 @@
 import type { alphanumeric } from './lib/isAlphanumeric'
-import type { ArrayValidator } from './validators/arrays'
-import type { NumberValidator } from './validators/numbers'
-import type { StringValidator } from './validators/strings'
 
 export interface ValidationError {
   message: string
@@ -230,4 +227,11 @@ export interface Validator<T> {
   validate: (value: T) => ValidationResult
   required: () => Validator<T>
   optional: () => Validator<T>
+}
+
+export interface ValidationConfig {
+  verbose: boolean
+  strictMode?: boolean
+  cacheResults?: boolean
+  errorMessages?: Record<string, string>
 }

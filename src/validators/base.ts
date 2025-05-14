@@ -25,7 +25,7 @@ export abstract class BaseValidator<T> {
     return this
   }
 
-  validate(value: T): ValidationResult {
+  validate(value: T | undefined | null): ValidationResult {
     const errors: ValidationError[] = []
 
     if ((value === undefined || value === null)) {
