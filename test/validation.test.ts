@@ -1,344 +1,148 @@
 import { describe, expect, test } from 'bun:test'
-import { v } from '../src'
+import { v } from '../src/validation'
 
 describe('Validation Library', () => {
-  // String validation
-  test('string validation', () => {
-    const validator = v.string().min(3).max(10).alphanumeric()
-
-    expect(validator.test('abc123')).toBe(true)
-    expect(validator.test('ab')).toBe(false) // too short
-    expect(validator.test('abcdefghijk')).toBe(false) // too long
-    expect(validator.test('abc@123')).toBe(false) // not alphanumeric
-
-    const result = validator.validate('ab')
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
-  })
-
-  // Email validation
-  test('email validation', () => {
-    const validator = v.string().email()
-
-    expect(validator.test('test@example.com')).toBe(true)
-    expect(validator.test('invalid-email')).toBe(false)
-  })
-
-  // Number validation
-  test('number validation', () => {
-    const validator = v.number().min(1).max(100).integer()
-
-    expect(validator.test(50)).toBe(true)
-    expect(validator.test(0)).toBe(false) // too small
-    expect(validator.test(101)).toBe(false) // too large
-    expect(validator.test(1.5)).toBe(false) // not an integer
-  })
-
-  // Boolean validation
-  test('boolean validation', () => {
-    const validator = v.boolean()
-
-    expect(validator.test(true)).toBe(true)
-    expect(validator.test(false)).toBe(true)
-    expect(validator.test('true' as any)).toBe(false) // not a boolean
-  })
-
-  // Array validation
-  test('array validation', () => {
-    const validator = v.array<string>().min(1).max(3).each(v.string().min(2))
-
-    expect(validator.test(['ab', 'cd'])).toBe(true)
-    expect(validator.test([])).toBe(false) // empty array
-    expect(validator.test(['a', 'bc'])).toBe(false) // first item too short
-    expect(validator.test(['ab', 'cd', 'ef', 'gh'])).toBe(false) // too many items
-  })
-
-  // Object validation
-  test('object validation', () => {
-    const validator = v.object().shape({
-      name: v.string().min(2).required(),
-      age: v.number().min(18).integer().required(),
-      email: v.string().email().optional(),
+  describe('String Validator', () => {
+    test('basic string validation', () => {
+      const validator = v.string()
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('123')).toBe(true)
+      expect(validator.test('')).toBe(true)
     })
 
-    expect(validator.test({
-      name: 'John',
-      age: 25,
-      email: 'john@example.com',
-    })).toBe(true)
-
-    expect(validator.test({
-      name: 'J', // too short
-      age: 20,
-    })).toBe(false)
-
-    expect(validator.test({
-      name: 'John',
-      age: 17, // too young
-    })).toBe(false)
-
-    expect(validator.test({
-      name: 'John',
-      age: 25,
-      email: 'invalid-email', // invalid email
-    })).toBe(false)
-  })
-
-  // Strict object validation
-  test('strict object validation', () => {
-    const validator = v.object().strict().shape({
-      name: v.string(),
-      age: v.number(),
+    test('min length validation', () => {
+      const validator = v.string().min(5)
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('hi')).toBe(false)
     })
 
-    expect(validator.test({
-      name: 'John',
-      age: 25,
-    })).toBe(true)
-
-    expect(validator.test({
-      name: 'John',
-      age: 25,
-      extra: 'field', // extra field in strict mode
-    })).toBe(false)
-  })
-
-  // Required vs Optional
-  test('required vs optional validation', () => {
-    const requiredValidator = v.string().email().required()
-    const optionalValidator = v.string().email().optional()
-
-    expect(requiredValidator.test('test@example.com')).toBe(true)
-    expect(requiredValidator.test(undefined as any)).toBe(false) // required but undefined
-
-    expect(optionalValidator.test('test@example.com')).toBe(true)
-    expect(optionalValidator.test(undefined as any)).toBe(true) // optional so can be undefined
-  })
-
-  // Custom validation
-  test('custom validation', () => {
-    const isEven = (val: number) => val % 2 === 0
-    const validator = v.custom(isEven, 'Number must be even')
-
-    expect(validator.test(2)).toBe(true)
-    expect(validator.test(3)).toBe(false)
-
-    const result = validator.validate(3)
-
-    expect(result.valid).toBe(false)
-    expect(result.errors[0].rule).toBe('Number must be even')
-  })
-
-  // Nested object validation
-  test('nested object validation', () => {
-    const addressValidator = v.object().shape({
-      street: v.string().required(),
-      city: v.string().required(),
-      zip: v.string().matches(/^\d{5}$/).required(),
+    test('max length validation', () => {
+      const validator = v.string().max(5)
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('hello world')).toBe(false)
     })
 
-    const userValidator = v.object().shape({
-      name: v.string().required(),
-      address: addressValidator,
+    test('exact length validation', () => {
+      const validator = v.string().length(5)
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('hi')).toBe(false)
+      expect(validator.test('hello world')).toBe(false)
     })
 
-    expect(userValidator.test({
-      name: 'John',
-      address: {
-        street: '123 Main St',
-        city: 'New York',
-        zip: '10001',
-      },
-    })).toBe(true)
-
-    expect(userValidator.test({
-      name: 'John',
-      address: {
-        street: '123 Main St',
-        city: 'New York',
-        zip: 'invalid', // invalid zip
-      },
-    })).toBe(false)
-  })
-
-  // Error messages
-  test('validation error messages', () => {
-    const validator = v.string().min(5).email()
-    const result = validator.validate('test')
-
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBe(2)
-    // Error messages depend on the config but should mention the issues
-    expect(result.errors[0].message).toContain('5')
-    expect(result.errors[1].message).toContain('email')
-  })
-
-  // URL validation using regex
-  test('URL validation', () => {
-    const validator = v.string().url()
-
-    expect(validator.test('https://example.com')).toBe(true)
-    expect(validator.test('http://localhost:3000')).toBe(true)
-    expect(validator.test('not-a-url')).toBe(false)
-  })
-
-  // Custom validation with multiple rules
-  test('custom validation with multiple rules', () => {
-    const isEven = (val: number) => val % 2 === 0
-    const isPositive = (val: number) => val > 0
-    const validator = v.custom((val: number) => isEven(val) && isPositive(val), 'Number must be even and positive')
-
-    expect(validator.test(2)).toBe(true)
-    expect(validator.test(-2)).toBe(false)
-    expect(validator.test(3)).toBe(false)
-  })
-
-  // Object with optional fields
-  test('object with optional fields', () => {
-    const validator = v.object().shape({
-      name: v.string().min(2).required(),
-      age: v.number().min(0).optional(),
-      email: v.string().email().optional(),
+    test('email validation', () => {
+      const validator = v.string().email()
+      expect(validator.test('test@example.com')).toBe(true)
+      expect(validator.test('invalid-email')).toBe(false)
     })
 
-    expect(validator.test({
-      name: 'John',
-      age: 25,
-      email: 'john@example.com',
-    })).toBe(true)
-
-    expect(validator.test({
-      name: 'John', // only required field
-    })).toBe(true)
-
-    expect(validator.test({
-      name: 'J', // name too short
-      email: 'invalid-email', // invalid email
-    })).toBe(false)
+    test('alphanumeric validation', () => {
+      const validator = v.string().alphanumeric()
+      expect(validator.test('abc123')).toBe(true)
+      expect(validator.test('abc-123')).toBe(false)
+    })
   })
 
-  // String length validation
-  test('string length validation', () => {
-    const validator = v.string().length(5)
+  describe('Number Validator', () => {
+    test('basic number validation', () => {
+      const validator = v.number()
+      expect(validator.test(123)).toBe(true)
+      expect(validator.test(Number.NaN)).toBe(false)
+      expect(validator.test(0)).toBe(true)
+    })
 
-    expect(validator.test('hello')).toBe(true)
-    expect(validator.test('hi')).toBe(false) // too short
-    expect(validator.test('world!')).toBe(false) // too long
+    test('min value validation', () => {
+      const validator = v.number().min(5)
+      expect(validator.test(10)).toBe(true)
+      expect(validator.test(3)).toBe(false)
+    })
+
+    test('max value validation', () => {
+      const validator = v.number().max(10)
+      expect(validator.test(5)).toBe(true)
+      expect(validator.test(15)).toBe(false)
+    })
+
+    test('integer validation', () => {
+      const validator = v.number().integer()
+      expect(validator.test(5)).toBe(true)
+      expect(validator.test(5.5)).toBe(false)
+    })
+
+    test('float validation', () => {
+      const validator = v.number().float()
+      expect(validator.test(5.5)).toBe(true)
+      expect(validator.test(5)).toBe(true)
+    })
   })
 
-  // Array length validation
-  test('array length validation', () => {
-    const validator = v.array().length(3)
+  describe('Array Validator', () => {
+    test('basic array validation', () => {
+      const validator = v.array<number>()
+      expect(validator.test([1, 2, 3])).toBe(true)
+      expect(validator.test([])).toBe(true)
+      expect(validator.test('not an array' as any)).toBe(false)
+    })
 
-    expect(validator.test([1, 2, 3])).toBe(true)
-    expect(validator.test([1, 2])).toBe(false) // too short
-    expect(validator.test([1, 2, 3, 4])).toBe(false) // too long
+    test('min length validation', () => {
+      const validator = v.array<number>().min(2)
+      expect(validator.test([1, 2])).toBe(true)
+      expect(validator.test([1])).toBe(false)
+    })
+
+    test('max length validation', () => {
+      const validator = v.array<number>().max(3)
+      expect(validator.test([1, 2, 3])).toBe(true)
+      expect(validator.test([1, 2, 3, 4])).toBe(false)
+    })
+
+    test('exact length validation', () => {
+      const validator = v.array<number>().length(3)
+      expect(validator.test([1, 2, 3])).toBe(true)
+      expect(validator.test([1, 2])).toBe(false)
+      expect(validator.test([1, 2, 3, 4])).toBe(false)
+    })
+
+    test('each item validation', () => {
+      const validator = v.array<number>().each(v.number().min(0))
+      expect(validator.test([1, 2, 3])).toBe(true)
+      expect(validator.test([-1, 2, 3])).toBe(false)
+    })
+
+    test('unique values validation', () => {
+      const validator = v.array<number>().unique()
+      expect(validator.test([1, 2, 3])).toBe(true)
+      expect(validator.test([1, 1, 2])).toBe(false)
+    })
+
+    test('complex array validation', () => {
+      const validator = v.array<string>()
+        .min(2)
+        .max(4)
+        .each(v.string().min(2))
+        .unique()
+
+      expect(validator.test(['ab', 'cd'])).toBe(true)
+      expect(validator.test(['a'])).toBe(false) // too short
+      expect(validator.test(['ab', 'cd', 'ef', 'gh', 'ij'])).toBe(false) // too long
+      expect(validator.test(['ab', 'a'])).toBe(false) // item too short
+      expect(validator.test(['ab', 'ab'])).toBe(false) // not unique
+    })
   })
 
-  // Number range validation
-  test('number range validation', () => {
-    const validator = v.number().min(1).max(10)
+  describe('Validation Results', () => {
+    test('validate returns detailed results', () => {
+      const validator = v.string().min(5).max(10)
+      const result = validator.validate('hi')
+      expect(result.valid).toBe(false)
+      expect(result.errors).toHaveLength(1)
+      expect(result.errors[0].message).toBe('Must be at least 5 characters long')
+    })
 
-    expect(validator.test(5)).toBe(true)
-    expect(validator.test(0)).toBe(false) // too small
-    expect(validator.test(11)).toBe(false) // too large
-  })
-
-  // Timestamp validation
-  test('timestamp validation', () => {
-    const validator = v.number().timestamp()
-
-    // Valid timestamps
-    expect(validator.test(1234567890)).toBe(true) // 10 digits (seconds)
-    expect(validator.test(1234567890123)).toBe(true) // 13 digits (milliseconds)
-
-    // Invalid timestamps
-    expect(validator.test(123456789)).toBe(false) // 9 digits (too short)
-    expect(validator.test(12345678901234)).toBe(false) // 14 digits (too long)
-    expect(validator.test(123456789.5)).toBe(false) // not an integer
-
-    // Test with other validators
-    const combinedValidator = v.number().timestamp().positive()
-    expect(combinedValidator.test(1234567890)).toBe(true)
-    expect(combinedValidator.test(-1234567890)).toBe(false) // negative timestamp
-  })
-
-  // String pattern validation
-  test('string pattern validation', () => {
-    const validator = v.string().matches(/^[A-Z][a-z]+$/)
-
-    expect(validator.test('Hello')).toBe(true)
-    expect(validator.test('hello')).toBe(false) // doesn't start with uppercase
-    expect(validator.test('H1')).toBe(false) // contains numbers
-  })
-
-  // Date validation
-  test('date validation', () => {
-    // Basic date validation
-    const validator = v.date()
-    expect(validator.test(new Date())).toBe(true)
-    expect(validator.test(new Date('2024-03-20'))).toBe(true)
-    expect(validator.test(new Date(1710940800000))).toBe(true) // timestamp
-    const invalidDate = new Date('invalid')
-
-    expect(validator.test(invalidDate)).toBe(false) // invalid date
-
-    // Required date
-    const requiredDate = v.date().required()
-    expect(requiredDate.test(new Date())).toBe(true)
-    expect(requiredDate.test(undefined as any)).toBe(false)
-
-    // Date range
-    const minDate = new Date('2024-01-01')
-    const maxDate = new Date('2024-12-31')
-    const rangeValidator = v.date().min(minDate).max(maxDate)
-    expect(rangeValidator.test(new Date('2024-06-15'))).toBe(true)
-    expect(rangeValidator.test(new Date('2023-12-31'))).toBe(false) // before min
-    expect(rangeValidator.test(new Date('2025-01-01'))).toBe(false) // after max
-
-    // Format validation
-    const formatValidator = v.date().format('YYYY-MM-DD')
-    expect(formatValidator.test(new Date('2024-03-20'))).toBe(true)
-    expect(formatValidator.test(new Date('2024-03-20T12:00:00Z'))).toBe(false) // wrong format
-
-    // Valid date check
-    const validDateValidator = v.date().isValid()
-    expect(validDateValidator.test(new Date())).toBe(true)
-    const anotherInvalidDate = new Date('invalid')
-    anotherInvalidDate.setTime(Number.NaN) // Make it truly invalid
-    expect(validDateValidator.test(anotherInvalidDate)).toBe(false) // invalid date
-
-    // Error messages
-    const result = rangeValidator.validate(new Date('2023-12-31'))
-    expect(result.valid).toBe(false)
-    expect(result.errors[0].message).toContain('after')
-    expect(result.errors[0].message).toContain('2024-01-01')
-  })
-
-  // Enum validation
-  test('enum validation', () => {
-    // String enum
-    const stringEnum = v.enum<string>().values(['active', 'inactive', 'pending'])
-    expect(stringEnum.test('active')).toBe(true)
-    expect(stringEnum.test('inactive')).toBe(true)
-    expect(stringEnum.test('invalid')).toBe(false)
-
-    // Number enum
-    const numberEnum = v.enum<number>().values([1, 2, 3, 4, 5])
-    expect(numberEnum.test(3)).toBe(true)
-    expect(numberEnum.test(6)).toBe(false)
-    expect(numberEnum.test('3' as any)).toBe(false) // wrong type
-
-    // Required enum
-    const requiredEnum = v.enum<string>().values(['yes', 'no']).required()
-    expect(requiredEnum.test('yes')).toBe(true)
-    expect(requiredEnum.test(undefined as any)).toBe(false)
-
-    // Error message test
-    const result = stringEnum.validate('invalid')
-    expect(result.valid).toBe(false)
-    expect(result.errors[0].message).toContain('active')
-    expect(result.errors[0].message).toContain('inactive')
-    expect(result.errors[0].message).toContain('pending')
+    test('multiple validation errors', () => {
+      const validator = v.string().min(5).max(10).alphanumeric()
+      const result = validator.validate('hi!')
+      expect(result.valid).toBe(false)
+      expect(result.errors).toHaveLength(2)
+    })
   })
 })

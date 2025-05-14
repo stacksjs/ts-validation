@@ -10,19 +10,19 @@ import isNullOrUndefined from './util/nullUndefinedCheck'
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isFloat(str: string, options: IsFloatOptions): boolean {
+export default function isFloat(str: string, options?: IsFloatOptions): boolean {
   assertString(str)
-  options = options || {}
-  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${typeof options.locale === 'string' ? decimal[options.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`)
+  const opts = options || {}
+  const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${typeof opts.locale === 'string' ? decimal[opts.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`)
   if (str === '' || str === '.' || str === ',' || str === '-' || str === '+') {
     return false
   }
   const value = Number.parseFloat(str.replace(',', '.'))
   return float.test(str)
-    && (!('min' in options) || isNullOrUndefined(options.min) || value >= (options.min as unknown as number))
-    && (!('max' in options) || isNullOrUndefined(options.max) || value <= (options.max as unknown as number))
-    && (!('lt' in options) || isNullOrUndefined(options.lt) || value < (options.lt as unknown as number))
-    && (!('gt' in options) || isNullOrUndefined(options.gt) || value > (options.gt as unknown as number))
+    && (!('min' in opts) || isNullOrUndefined(opts.min) || value >= (opts.min as number))
+    && (!('max' in opts) || isNullOrUndefined(opts.max) || value <= (opts.max as number))
+    && (!('lt' in opts) || isNullOrUndefined(opts.lt) || value < (opts.lt as number))
+    && (!('gt' in opts) || isNullOrUndefined(opts.gt) || value > (opts.gt as number))
 }
 
 export const locales: string[] = Object.keys(decimal)

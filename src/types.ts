@@ -1,100 +1,23 @@
 import type { alphanumeric } from './lib/isAlphanumeric'
+import type { ArrayValidator } from './validators/arrays'
+import type { NumberValidator } from './validators/numbers'
+import type { StringValidator } from './validators/strings'
 
-export interface ValidationConfig {
-  verbose: boolean
-  strictMode?: boolean
-  cacheResults?: boolean
-  errorMessages?: Record<string, string>
+export interface ValidationError {
+  message: string
+  value: any
 }
-
-export type ValidationOptions = Partial<ValidationConfig>
 
 export interface ValidationResult {
   valid: boolean
   errors: ValidationError[]
 }
 
-export interface ValidationError {
-  field: string
-  message: string
-  value?: any
-  rule?: string
-}
-
-export interface ValidationRule<T = any> {
-  validate: (value: T, options?: any) => boolean
-  message: string | ((field: string, value: T, options?: any) => string)
-  options?: any
-}
-
-export type ValidationSchema = Record<string, ValidationRule[]>
-
-export interface BaseValidator<T = any> {
-  validate: (value: T) => ValidationResult
+export interface ValidationRule<T> {
+  name: string
   test: (value: T) => boolean
-  required: () => Validator<T>
-  optional: () => Validator<T>
-  rules: Array<{ test: (val: T) => boolean, message: string, options?: any }>
-}
-
-export type Validator<T = any> = Omit<BaseValidator<T>, 'rules'>
-
-export type StringValidator = Validator<string> & {
-  min: (length: number) => StringValidator
-  max: (length: number) => StringValidator
-  length: (length: number) => StringValidator
-  email: () => StringValidator
-  url: () => StringValidator
-  matches: (pattern: RegExp) => StringValidator
-  alphanumeric: () => StringValidator
-  alpha: () => StringValidator
-  numeric: () => StringValidator
-}
-
-export type NumberValidator = Validator<number> & {
-  min: (min: number) => NumberValidator
-  max: (max: number) => NumberValidator
-  positive: () => NumberValidator
-  negative: () => NumberValidator
-  integer: () => NumberValidator
-  timestamp: () => NumberValidator
-}
-
-export type BooleanValidator = Validator<boolean>
-
-export type ArrayValidator<T = any> = Validator<T[]> & {
-  min: (length: number) => ArrayValidator<T>
-  max: (length: number) => ArrayValidator<T>
-  length: (length: number) => ArrayValidator<T>
-  each: (validator: Validator<T>) => ArrayValidator<T>
-}
-
-export type ObjectValidator<T = Record<string, any>> = Validator<T> & {
-  shape: (schema: Record<string, Validator>) => ObjectValidator<T>
-  strict: (strict?: boolean) => ObjectValidator<T>
-}
-
-export type EnumValidator<T = string | number> = Validator<T> & {
-  values: (values: T[]) => EnumValidator<T>
-}
-
-export type DateValidator = Validator<Date> & {
-  min: (date: Date | string | number) => DateValidator
-  max: (date: Date | string | number) => DateValidator
-  format: (format: string) => DateValidator
-  isValid: () => DateValidator
-}
-
-export interface ValidationInstance {
-  string: () => StringValidator
-  number: () => NumberValidator
-  boolean: () => BooleanValidator
-  array: <T = any>() => ArrayValidator<T>
-  object: <T = Record<string, any>>() => ObjectValidator<T>
-  custom: <T = any>(validator: (value: T) => boolean, message: string) => Validator<T>
-  enum: <T = string | number>() => EnumValidator<T>
-  date: () => DateValidator
-  clearCache: () => void
+  message: string
+  params?: Record<string, any>
 }
 
 export interface ContainsOptions {
@@ -182,12 +105,11 @@ export interface IsEmptyOptions {
 }
 
 export interface IsFloatOptions {
-  locale?: boolean | string
-  hasOwnProperty?: boolean | string
+  locale?: string
   min?: number
   max?: number
-  lt?: boolean | string
-  gt?: boolean | string
+  lt?: number
+  gt?: number
 }
 
 export interface IsFQDNOptions {
@@ -301,4 +223,11 @@ export interface NormalizeEmailOptions {
   yahoo_lowercase?: boolean | string
   yandex_lowercase?: boolean | string
   yandex_convert_yandexru?: boolean | string
+}
+
+export interface Validator<T> {
+  test: (value: T) => boolean
+  validate: (value: T) => ValidationResult
+  required: () => Validator<T>
+  optional: () => Validator<T>
 }
