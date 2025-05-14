@@ -197,6 +197,96 @@ describe('Validation Library', () => {
     })
   })
 
+  describe('Date Validator', () => {
+    test('basic date validation', () => {
+      const validator = v.date()
+      expect(validator.test(new Date())).toBe(true)
+      expect(validator.test(new Date('invalid'))).toBe(false)
+      expect(validator.test('2023-01-01' as any)).toBe(false)
+      expect(validator.test(123 as any)).toBe(false)
+    })
+
+    test('min date validation', () => {
+      const minDate = new Date('2023-01-01')
+      const validator = v.date().min(minDate)
+      expect(validator.test(new Date('2023-01-01'))).toBe(true)
+      expect(validator.test(new Date('2023-02-01'))).toBe(true)
+      expect(validator.test(new Date('2022-12-31'))).toBe(false)
+    })
+
+    test('max date validation', () => {
+      const maxDate = new Date('2023-12-31')
+      const validator = v.date().max(maxDate)
+      expect(validator.test(new Date('2023-12-31'))).toBe(true)
+      expect(validator.test(new Date('2023-06-15'))).toBe(true)
+      expect(validator.test(new Date('2024-01-01'))).toBe(false)
+    })
+
+    test('between dates validation', () => {
+      const start = new Date('2023-01-01')
+      const end = new Date('2023-12-31')
+      const validator = v.date().between(start, end)
+      expect(validator.test(new Date('2023-06-15'))).toBe(true)
+      expect(validator.test(new Date('2023-01-01'))).toBe(true)
+      expect(validator.test(new Date('2023-12-31'))).toBe(true)
+      expect(validator.test(new Date('2022-12-31'))).toBe(false)
+      expect(validator.test(new Date('2024-01-01'))).toBe(false)
+    })
+
+    test('isBefore validation', () => {
+      const date = new Date('2023-12-31')
+      const validator = v.date().isBefore(date)
+      expect(validator.test(new Date('2023-12-30'))).toBe(true)
+      expect(validator.test(new Date('2023-12-31'))).toBe(false)
+      expect(validator.test(new Date('2024-01-01'))).toBe(false)
+    })
+
+    test('isAfter validation', () => {
+      const date = new Date('2023-01-01')
+      const validator = v.date().isAfter(date)
+      expect(validator.test(new Date('2023-01-02'))).toBe(true)
+      expect(validator.test(new Date('2023-01-01'))).toBe(false)
+      expect(validator.test(new Date('2022-12-31'))).toBe(false)
+    })
+
+    test('isToday validation', () => {
+      const validator = v.date().isToday()
+      expect(validator.test(new Date())).toBe(true)
+      expect(validator.test(new Date('2023-01-01'))).toBe(false)
+    })
+
+    test('isWeekend validation', () => {
+      const validator = v.date().isWeekend()
+      // Saturday
+      expect(validator.test(new Date('2023-01-07'))).toBe(true)
+      // Sunday
+      expect(validator.test(new Date('2023-01-08'))).toBe(true)
+      // Monday
+      expect(validator.test(new Date('2023-01-09'))).toBe(false)
+    })
+
+    test('isWeekday validation', () => {
+      const validator = v.date().isWeekday()
+      // Monday
+      expect(validator.test(new Date('2023-01-09'))).toBe(true)
+      // Friday
+      expect(validator.test(new Date('2023-01-13'))).toBe(true)
+      // Saturday
+      expect(validator.test(new Date('2023-01-07'))).toBe(false)
+      // Sunday
+      expect(validator.test(new Date('2023-01-08'))).toBe(false)
+    })
+
+    test('custom date validation', () => {
+      const validator = v.date().custom(
+        date => date.getFullYear() >= 2023,
+        'Must be in 2023 or later',
+      )
+      expect(validator.test(new Date('2023-01-01'))).toBe(true)
+      expect(validator.test(new Date('2022-12-31'))).toBe(false)
+    })
+  })
+
   describe('Validation Results', () => {
     test('validate returns detailed results', () => {
       const validator = v.string().min(5).max(10)
