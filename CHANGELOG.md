@@ -1,4 +1,16 @@
 
+## v0.2.1...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.1...main)
+
+### 🚀 Enhancements
+
+- Types ([e6b06d3](https://github.com/stacksjs/ts-validation/commit/e6b06d3))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.0...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.0...main)
