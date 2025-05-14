@@ -1,4 +1,3 @@
-import type { ValidationError, ValidationResult, Validator } from '../types'
 import { BaseValidator } from './base'
 
 export class CustomValidator<T> extends BaseValidator<T> {
