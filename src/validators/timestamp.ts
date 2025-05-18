@@ -4,7 +4,7 @@ export class TimestampValidator extends BaseValidator<number | string> {
   constructor() {
     super()
     this.addRule({
-      name: 'isTimestamp',
+      name: 'timestamp',
       test: (value: number | string) => {
         const timestampStr = value.toString()
         const length = timestampStr.length
