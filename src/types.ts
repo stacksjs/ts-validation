@@ -7,6 +7,7 @@ import type { EnumValidator } from './validators/enums'
 import type { NumberValidator } from './validators/numbers'
 import type { ObjectValidator } from './validators/objects'
 import type { StringValidator } from './validators/strings'
+import type { TimestampValidator } from './validators/timestamp'
 
 export interface ValidationError {
   message: string
@@ -253,4 +254,5 @@ export interface ValidationInstance {
   date: () => DateValidator
   object: <T extends Record<string, any>>() => ObjectValidator<T>
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidator<T>
+  timestamp: () => TimestampValidator
 }

@@ -484,4 +484,31 @@ describe('Validation Library', () => {
       expect(result.errors).toHaveLength(0)
     })
   })
+
+  describe('Timestamp Validator', () => {
+    test('basic timestamp validation', () => {
+      const validator = v.timestamp()
+      expect(validator.test(1683912345)).toBe(true) // 10 digits
+      expect(validator.test('1683912345')).toBe(true) // 10 digits string
+      expect(validator.test(1683912345678)).toBe(true) // 13 digits
+      expect(validator.test('1683912345678')).toBe(true) // 13 digits string
+    })
+
+    test('invalid timestamp validation', () => {
+      const validator = v.timestamp()
+      expect(validator.test(123456789)).toBe(false) // 9 digits (too short)
+      expect(validator.test('123456789')).toBe(false) // 9 digits string
+      expect(validator.test(12345678901234)).toBe(false) // 14 digits (too long)
+      expect(validator.test('abc')).toBe(false) // invalid string
+      expect(validator.test(-1683912345)).toBe(false) // negative number
+    })
+
+    test('timestamp validation error messages', () => {
+      const validator = v.timestamp()
+      const result = validator.validate('invalid')
+      expect(result.valid).toBe(false)
+      expect(result.errors).toHaveLength(1)
+      expect(result.errors[0].message).toBe('Must be a valid timestamp (10-13 digits)')
+    })
+  })
 })

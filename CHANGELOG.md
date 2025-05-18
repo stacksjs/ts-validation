@@ -1,4 +1,8 @@
 
+## v0.2.2...v0.2.2
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.2...v0.2.2)
+
 ## v0.2.1...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.1...main)

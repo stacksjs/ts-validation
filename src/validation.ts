@@ -7,6 +7,7 @@ import { enum_ } from './validators/enums'
 import { number } from './validators/numbers'
 import { object } from './validators/objects'
 import { string } from './validators/strings'
+import { timestamp } from './validators/timestamp'
 
 export const v: ValidationInstance = {
   string,
@@ -17,4 +18,5 @@ export const v: ValidationInstance = {
   date,
   object,
   custom,
+  timestamp,
 }
