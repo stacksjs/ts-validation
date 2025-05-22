@@ -41,15 +41,15 @@
     "typecheck": "bun --bun tsc --noEmit"
   },
   "dependencies": {
-    "dompurify": "^3.2.5"
+    "dompurify": "^3.2.6"
   },
   "devDependencies": {
     "@stacksjs/docs": "^0.70.23",
     "@stacksjs/eslint-config": "^4.10.2-beta.3",
-    "@types/bun": "^1.2.13",
-    "bumpp": "^10.1.0",
+    "@types/bun": "^1.2.14",
+    "bumpp": "^10.1.1",
     "bun-plugin-dtsx": "^0.21.12",
-    "bunfig": "^0.8.5",
+    "bunfig": "^0.10.0",
     "changelogen": "^0.6.1",
     "lint-staged": "^15.5.2",
     "simple-git-hooks": "^2.13.0",
