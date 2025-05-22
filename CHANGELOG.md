@@ -1,4 +1,16 @@
 
+## v0.2.4...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.4...main)
+
+### 🚀 Enhancements
+
+- Datetime ([ee10336](https://github.com/stacksjs/ts-validation/commit/ee10336))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.3...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.3...main)
