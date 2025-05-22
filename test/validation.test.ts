@@ -205,21 +205,24 @@ describe('Validation Library', () => {
       expect(validator.test('2023-01-01' as any)).toBe(false)
       expect(validator.test(123 as any)).toBe(false)
     })
+  })
 
-    test('timestamp validation', () => {
-      const validator = v.date().timestamp()
-      expect(validator.test(new Date(1683912345000))).toBe(true)
-      expect(validator.test(new Date(0))).toBe(true)
-      expect(validator.test(new Date(-1))).toBe(false)
-      expect(validator.test(new Date(Number.MAX_SAFE_INTEGER + 1))).toBe(false)
-    })
-
+  describe('Datetime Validator', () => {
     test('datetime validation', () => {
-      const validator = v.date().datetime()
-      expect(validator.test(new Date(1683912345000))).toBe(true)
-      expect(validator.test(new Date(0))).toBe(true)
-      expect(validator.test(new Date(-1))).toBe(false)
-      expect(validator.test(new Date(Number.MAX_SAFE_INTEGER + 1))).toBe(false)
+      const validator = v.datetime()
+      // Valid dates within MySQL DATETIME range
+      expect(validator.test(new Date('1000-01-01'))).toBe(true)
+      expect(validator.test(new Date('2023-01-01'))).toBe(true)
+      expect(validator.test(new Date('9999-12-31'))).toBe(true)
+
+      // Invalid dates outside MySQL DATETIME range
+      expect(validator.test(new Date('0999-12-31'))).toBe(false)
+      expect(validator.test(new Date('10000-01-01'))).toBe(false)
+
+      // Invalid inputs
+      expect(validator.test('2023-01-01' as any)).toBe(false)
+      expect(validator.test(123 as any)).toBe(false)
+      expect(validator.test(new Date('invalid'))).toBe(false)
     })
   })
 
@@ -422,29 +425,41 @@ describe('Validation Library', () => {
   })
 
   describe('Timestamp Validator', () => {
-    test('basic timestamp validation', () => {
+    test('timestamp validation', () => {
       const validator = v.timestamp()
-      expect(validator.test(1683912345)).toBe(true) // 10 digits
-      expect(validator.test('1683912345')).toBe(true) // 10 digits string
-      expect(validator.test(1683912345678)).toBe(true) // 13 digits
-      expect(validator.test('1683912345678')).toBe(true) // 13 digits string
-    })
+      // Valid timestamps within MySQL TIMESTAMP range
+      expect(validator.test(0)).toBe(true) // 1970-01-01 00:00:00 UTC
+      expect(validator.test(1683912345)).toBe(true)
+      expect(validator.test(2147483647)).toBe(true) // 2038-01-19 03:14:07 UTC
 
-    test('invalid timestamp validation', () => {
-      const validator = v.timestamp()
-      expect(validator.test(123456789)).toBe(false) // 9 digits (too short)
-      expect(validator.test('123456789')).toBe(false) // 9 digits string
-      expect(validator.test(12345678901234)).toBe(false) // 14 digits (too long)
+      // Invalid timestamps outside MySQL TIMESTAMP range
+      expect(validator.test(-1)).toBe(false)
+      expect(validator.test(2147483648)).toBe(false)
+
+      // Invalid inputs
+      expect(validator.test('abc')).toBe(false)
+      expect(validator.test('123456789')).toBe(false) // too short
+      expect(validator.test('12345678901234')).toBe(false) // too long
+    })
+  })
+
+  describe('Unix Validator', () => {
+    test('unix timestamp validation', () => {
+      const validator = v.unix()
+      // Valid Unix timestamps (seconds)
+      expect(validator.test(0)).toBe(true) // 1970-01-01 00:00:00 UTC
+      expect(validator.test(1683912345)).toBe(true)
+      expect(validator.test('1683912345')).toBe(true)
+
+      // Valid Unix timestamps (milliseconds)
+      expect(validator.test(1683912345000)).toBe(true)
+      expect(validator.test('1683912345000')).toBe(true)
+
+      // Invalid Unix timestamps
+      expect(validator.test(-1)).toBe(false) // negative
+      expect(validator.test('123456789')).toBe(false) // too short
+      expect(validator.test('12345678901234')).toBe(false) // too long
       expect(validator.test('abc')).toBe(false) // invalid string
-      expect(validator.test(-1683912345)).toBe(false) // negative number
-    })
-
-    test('timestamp validation error messages', () => {
-      const validator = v.timestamp()
-      const result = validator.validate('invalid')
-      expect(result.valid).toBe(false)
-      expect(result.errors).toHaveLength(1)
-      expect(result.errors[0].message).toBe('Must be a valid timestamp (10-13 digits)')
     })
   })
 })

@@ -3,11 +3,13 @@ import type { ArrayValidator } from './validators/arrays'
 import type { BooleanValidator } from './validators/booleans'
 import type { CustomValidator } from './validators/custom'
 import type { DateValidator } from './validators/dates'
+import type { DatetimeValidator } from './validators/datetimes'
 import type { EnumValidator } from './validators/enums'
 import type { NumberValidator } from './validators/numbers'
 import type { ObjectValidator } from './validators/objects'
 import type { StringValidator } from './validators/strings'
-import type { TimestampValidator } from './validators/timestamp'
+import type { TimestampValidator } from './validators/timestamps'
+import type { UnixValidator } from './validators/unix'
 
 export interface ValidationError {
   message: string
@@ -252,7 +254,9 @@ export interface ValidationInstance {
   boolean: () => BooleanValidator
   enum: <T extends string | number>(values: readonly T[]) => EnumValidator<T>
   date: () => DateValidator
+  datetime: () => DatetimeValidator
   object: <T extends Record<string, any>>() => ObjectValidator<T>
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidator<T>
   timestamp: () => TimestampValidator
+  unix: () => UnixValidator
 }
