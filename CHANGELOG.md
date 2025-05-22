@@ -1,4 +1,16 @@
 
+## v0.2.5...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.5...main)
+
+### 🚀 Enhancements
+
+- Unix timestamps and datetime ([1be0b9a](https://github.com/stacksjs/ts-validation/commit/1be0b9a))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.4...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.4...main)
