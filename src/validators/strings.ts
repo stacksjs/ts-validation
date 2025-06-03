@@ -67,6 +67,15 @@ export class StringValidator extends BaseValidator<string> {
     })
   }
 
+  equals(param: string): this {
+    return this.addRule({
+      name: 'equals',
+      test: (value: string) => value === param,
+      message: 'Must be equal to {param}',
+      params: { param },
+    })
+  }
+
   alphanumeric(): this {
     return this.addRule({
       name: 'alphanumeric',

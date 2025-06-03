@@ -40,6 +40,18 @@ describe('Validation Library', () => {
       expect(validator.test('abc123')).toBe(true)
       expect(validator.test('abc-123')).toBe(false)
     })
+
+    test('equals validation - useful for password confirmation', () => {
+      const password = 'mySecurePassword123'
+      const validator = v.string().equals(password)
+      expect(validator.test(password)).toBe(true)
+      expect(validator.test('differentPassword')).toBe(false)
+
+      // Test with empty strings
+      const emptyValidator = v.string().equals('')
+      expect(emptyValidator.test('')).toBe(true)
+      expect(emptyValidator.test('not-empty')).toBe(false)
+    })
   })
 
   describe('Number Validator', () => {
