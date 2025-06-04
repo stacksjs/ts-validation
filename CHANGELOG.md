@@ -1,4 +1,21 @@
 
+## v0.2.6...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.6...main)
+
+### 🚀 Enhancements
+
+- Implement equals validation ([6c41242](https://github.com/stacksjs/ts-validation/commit/6c41242))
+
+### 🏡 Chore
+
+- Update analytics id ([b6235ac](https://github.com/stacksjs/ts-validation/commit/b6235ac))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## v0.2.5...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.5...main)
