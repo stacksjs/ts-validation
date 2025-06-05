@@ -1,4 +1,3 @@
-import isAlphanumeric from '../lib/isAlphanumeric'
 import { BaseValidator } from './base'
 
 export class PasswordValidator extends BaseValidator<string> {
