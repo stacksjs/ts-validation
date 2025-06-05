@@ -163,6 +163,75 @@ const passwordValidator = v.string()
   .matches(/[^A-Z0-9]/i)
 ```
 
+### Password Validation
+
+The password validator provides comprehensive password validation with multiple security rules:
+
+- Minimum and maximum length
+- Must contain both letters and numbers (alphanumeric)
+- Must have uppercase and lowercase letters
+- Must contain special characters
+- Can validate password matches (for confirmation)
+
+```typescript
+// Basic password validation
+const passwordValidator = v.password()
+  .min(8)
+  .max(128)
+  .alphanumeric()
+  .hasUppercase()
+  .hasLowercase()
+  .hasNumbers()
+  .hasSpecialCharacters()
+
+// Validate a password
+const result = passwordValidator.validate('MySecureP@ss123')
+
+if (result.valid) {
+  console.log('Password is valid!')
+}
+else {
+  console.error('Validation errors:', result.errors)
+}
+
+// Password matching validation
+const confirmPasswordValidator = v.password().matches('MySecureP@ss123')
+```
+
+### Date and Time Validation
+
+The library provides several date and time validators to handle different formats:
+
+- Basic JavaScript Date objects
+- MySQL DATETIME format (1000-01-01 to 9999-12-31)
+- Unix timestamps (both seconds and milliseconds)
+- MySQL TIMESTAMP format (1970-01-01 00:00:00 UTC to 2038-01-19 03:14:07 UTC)
+
+```typescript
+// Basic date validation
+const dateValidator = v.date()
+expect(dateValidator.test(new Date())).toBe(true)
+expect(dateValidator.test(new Date('invalid'))).toBe(false)
+
+// Datetime validation (MySQL DATETIME compatible)
+const datetimeValidator = v.datetime()
+expect(datetimeValidator.test(new Date('2023-01-01'))).toBe(true)
+expect(datetimeValidator.test(new Date('0999-12-31'))).toBe(false) // Before 1000-01-01
+expect(datetimeValidator.test(new Date('10000-01-01'))).toBe(false) // After 9999-12-31
+
+// Unix timestamp validation
+const unixValidator = v.unix()
+expect(unixValidator.test(1683912345)).toBe(true) // Seconds
+expect(unixValidator.test(1683912345000)).toBe(true) // Milliseconds
+expect(unixValidator.test(-1)).toBe(false) // Invalid negative timestamp
+
+// Regular timestamp validation (MySQL TIMESTAMP compatible)
+const timestampValidator = v.timestamp()
+expect(timestampValidator.test(0)).toBe(true) // 1970-01-01 00:00:00 UTC
+expect(timestampValidator.test(2147483647)).toBe(true) // 2038-01-19 03:14:07 UTC
+expect(timestampValidator.test(-1)).toBe(false) // Invalid negative timestamp
+```
+
 ## Configuration
 
 You can customize the validation behavior by modifying the `validation.config.ts` file:
