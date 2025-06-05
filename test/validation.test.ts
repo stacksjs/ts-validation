@@ -456,8 +456,6 @@ describe('Validation Library', () => {
 
       expect(result.valid).toBe(false)
       expect(Object.keys(result.errors).length).toBe(5)
-
-      console.log('result is', result)
       // Check specific error messages
       expect(result.errors.name?.[0].message).toBe('Must be at least 2 characters long')
       expect(result.errors.email?.[0].message).toBe('Must be a valid email address')
