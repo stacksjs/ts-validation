@@ -44,21 +44,37 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
 
   validate(value: T): ValidationResult {
     const result = super.validate(value)
+    if (!result.valid)
+      return result
 
-    // If the base validation passed and we have a schema, validate each field
-    if (result.valid && Object.keys(this.schema).length > 0 && value !== null && value !== undefined) {
+    // If we have a schema, validate each field
+    if (Object.keys(this.schema).length > 0 && value !== null && value !== undefined) {
       const errors: ValidationErrorMap = {}
+      let hasErrors = false
 
       for (const [key, validator] of Object.entries(this.schema)) {
         const fieldValue = value[key]
         const fieldResult = validator.validate(fieldValue)
 
-        if (!fieldResult.valid && fieldResult.errors[key]) {
-          errors[key] = fieldResult.errors[key]
+        if (!fieldResult.valid) {
+          hasErrors = true
+          // For nested objects, merge their error maps
+          if (Object.keys(fieldResult.errors).length > 0) {
+            // For nested objects
+            if (validator instanceof ObjectValidator) {
+              Object.entries(fieldResult.errors).forEach(([errorKey, errorValue]) => {
+                errors[`${key}.${errorKey}`] = errorValue
+              })
+            }
+            else {
+              // For direct field errors
+              errors[key] = fieldResult.errors[key] || [{ message: `Invalid value for ${key}` }]
+            }
+          }
         }
       }
 
-      if (Object.keys(errors).length > 0) {
+      if (hasErrors) {
         return {
           valid: false,
           errors,
