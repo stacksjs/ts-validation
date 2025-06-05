@@ -1,4 +1,16 @@
 
+## v0.2.7...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.7...main)
+
+### 🚀 Enhancements
+
+- Implement password validation ([a0d626a](https://github.com/stacksjs/ts-validation/commit/a0d626a))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.6...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.6...main)
