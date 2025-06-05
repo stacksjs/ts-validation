@@ -1,4 +1,18 @@
 
+## v0.2.8...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.8...main)
+
+### 🏡 Chore
+
+- Remove typecheck ([24d60b0](https://github.com/stacksjs/ts-validation/commit/24d60b0))
+- Update message logic ([f3515a3](https://github.com/stacksjs/ts-validation/commit/f3515a3))
+- Update message logic ([0175f89](https://github.com/stacksjs/ts-validation/commit/0175f89))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.7...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.7...main)
