@@ -7,6 +7,7 @@ import type { DatetimeValidator } from './validators/datetimes'
 import type { EnumValidator } from './validators/enums'
 import type { NumberValidator } from './validators/numbers'
 import type { ObjectValidator } from './validators/objects'
+import type { PasswordValidator } from './validators/password'
 import type { StringValidator } from './validators/strings'
 import type { TimestampValidator } from './validators/timestamps'
 import type { UnixValidator } from './validators/unix'
@@ -259,4 +260,5 @@ export interface ValidationInstance {
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidator<T>
   timestamp: () => TimestampValidator
   unix: () => UnixValidator
+  password: () => PasswordValidator
 }

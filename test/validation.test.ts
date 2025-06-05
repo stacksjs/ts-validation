@@ -54,6 +54,84 @@ describe('Validation Library', () => {
     })
   })
 
+  describe('Password Validator', () => {
+    test('basic password validation', () => {
+      const validator = v.password()
+      expect(validator.test('password123')).toBe(true)
+      expect(validator.test('')).toBe(true)
+      expect(validator.test(123 as any)).toBe(false)
+    })
+
+    test('password matching validation', () => {
+      const originalPassword = 'MySecureP@ss123'
+      const validator = v.password().matches(originalPassword)
+      expect(validator.test(originalPassword)).toBe(true)
+      expect(validator.test('DifferentP@ss123')).toBe(false)
+    })
+
+    test('password length validation', () => {
+      const validator = v.password().minLength(8).maxLength(20)
+      expect(validator.test('Secure123')).toBe(true)
+      expect(validator.test('Short1')).toBe(false)
+      expect(validator.test('ThisPasswordIsWayTooLongToBeValid123')).toBe(false)
+    })
+
+    test('password character requirements', () => {
+      const validator = v.password()
+        .hasUppercase()
+        .hasLowercase()
+        .hasNumbers()
+        .hasSpecialCharacters()
+
+      // Valid password with all requirements
+      expect(validator.test('MySecureP@ss123')).toBe(true)
+
+      // Missing uppercase
+      expect(validator.test('mysecurep@ss123')).toBe(false)
+
+      // Missing lowercase
+      expect(validator.test('MYSECUREP@SS123')).toBe(false)
+
+      // Missing numbers
+      expect(validator.test('MySecureP@ssword')).toBe(false)
+
+      // Missing special characters
+      expect(validator.test('MySecurePass123')).toBe(false)
+    })
+
+    test('comprehensive password validation with multiple rules', () => {
+      const validator = v.password()
+        .minLength(8)
+        .maxLength(20)
+        .hasUppercase()
+        .hasLowercase()
+        .hasNumbers()
+        .hasSpecialCharacters()
+
+      const result = validator.validate('weak')
+      expect(result.valid).toBe(false)
+      expect(result.errors.length).toBeGreaterThan(0)
+
+      // Check specific error messages
+      const errorMessages = result.errors.map(e => e.message)
+      expect(errorMessages).toContain('Password must be at least 8 characters long')
+      expect(errorMessages).toContain('Password must contain at least one uppercase letter')
+      expect(errorMessages).toContain('Password must contain at least one number')
+      expect(errorMessages).toContain('Password must contain at least one special character')
+
+      // Test a valid password
+      const validResult = validator.validate('MySecureP@ss123')
+      expect(validResult.valid).toBe(true)
+      expect(validResult.errors).toHaveLength(0)
+    })
+
+    test('alphanumeric password validation', () => {
+      const validator = v.password().alphanumeric()
+      expect(validator.test('Password123')).toBe(true)
+      expect(validator.test('Password@123')).toBe(false)
+    })
+  })
+
   describe('Number Validator', () => {
     test('basic number validation', () => {
       const validator = v.number()
