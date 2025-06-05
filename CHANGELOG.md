@@ -1,4 +1,21 @@
 
+## v0.2.9...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.9...main)
+
+### 🩹 Fixes
+
+- Proper messaging ([5ea37b5](https://github.com/stacksjs/ts-validation/commit/5ea37b5))
+
+### 🏡 Chore
+
+- Remove console ([683a59e](https://github.com/stacksjs/ts-validation/commit/683a59e))
+- Update readme file ([319b826](https://github.com/stacksjs/ts-validation/commit/319b826))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.8...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.8...main)
