@@ -1,4 +1,4 @@
-import type { ValidationError, ValidationResult, ValidationRule } from '../types'
+import type { ValidationError, ValidationErrorMap, ValidationResult, ValidationRule } from '../types'
 
 export abstract class BaseValidator<T> {
   protected rules: ValidationRule<T>[] = []
@@ -26,30 +26,35 @@ export abstract class BaseValidator<T> {
   }
 
   validate(value: T | undefined | null): ValidationResult {
-    const errors: ValidationError[] = []
+    const errors: ValidationErrorMap = {}
 
     if ((value === undefined || value === null)) {
       if (!this.isRequired) {
-        return { valid: true, errors: [] }
+        return { valid: true, errors: {} }
       }
       else {
-        return {
-          valid: false,
-          errors: [{ message: 'This field is required', value }],
-        }
+        errors[this.fieldName] = [{
+          message: 'This field is required',
+        }]
+        return { valid: false, errors }
       }
     }
 
+    const fieldErrors: ValidationError[] = []
+
     for (const rule of this.rules) {
       if (!rule.test(value)) {
-        errors.push({
+        fieldErrors.push({
           message: this.formatMessage(rule.message, rule.params ?? {}),
-          value,
         })
       }
     }
 
-    return { valid: errors.length === 0, errors }
+    if (fieldErrors.length > 0) {
+      errors[this.fieldName] = fieldErrors
+    }
+
+    return { valid: Object.keys(errors).length === 0, errors }
   }
 
   test(value: T): boolean {

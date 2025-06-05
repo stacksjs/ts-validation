@@ -14,12 +14,15 @@ import type { UnixValidator } from './validators/unix'
 
 export interface ValidationError {
   message: string
-  value: any
+}
+
+export interface ValidationErrorMap {
+  [field: string]: ValidationError[]
 }
 
 export interface ValidationResult {
   valid: boolean
-  errors: ValidationError[]
+  errors: ValidationErrorMap
 }
 
 export interface ValidationRule<T> {

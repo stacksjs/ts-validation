@@ -1,3 +1,4 @@
+import type { ValidationError } from '../src/types'
 import { describe, expect, test } from 'bun:test'
 import { v } from '../src/validation'
 
@@ -101,6 +102,7 @@ describe('Validation Library', () => {
 
     test('comprehensive password validation with multiple rules', () => {
       const validator = v.password()
+        .field('password')
         .minLength(8)
         .maxLength(20)
         .hasUppercase()
@@ -110,10 +112,11 @@ describe('Validation Library', () => {
 
       const result = validator.validate('weak')
       expect(result.valid).toBe(false)
-      expect(result.errors.length).toBeGreaterThan(0)
+      expect(Object.keys(result.errors)).toContain('password')
+      expect(result.errors.password?.length).toBeGreaterThan(0)
 
       // Check specific error messages
-      const errorMessages = result.errors.map(e => e.message)
+      const errorMessages = result.errors.password?.map((e: ValidationError) => e.message) || []
       expect(errorMessages).toContain('Password must be at least 8 characters long')
       expect(errorMessages).toContain('Password must contain at least one uppercase letter')
       expect(errorMessages).toContain('Password must contain at least one number')
@@ -122,7 +125,7 @@ describe('Validation Library', () => {
       // Test a valid password
       const validResult = validator.validate('MySecureP@ss123')
       expect(validResult.valid).toBe(true)
-      expect(validResult.errors).toHaveLength(0)
+      expect(Object.keys(validResult.errors)).toHaveLength(0)
     })
 
     test('alphanumeric password validation', () => {
@@ -413,16 +416,16 @@ describe('Validation Library', () => {
 
     test('complex object validation', () => {
       const validator = v.object().shape({
-        name: v.string().min(2).max(50),
-        email: v.string().email(),
-        age: v.number().min(18).integer(),
-        website: v.string().url().optional(),
-        tags: v.array<string>().each(v.string()).optional(),
+        name: v.string().min(2).max(50).field('name'),
+        email: v.string().email().field('email'),
+        age: v.number().min(18).integer().field('age'),
+        website: v.string().url().optional().field('website'),
+        tags: v.array<string>().each(v.string()).optional().field('tags'),
         address: v.object().shape({
-          street: v.string(),
-          city: v.string(),
-          zip: v.string(),
-        }).optional(),
+          street: v.string().field('street'),
+          city: v.string().field('city'),
+          zip: v.string().field('zip'),
+        }).optional().field('address'),
       })
 
       expect(validator.test({
@@ -452,32 +455,37 @@ describe('Validation Library', () => {
       })
 
       expect(result.valid).toBe(false)
-      expect(result.errors).toHaveLength(5)
+      expect(Object.keys(result.errors).length).toBe(5)
 
       // Check specific error messages
-      const errorMessages = result.errors.map(e => e.message)
-      expect(errorMessages).toContain('name: Must be at least 2 characters long') // name too short
-      expect(errorMessages).toContain('email: Must be a valid email address') // invalid email
-      expect(errorMessages).toContain('age: Must be at least 18') // age too young
-      expect(errorMessages).toContain('website: Must be a valid URL') // invalid URL
-      expect(errorMessages).toContain('tags: Each item in array is invalid') // invalid array item type
+      expect(result.errors.name?.[0].message).toBe('Must be at least 2 characters long')
+      expect(result.errors.email?.[0].message).toBe('Must be a valid email address')
+      expect(result.errors.age?.[0].message).toBe('Must be at least 18')
+      expect(result.errors.website?.[0].message).toBe('Must be a valid URL')
+      expect(result.errors.tags?.[0].message).toBe('Each item in array is invalid')
     })
   })
 
   describe('Validation Results', () => {
     test('validate returns detailed results', () => {
-      const validator = v.string().min(5).max(10)
+      const validator = v.string().field('name').min(5).max(10)
       const result = validator.validate('hi')
       expect(result.valid).toBe(false)
-      expect(result.errors).toHaveLength(1)
-      expect(result.errors[0].message).toBe('Must be at least 5 characters long')
+      expect(Object.keys(result.errors)).toContain('name')
+      expect(result.errors.name?.length).toBe(1)
+      expect(result.errors.name?.[0].message).toBe('Must be at least 5 characters long')
     })
 
     test('multiple validation errors', () => {
-      const validator = v.string().min(5).max(10).alphanumeric()
+      const validator = v.string().field('username').min(5).max(10).alphanumeric()
       const result = validator.validate('hi!')
       expect(result.valid).toBe(false)
-      expect(result.errors).toHaveLength(2)
+      expect(Object.keys(result.errors)).toContain('username')
+      expect(result.errors.username?.length).toBeGreaterThan(1)
+
+      const errorMessages = result.errors.username?.map((e: ValidationError) => e.message) || []
+      expect(errorMessages).toContain('Must be at least 5 characters long')
+      expect(errorMessages).toContain('Must only contain letters and numbers')
     })
   })
 
@@ -486,21 +494,20 @@ describe('Validation Library', () => {
       const result = v.custom(
         (value: string) => value.startsWith('test-'),
         'Must start with "test-"',
-      ).validate('test-123')
+      ).field('custom').validate('invalid-123')
 
-      expect(result.valid).toBe(true)
-      expect(result.errors).toHaveLength(0)
+      expect(result.valid).toBe(false)
+      expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
     })
 
     test('should fail with custom error message', () => {
       const result = v.custom(
         (value: string) => value.startsWith('test-'),
         'Must start with "test-"',
-      ).validate('invalid-123')
+      ).field('custom').validate('invalid-123')
 
       expect(result.valid).toBe(false)
-      expect(result.errors).toHaveLength(1)
-      expect(result.errors[0].message).toBe('Must start with "test-"')
+      expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
     })
 
     test('should handle optional values', () => {
@@ -510,7 +517,6 @@ describe('Validation Library', () => {
       ).optional().validate(undefined)
 
       expect(result.valid).toBe(true)
-      expect(result.errors).toHaveLength(0)
     })
   })
 

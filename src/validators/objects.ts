@@ -1,4 +1,4 @@
-import type { ValidationError, ValidationResult, Validator } from '../types'
+import type { ValidationErrorMap, ValidationResult, Validator } from '../types'
 import { BaseValidator } from './base'
 
 export class ObjectValidator<T extends Record<string, any>> extends BaseValidator<T> {
@@ -47,27 +47,21 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
 
     // If the base validation passed and we have a schema, validate each field
     if (result.valid && Object.keys(this.schema).length > 0 && value !== null && value !== undefined) {
-      const fieldErrors: ValidationError[] = []
+      const errors: ValidationErrorMap = {}
 
       for (const [key, validator] of Object.entries(this.schema)) {
         const fieldValue = value[key]
         const fieldResult = validator.validate(fieldValue)
 
-        if (!fieldResult.valid) {
-          fieldErrors.push(
-            ...fieldResult.errors.map(error => ({
-              ...error,
-              field: key,
-              message: `${key}: ${error.message}`,
-            })),
-          )
+        if (!fieldResult.valid && fieldResult.errors[key]) {
+          errors[key] = fieldResult.errors[key]
         }
       }
 
-      if (fieldErrors.length > 0) {
+      if (Object.keys(errors).length > 0) {
         return {
           valid: false,
-          errors: fieldErrors,
+          errors,
         }
       }
     }
