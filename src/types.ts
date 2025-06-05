@@ -20,9 +20,11 @@ export interface ValidationErrorMap {
   [field: string]: ValidationError[]
 }
 
+export type ValidationErrors = ValidationError[] | ValidationErrorMap
+
 export interface ValidationResult {
   valid: boolean
-  errors: ValidationErrorMap
+  errors: ValidationErrors
 }
 
 export interface ValidationRule<T> {

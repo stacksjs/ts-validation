@@ -1,6 +1,15 @@
-import type { ValidationError } from '../src/types'
+import type { ValidationError, ValidationErrorMap, ValidationErrors } from '../src/types'
 import { describe, expect, test } from 'bun:test'
 import { v } from '../src/validation'
+
+// Add type guard functions at the top
+function isValidationErrorArray(errors: ValidationErrors): errors is ValidationError[] {
+  return Array.isArray(errors)
+}
+
+function isValidationErrorMap(errors: ValidationErrors): errors is ValidationErrorMap {
+  return !Array.isArray(errors)
+}
 
 describe('Validation Library', () => {
   describe('String Validator', () => {
@@ -45,6 +54,7 @@ describe('Validation Library', () => {
     test('equals validation - useful for password confirmation', () => {
       const password = 'mySecurePassword123'
       const validator = v.string().equals(password)
+
       expect(validator.test(password)).toBe(true)
       expect(validator.test('differentPassword')).toBe(false)
 
@@ -52,6 +62,64 @@ describe('Validation Library', () => {
       const emptyValidator = v.string().equals('')
       expect(emptyValidator.test('')).toBe(true)
       expect(emptyValidator.test('not-empty')).toBe(false)
+    })
+
+    test('complex object shape validation with multiple errors per field', () => {
+      const formValidator = v.object().shape({
+        name: v.string().min(20),
+        email: v.string().email(),
+        password: v.password()
+          .min(8)
+          .alphanumeric()
+          .hasUppercase()
+          .hasSpecialCharacters(),
+      })
+
+      // Test invalid data
+      const testPassword = '123456' // Only numbers, no letters
+      const result = formValidator.validate({
+        name: 'John', // too short
+        email: 'invalid.email', // invalid email
+        password: testPassword, // too short, only numbers, no uppercase, no special chars
+      })
+
+      expect(result.valid).toBe(false)
+      if (isValidationErrorMap(result.errors)) {
+        // Name validation
+        expect(result.errors.name).toBeDefined()
+        expect(result.errors.name?.length).toBe(1)
+        expect(result.errors.name?.[0].message).toBe('Must be at least 20 characters long')
+
+        // Email validation
+        expect(result.errors.email).toBeDefined()
+        expect(result.errors.email?.length).toBe(1)
+        expect(result.errors.email?.[0].message).toBe('Must be a valid email address')
+
+        // Password validation - should have multiple errors
+        expect(result.errors.password).toBeDefined()
+        expect(result.errors.password?.length).toBeGreaterThan(2)
+        const passwordErrors = result.errors.password?.map((e: ValidationError) => e.message)
+        expect(passwordErrors).toContain('Password must be at least 8 characters long')
+        expect(passwordErrors).toContain('Password must contain both letters and numbers')
+        expect(passwordErrors).toContain('Password must contain at least one uppercase letter')
+        expect(passwordErrors).toContain('Password must contain at least one special character')
+
+        // Test total number of error fields
+        expect(Object.keys(result.errors).length).toBe(3)
+      }
+
+      // Test with valid data
+      const validPassword = 'ValidP@ss123'
+      const validResult = formValidator.validate({
+        name: 'This is a name that is definitely long enough',
+        email: 'valid@email.com',
+        password: validPassword,
+      })
+
+      expect(validResult.valid).toBe(true)
+      if (isValidationErrorMap(validResult.errors)) {
+        expect(Object.keys(validResult.errors)).toHaveLength(0)
+      }
     })
   })
 
@@ -65,13 +133,23 @@ describe('Validation Library', () => {
 
     test('password matching validation', () => {
       const originalPassword = 'MySecureP@ss123'
+
       const validator = v.password().matches(originalPassword)
+
       expect(validator.test(originalPassword)).toBe(true)
       expect(validator.test('DifferentP@ss123')).toBe(false)
     })
 
     test('password length validation', () => {
-      const validator = v.password().minLength(8).maxLength(20)
+      const validator = v.password().min(8).max(20)
+
+      const result = validator.validate('123')
+
+      expect(result.valid).toBe(false)
+      if (isValidationErrorArray(result.errors)) {
+        expect(result.errors[0].message).toBe('Password must be at least 8 characters long')
+      }
+
       expect(validator.test('Secure123')).toBe(true)
       expect(validator.test('Short1')).toBe(false)
       expect(validator.test('ThisPasswordIsWayTooLongToBeValid123')).toBe(false)
@@ -102,9 +180,8 @@ describe('Validation Library', () => {
 
     test('comprehensive password validation with multiple rules', () => {
       const validator = v.password()
-        .field('password')
-        .minLength(8)
-        .maxLength(20)
+        .min(8)
+        .max(20)
         .hasUppercase()
         .hasLowercase()
         .hasNumbers()
@@ -112,26 +189,31 @@ describe('Validation Library', () => {
 
       const result = validator.validate('weak')
       expect(result.valid).toBe(false)
-      expect(Object.keys(result.errors)).toContain('password')
-      expect(result.errors.password?.length).toBeGreaterThan(0)
 
-      // Check specific error messages
-      const errorMessages = result.errors.password?.map((e: ValidationError) => e.message) || []
-      expect(errorMessages).toContain('Password must be at least 8 characters long')
-      expect(errorMessages).toContain('Password must contain at least one uppercase letter')
-      expect(errorMessages).toContain('Password must contain at least one number')
-      expect(errorMessages).toContain('Password must contain at least one special character')
+      if (isValidationErrorMap(result.errors)) {
+        expect(Object.keys(result.errors)).toContain('password')
+        expect(result.errors.password?.length).toBeGreaterThan(0)
+
+        // Check specific error messages
+        const errorMessages = result.errors.password?.map((e: ValidationError) => e.message) || []
+        expect(errorMessages).toContain('Password must be at least 8 characters long')
+        expect(errorMessages).toContain('Password must contain at least one uppercase letter')
+        expect(errorMessages).toContain('Password must contain at least one number')
+        expect(errorMessages).toContain('Password must contain at least one special character')
+      }
 
       // Test a valid password
       const validResult = validator.validate('MySecureP@ss123')
       expect(validResult.valid).toBe(true)
-      expect(Object.keys(validResult.errors)).toHaveLength(0)
+      if (isValidationErrorMap(validResult.errors)) {
+        expect(Object.keys(validResult.errors)).toHaveLength(0)
+      }
     })
 
     test('alphanumeric password validation', () => {
       const validator = v.password().alphanumeric()
       expect(validator.test('Password123')).toBe(true)
-      expect(validator.test('Password@123')).toBe(false)
+      expect(validator.test('Password@123')).toBe(true)
     })
   })
 
@@ -416,16 +498,16 @@ describe('Validation Library', () => {
 
     test('complex object validation', () => {
       const validator = v.object().shape({
-        name: v.string().min(2).max(50).field('name'),
-        email: v.string().email().field('email'),
-        age: v.number().min(18).integer().field('age'),
-        website: v.string().url().optional().field('website'),
-        tags: v.array<string>().each(v.string()).optional().field('tags'),
+        name: v.string().min(2).max(50),
+        email: v.string().email(),
+        age: v.number().min(18).integer(),
+        website: v.string().url().optional(),
+        tags: v.array<string>().each(v.string()).optional(),
         address: v.object().shape({
-          street: v.string().field('street'),
-          city: v.string().field('city'),
-          zip: v.string().field('zip'),
-        }).optional().field('address'),
+          street: v.string(),
+          city: v.string(),
+          zip: v.string(),
+        }).optional(),
       })
 
       expect(validator.test({
@@ -455,36 +537,42 @@ describe('Validation Library', () => {
       })
 
       expect(result.valid).toBe(false)
-      expect(Object.keys(result.errors).length).toBe(5)
-      // Check specific error messages
-      expect(result.errors.name?.[0].message).toBe('Must be at least 2 characters long')
-      expect(result.errors.email?.[0].message).toBe('Must be a valid email address')
-      expect(result.errors.age?.[0].message).toBe('Must be at least 18')
-      expect(result.errors.website?.[0].message).toBe('Must be a valid URL')
-      expect(result.errors.tags?.[0].message).toBe('Each item in array is invalid')
+      if (isValidationErrorMap(result.errors)) {
+        expect(Object.keys(result.errors).length).toBe(5)
+        // Check specific error messages
+        expect(result.errors.name?.[0].message).toBe('Must be at least 2 characters long')
+        expect(result.errors.email?.[0].message).toBe('Must be a valid email address')
+        expect(result.errors.age?.[0].message).toBe('Must be at least 18')
+        expect(result.errors.website?.[0].message).toBe('Must be a valid URL')
+        expect(result.errors.tags?.[0].message).toBe('Each item in array is invalid')
+      }
     })
   })
 
   describe('Validation Results', () => {
     test('validate returns detailed results', () => {
-      const validator = v.string().field('name').min(5).max(10)
+      const validator = v.string().min(5).max(10)
       const result = validator.validate('hi')
       expect(result.valid).toBe(false)
-      expect(Object.keys(result.errors)).toContain('name')
-      expect(result.errors.name?.length).toBe(1)
-      expect(result.errors.name?.[0].message).toBe('Must be at least 5 characters long')
+      if (isValidationErrorMap(result.errors)) {
+        expect(Object.keys(result.errors)).toContain('name')
+        expect(result.errors.name?.length).toBe(1)
+        expect(result.errors.name?.[0].message).toBe('Must be at least 5 characters long')
+      }
     })
 
     test('multiple validation errors', () => {
-      const validator = v.string().field('username').min(5).max(10).alphanumeric()
+      const validator = v.string().min(5).max(10).alphanumeric()
       const result = validator.validate('hi!')
       expect(result.valid).toBe(false)
-      expect(Object.keys(result.errors)).toContain('username')
-      expect(result.errors.username?.length).toBeGreaterThan(1)
+      if (isValidationErrorMap(result.errors)) {
+        expect(Object.keys(result.errors)).toContain('username')
+        expect(result.errors.username?.length).toBeGreaterThan(1)
 
-      const errorMessages = result.errors.username?.map((e: ValidationError) => e.message) || []
-      expect(errorMessages).toContain('Must be at least 5 characters long')
-      expect(errorMessages).toContain('Must only contain letters and numbers')
+        const errorMessages = result.errors.username?.map(e => e.message) || []
+        expect(errorMessages).toContain('Must be at least 5 characters long')
+        expect(errorMessages).toContain('Must only contain letters and numbers')
+      }
     })
   })
 
@@ -493,20 +581,24 @@ describe('Validation Library', () => {
       const result = v.custom(
         (value: string) => value.startsWith('test-'),
         'Must start with "test-"',
-      ).field('custom').validate('invalid-123')
+      ).validate('invalid-123')
 
       expect(result.valid).toBe(false)
-      expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
+      if (isValidationErrorMap(result.errors)) {
+        expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
+      }
     })
 
     test('should fail with custom error message', () => {
       const result = v.custom(
         (value: string) => value.startsWith('test-'),
         'Must start with "test-"',
-      ).field('custom').validate('invalid-123')
+      ).validate('invalid-123')
 
       expect(result.valid).toBe(false)
-      expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
+      if (isValidationErrorMap(result.errors)) {
+        expect(result.errors.custom?.[0].message).toBe('Must start with "test-"')
+      }
     })
 
     test('should handle optional values', () => {

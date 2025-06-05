@@ -19,7 +19,7 @@ export class PasswordValidator extends BaseValidator<string> {
     })
   }
 
-  minLength(length: number = 8): this {
+  min(length: number = 8): this {
     return this.addRule({
       name: 'minLength',
       test: (value: string) => value.length >= length,
@@ -28,7 +28,7 @@ export class PasswordValidator extends BaseValidator<string> {
     })
   }
 
-  maxLength(length: number = 128): this {
+  max(length: number = 128): this {
     return this.addRule({
       name: 'maxLength',
       test: (value: string) => value.length <= length,
@@ -72,8 +72,8 @@ export class PasswordValidator extends BaseValidator<string> {
   alphanumeric(): this {
     return this.addRule({
       name: 'alphanumeric',
-      test: (value: string) => isAlphanumeric(value),
-      message: 'Password must only contain letters and numbers',
+      test: (value: string) => /(?=.*[a-z])(?=.*\d)/i.test(value),
+      message: 'Password must contain both letters and numbers',
     })
   }
 }

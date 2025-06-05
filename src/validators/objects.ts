@@ -16,7 +16,16 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   }
 
   shape(schema: Record<string, Validator<any>>): this {
-    this.schema = schema
+    this.schema = Object.entries(schema).reduce((acc, [key, validator]) => {
+      if (validator instanceof BaseValidator) {
+        acc[key] = validator.setIsPartOfShape(true)
+      }
+      else {
+        acc[key] = validator
+      }
+      return acc
+    }, {} as Record<string, Validator<any>>)
+
     return this.addRule({
       name: 'shape',
       test: (value: T) => {
@@ -59,16 +68,16 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
         if (!fieldResult.valid) {
           hasErrors = true
           // For nested objects, merge their error maps
-          if (Object.keys(fieldResult.errors).length > 0) {
-            // For nested objects
-            if (validator instanceof ObjectValidator) {
-              Object.entries(fieldResult.errors).forEach(([errorKey, errorValue]) => {
-                errors[`${key}.${errorKey}`] = errorValue
-              })
-            }
-            else {
-              // For direct field errors
-              errors[key] = fieldResult.errors[key] || [{ message: `Invalid value for ${key}` }]
+          if (validator instanceof ObjectValidator) {
+            Object.entries(fieldResult.errors).forEach(([errorKey, errorValue]) => {
+              errors[`${key}.${errorKey}`] = errorValue
+            })
+          }
+          else {
+            // For direct field errors, preserve the original error messages
+            const fieldErrors = Object.values(fieldResult.errors)[0]
+            if (fieldErrors) {
+              errors[key] = fieldErrors
             }
           }
         }

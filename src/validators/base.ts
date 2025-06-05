@@ -4,6 +4,7 @@ export abstract class BaseValidator<T> {
   protected rules: ValidationRule<T>[] = []
   protected isRequired = true
   protected fieldName = 'value'
+  protected isPartOfShape = false
 
   required(): this {
     this.isRequired = true
@@ -15,8 +16,8 @@ export abstract class BaseValidator<T> {
     return this
   }
 
-  field(name: string): this {
-    this.fieldName = name
+  setIsPartOfShape(isPartOfShape: boolean): this {
+    this.isPartOfShape = isPartOfShape
     return this
   }
 
@@ -26,35 +27,41 @@ export abstract class BaseValidator<T> {
   }
 
   validate(value: T | undefined | null): ValidationResult {
-    const errors: ValidationErrorMap = {}
+    const errors: ValidationError[] = []
 
     if ((value === undefined || value === null)) {
       if (!this.isRequired) {
-        return { valid: true, errors: {} }
+        return this.isPartOfShape
+          ? { valid: true, errors: {} }
+          : { valid: true, errors: [] }
       }
       else {
-        errors[this.fieldName] = [{
-          message: 'This field is required',
-        }]
-        return { valid: false, errors }
+        const error = { message: 'This field is required' }
+        return this.isPartOfShape
+          ? { valid: false, errors: { [this.fieldName]: [error] } }
+          : { valid: false, errors: [error] }
       }
     }
 
-    const fieldErrors: ValidationError[] = []
-
     for (const rule of this.rules) {
       if (!rule.test(value)) {
-        fieldErrors.push({
+        errors.push({
           message: this.formatMessage(rule.message, rule.params ?? {}),
         })
       }
     }
 
-    if (fieldErrors.length > 0) {
-      errors[this.fieldName] = fieldErrors
+    if (this.isPartOfShape && errors.length > 0) {
+      const errorMap: ValidationErrorMap = {
+        [this.fieldName]: errors,
+      }
+      return { valid: false, errors: errorMap }
     }
 
-    return { valid: Object.keys(errors).length === 0, errors }
+    return {
+      valid: errors.length === 0,
+      errors,
+    }
   }
 
   test(value: T): boolean {
