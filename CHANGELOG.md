@@ -1,4 +1,20 @@
 
+## v0.3.0...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.0...main)
+
+### 🚀 Enhancements
+
+- Implement interfaces ([694a0b4](https://github.com/stacksjs/ts-validation/commit/694a0b4))
+
+### 🏡 Chore
+
+- Linter ([2490f1a](https://github.com/stacksjs/ts-validation/commit/2490f1a))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.2.9...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.2.9...main)
