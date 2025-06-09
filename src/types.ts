@@ -246,7 +246,7 @@ export interface NormalizeEmailOptions {
 }
 
 export interface Validator<T> {
-  name: 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password'
+  name: ValidationNames
   test: (value: T) => boolean
   validate: (value: T) => ValidationResult
   required: () => Validator<T>
@@ -358,3 +358,5 @@ export interface ValidationInstance {
 export type ValidationType = StringValidatorType | NumberValidatorType | ArrayValidatorType<any> | BooleanValidatorType | EnumValidatorType<any> | DateValidatorType | DatetimeValidatorType | ObjectValidatorType<any> | CustomValidatorType<any> | TimestampValidatorType | UnixValidatorType | PasswordValidatorType
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
+
+export type ValidationNames = 'base' | 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password'

@@ -1,11 +1,11 @@
-import type { ValidationError, ValidationErrorMap, ValidationResult, ValidationRule } from '../types'
+import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule } from '../types'
 
 export abstract class BaseValidator<T> {
   protected rules: ValidationRule<T>[] = []
   protected isRequired = true
   protected fieldName = 'value'
   protected isPartOfShape = false
-  public name: string = 'base'
+  public name: ValidationNames = 'base'
 
   required(): this {
     this.isRequired = true

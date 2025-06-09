@@ -1,8 +1,8 @@
-import type { EnumValidatorType } from '../types'
+import type { EnumValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class EnumValidator<T extends string | number> extends BaseValidator<T> implements EnumValidatorType<T> {
-  public name: string = 'enum'
+  public name: ValidationNames = 'enum'
 
   private allowedValues: readonly T[]
 

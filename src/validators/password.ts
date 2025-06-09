@@ -1,8 +1,8 @@
-import type { PasswordValidatorType } from '../types'
+import type { PasswordValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class PasswordValidator extends BaseValidator<string> implements PasswordValidatorType {
-  public name: string = 'password'
+  public name: ValidationNames = 'password'
 
   constructor() {
     super()

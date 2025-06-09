@@ -1,8 +1,8 @@
-import type { BooleanValidatorType } from '../types'
+import type { BooleanValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class BooleanValidator extends BaseValidator<boolean> implements BooleanValidatorType {
-  public name: string = 'boolean'
+  public name: ValidationNames = 'boolean'
 
   constructor() {
     super()

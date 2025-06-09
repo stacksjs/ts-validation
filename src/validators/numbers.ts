@@ -1,4 +1,4 @@
-import type { IsFloatOptions, IsIntOptions, NumberValidatorType } from '../types'
+import type { IsFloatOptions, IsIntOptions, NumberValidatorType, ValidationNames } from '../types'
 import isDecimal from '../lib/isDecimal'
 import isDivisibleBy from '../lib/isDivisibleBy'
 import isFloat from '../lib/isFloat'
@@ -6,7 +6,7 @@ import isInt from '../lib/isInt'
 import { BaseValidator } from './base'
 
 export class NumberValidator extends BaseValidator<number> implements NumberValidatorType {
-  public name: string = 'number'
+  public name: ValidationNames = 'number'
 
   constructor() {
     super()

@@ -1,8 +1,8 @@
-import type { DatetimeValidatorType } from '../types'
+import type { DatetimeValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class DatetimeValidator extends BaseValidator<Date> implements DatetimeValidatorType {
-  public name: string = 'datetime'
+  public name: ValidationNames = 'datetime'
 
   constructor() {
     super()

@@ -1,4 +1,4 @@
-import type { StringValidatorType } from '../types'
+import type { StringValidatorType, ValidationNames } from '../types'
 import isAlpha from '../lib/isAlpha'
 import isAlphanumeric from '../lib/isAlphanumeric'
 import isEmail from '../lib/isEmail'
@@ -7,7 +7,7 @@ import isURL from '../lib/isURL'
 import { BaseValidator } from './base'
 
 export class StringValidator extends BaseValidator<string> implements StringValidatorType {
-  public name: string = 'string'
+  public name: ValidationNames = 'string'
 
   constructor() {
     super()

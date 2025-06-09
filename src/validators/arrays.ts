@@ -1,8 +1,8 @@
-import type { ArrayValidatorType, Validator } from '../types'
+import type { ArrayValidatorType, ValidationNames, Validator } from '../types'
 import { BaseValidator } from './base'
 
 export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValidatorType<T> {
-  public name: string = 'array'
+  public name: ValidationNames = 'array'
 
   constructor() {
     super()
