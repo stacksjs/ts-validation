@@ -1,7 +1,7 @@
-import type { Validator } from '../types'
+import type { ArrayValidatorType, Validator } from '../types'
 import { BaseValidator } from './base'
 
-export class ArrayValidator<T> extends BaseValidator<T[]> {
+export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValidatorType<T> {
   constructor() {
     super()
     this.addRule({

@@ -1,6 +1,7 @@
+import type { UnixValidatorType } from '../types'
 import { BaseValidator } from './base'
 
-export class UnixValidator extends BaseValidator<number | string> {
+export class UnixValidator extends BaseValidator<number | string> implements UnixValidatorType {
   constructor() {
     super()
     this.addRule({

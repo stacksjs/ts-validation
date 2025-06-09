@@ -1,6 +1,7 @@
+import type { DateValidatorType } from '../types'
 import { BaseValidator } from './base'
 
-export class DateValidator extends BaseValidator<Date> {
+export class DateValidator extends BaseValidator<Date> implements DateValidatorType {
   constructor() {
     super()
     this.addRule({

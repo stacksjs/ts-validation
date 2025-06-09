@@ -1,6 +1,7 @@
+import type { EnumValidatorType } from '../types'
 import { BaseValidator } from './base'
 
-export class EnumValidator<T extends string | number> extends BaseValidator<T> {
+export class EnumValidator<T extends string | number> extends BaseValidator<T> implements EnumValidatorType<T> {
   private allowedValues: readonly T[]
 
   constructor(allowedValues: readonly T[]) {

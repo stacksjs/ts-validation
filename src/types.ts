@@ -1,4 +1,7 @@
 import type { alphanumeric } from './lib/isAlphanumeric'
+import type isDecimal from './lib/isDecimal'
+import type isEmail from './lib/isEmail'
+import type isURL from './lib/isURL'
 import type { ArrayValidator } from './validators/arrays'
 import type { BooleanValidator } from './validators/booleans'
 import type { CustomValidator } from './validators/custom'
@@ -251,6 +254,86 @@ export interface ValidationConfig {
   strictMode?: boolean
   cacheResults?: boolean
   errorMessages?: Record<string, string>
+}
+
+export interface LengthValidator<T> {
+  min: (length: number) => T
+  max: (length: number) => T
+  length: (length: number) => T
+}
+
+export interface StringValidatorType extends Validator<string>, LengthValidator<StringValidator> {
+  email: (options?: Parameters<typeof isEmail>[1]) => StringValidator
+  url: (options?: Parameters<typeof isURL>[1]) => StringValidator
+  matches: (pattern: RegExp) => StringValidator
+  equals: (param: string) => StringValidator
+  alphanumeric: () => StringValidator
+  alpha: () => StringValidator
+  numeric: () => StringValidator
+  custom: (fn: (value: string) => boolean, message: string) => StringValidator
+}
+
+export interface NumberValidatorType extends Validator<number> {
+  min: (min: number) => NumberValidator
+  max: (max: number) => NumberValidator
+  integer: (options?: IsIntOptions) => NumberValidator
+  float: (options?: IsFloatOptions) => NumberValidator
+  decimal: (options?: Parameters<typeof isDecimal>[1]) => NumberValidator
+  positive: () => NumberValidator
+  negative: () => NumberValidator
+  divisibleBy: (divisor: number) => NumberValidator
+  custom: (fn: (value: number) => boolean, message: string) => NumberValidator
+}
+
+export interface ArrayValidatorType<T> extends Validator<T[]>, LengthValidator<ArrayValidator<T>> {
+  each: (validator: Validator<T>) => ArrayValidator<T>
+  unique: () => ArrayValidator<T>
+}
+
+export interface BooleanValidatorType extends Validator<boolean> {
+  isTrue: () => BooleanValidator
+  isFalse: () => BooleanValidator
+  custom: (fn: (value: boolean) => boolean, message: string) => BooleanValidator
+}
+
+export interface EnumValidatorType<T extends string | number> extends Validator<T> {
+  custom: (fn: (value: T) => boolean, message: string) => EnumValidator<T>
+}
+
+export interface DateValidatorType extends Validator<Date> {
+  // Base date validator is simple, just implements the base Validator interface
+}
+
+export interface DatetimeValidatorType extends Validator<Date> {
+  // Datetime validator is simple, just implements the base Validator interface
+}
+
+export interface ObjectValidatorType<T extends Record<string, any>> extends Validator<T> {
+  shape: (schema: Record<string, Validator<any>>) => ObjectValidator<T>
+  strict: (strict?: boolean) => ObjectValidator<T>
+}
+
+export interface CustomValidatorType<T> extends Validator<T> {
+  // Custom validator is simple, just implements the base Validator interface
+}
+
+export interface TimestampValidatorType extends Validator<number | string> {
+  // Timestamp validator is simple, just implements the base Validator interface
+}
+
+export interface UnixValidatorType extends Validator<number | string> {
+  // Unix validator is simple, just implements the base Validator interface
+}
+
+export interface PasswordValidatorType extends Validator<string> {
+  matches: (confirmPassword: string) => PasswordValidator
+  min: (length?: number) => PasswordValidator
+  max: (length?: number) => PasswordValidator
+  hasUppercase: () => PasswordValidator
+  hasLowercase: () => PasswordValidator
+  hasNumbers: () => PasswordValidator
+  hasSpecialCharacters: () => PasswordValidator
+  alphanumeric: () => PasswordValidator
 }
 
 export interface ValidationInstance {

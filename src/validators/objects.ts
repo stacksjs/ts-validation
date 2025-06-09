@@ -1,7 +1,7 @@
-import type { ValidationErrorMap, ValidationResult, Validator } from '../types'
+import type { ObjectValidatorType, ValidationErrorMap, ValidationResult, Validator } from '../types'
 import { BaseValidator } from './base'
 
-export class ObjectValidator<T extends Record<string, any>> extends BaseValidator<T> {
+export class ObjectValidator<T extends Record<string, any>> extends BaseValidator<T> implements ObjectValidatorType<T> {
   private schema: Record<string, Validator<any>> = {}
   private strictMode = false
 
