@@ -1,4 +1,16 @@
 
+## v0.3.2...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.2...main)
+
+### 🏡 Chore
+
+- Exported more types ([cfa958b](https://github.com/stacksjs/ts-validation/commit/cfa958b))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.1...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.1...main)
