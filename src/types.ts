@@ -337,16 +337,16 @@ export interface PasswordValidatorType extends Validator<string> {
 }
 
 export interface ValidationInstance {
-  string: () => StringValidator
-  number: () => NumberValidator
-  array: <T>() => ArrayValidator<T>
-  boolean: () => BooleanValidator
-  enum: <T extends string | number>(values: readonly T[]) => EnumValidator<T>
-  date: () => DateValidator
-  datetime: () => DatetimeValidator
-  object: <T extends Record<string, any>>() => ObjectValidator<T>
+  string: () => StringValidatorType
+  number: () => NumberValidatorType
+  array: <T>() => ArrayValidatorType<T>
+  boolean: () => BooleanValidatorType
+  enum: <T extends string | number>(values: readonly T[]) => EnumValidatorType<T>
+  date: () => DateValidatorType
+  datetime: () => DatetimeValidatorType
+  object: <T extends Record<string, any>>() => ObjectValidatorType<T>
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidator<T>
-  timestamp: () => TimestampValidator
-  unix: () => UnixValidator
-  password: () => PasswordValidator
+  timestamp: () => TimestampValidatorType
+  unix: () => UnixValidatorType
+  password: () => PasswordValidatorType
 }
