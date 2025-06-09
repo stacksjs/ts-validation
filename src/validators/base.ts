@@ -5,6 +5,7 @@ export abstract class BaseValidator<T> {
   protected isRequired = true
   protected fieldName = 'value'
   protected isPartOfShape = false
+  public name: string = 'base'
 
   required(): this {
     this.isRequired = true

@@ -7,6 +7,8 @@ import isURL from '../lib/isURL'
 import { BaseValidator } from './base'
 
 export class StringValidator extends BaseValidator<string> implements StringValidatorType {
+  public name: string = 'string'
+
   constructor() {
     super()
     this.addRule({

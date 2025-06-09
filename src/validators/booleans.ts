@@ -2,6 +2,8 @@ import type { BooleanValidatorType } from '../types'
 import { BaseValidator } from './base'
 
 export class BooleanValidator extends BaseValidator<boolean> implements BooleanValidatorType {
+  public name: string = 'boolean'
+
   constructor() {
     super()
     this.addRule({

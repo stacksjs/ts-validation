@@ -5,15 +5,18 @@ import type isURL from './lib/isURL'
 import type { ArrayValidator } from './validators/arrays'
 import type { BooleanValidator } from './validators/booleans'
 import type { CustomValidator } from './validators/custom'
-import type { DateValidator } from './validators/dates'
-import type { DatetimeValidator } from './validators/datetimes'
 import type { EnumValidator } from './validators/enums'
 import type { NumberValidator } from './validators/numbers'
 import type { ObjectValidator } from './validators/objects'
 import type { PasswordValidator } from './validators/password'
 import type { StringValidator } from './validators/strings'
-import type { TimestampValidator } from './validators/timestamps'
-import type { UnixValidator } from './validators/unix'
+
+// Define unique symbols for schema properties
+export const SCHEMA_NAME: unique symbol = Symbol('schema_name')
+export const INPUT_TYPE: unique symbol = Symbol('input_type')
+export const OUTPUT_TYPE: unique symbol = Symbol('output_type')
+export const COMPUTED_TYPE: unique symbol = Symbol('computed_type')
+export const PARSE: unique symbol = Symbol('parse')
 
 export interface ValidationError {
   message: string
@@ -243,6 +246,7 @@ export interface NormalizeEmailOptions {
 }
 
 export interface Validator<T> {
+  name: 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password'
   test: (value: T) => boolean
   validate: (value: T) => ValidationResult
   required: () => Validator<T>
@@ -350,3 +354,7 @@ export interface ValidationInstance {
   unix: () => UnixValidatorType
   password: () => PasswordValidatorType
 }
+
+export type ValidationType = StringValidatorType | NumberValidatorType | ArrayValidatorType<any> | BooleanValidatorType | EnumValidatorType<any> | DateValidatorType | DatetimeValidatorType | ObjectValidatorType<any> | CustomValidatorType<any> | TimestampValidatorType | UnixValidatorType | PasswordValidatorType
+
+export type Infer<T> = T extends Validator<infer U> ? U : never

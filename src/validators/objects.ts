@@ -2,6 +2,8 @@ import type { ObjectValidatorType, ValidationErrorMap, ValidationResult, Validat
 import { BaseValidator } from './base'
 
 export class ObjectValidator<T extends Record<string, any>> extends BaseValidator<T> implements ObjectValidatorType<T> {
+  public name: string = 'object'
+
   private schema: Record<string, Validator<any>> = {}
   private strictMode = false
 

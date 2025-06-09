@@ -6,6 +6,8 @@ import isInt from '../lib/isInt'
 import { BaseValidator } from './base'
 
 export class NumberValidator extends BaseValidator<number> implements NumberValidatorType {
+  public name: string = 'number'
+
   constructor() {
     super()
     this.addRule({

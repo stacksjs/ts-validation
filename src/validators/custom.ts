@@ -2,6 +2,8 @@ import type { CustomValidatorType } from '../types'
 import { BaseValidator } from './base'
 
 export class CustomValidator<T> extends BaseValidator<T> implements CustomValidatorType<T> {
+  public name: string = 'custom'
+
   constructor(validationFn: (value: T) => boolean, message: string) {
     super()
     this.addRule({

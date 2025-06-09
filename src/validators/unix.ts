@@ -2,6 +2,8 @@ import type { UnixValidatorType } from '../types'
 import { BaseValidator } from './base'
 
 export class UnixValidator extends BaseValidator<number | string> implements UnixValidatorType {
+  public name: string = 'unix'
+
   constructor() {
     super()
     this.addRule({
