@@ -1,4 +1,17 @@
 
+## v0.3.1...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.1...main)
+
+### 🏡 Chore
+
+- Update types ([72dc410](https://github.com/stacksjs/ts-validation/commit/72dc410))
+- Improve types ([f588e24](https://github.com/stacksjs/ts-validation/commit/f588e24))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.0...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.0...main)
