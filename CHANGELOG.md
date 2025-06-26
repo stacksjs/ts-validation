@@ -1,4 +1,17 @@
 
+## v0.3.3...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.3...main)
+
+### 🏡 Chore
+
+- Implement checker for empty strings ([8ca9253](https://github.com/stacksjs/ts-validation/commit/8ca9253))
+- Improve tests and validator type ([eda824f](https://github.com/stacksjs/ts-validation/commit/eda824f))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.2...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.2...main)
