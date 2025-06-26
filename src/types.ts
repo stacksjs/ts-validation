@@ -249,8 +249,8 @@ export interface Validator<T> {
   name: ValidationNames
   test: (value: T) => boolean
   validate: (value: T) => ValidationResult
-  required: () => Validator<T>
-  optional: () => Validator<T>
+  required: () => this
+  optional: () => this
 }
 
 export interface ValidationConfig {

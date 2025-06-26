@@ -20,6 +20,77 @@ describe('Validation Library', () => {
       expect(validator.test('')).toBe(true)
     })
 
+    test('required string validation', () => {
+      const validator = v.string().required()
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('123')).toBe(true)
+      expect(validator.test('')).toBe(false)
+      expect(validator.test(null as any)).toBe(false)
+      expect(validator.test(undefined as any)).toBe(false)
+    })
+
+    test('optional string validation', () => {
+      const validator = v.string().optional()
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('123')).toBe(true)
+      expect(validator.test('')).toBe(true)
+      expect(validator.test(null as any)).toBe(true)
+      expect(validator.test(undefined as any)).toBe(true)
+    })
+
+    test('required string with other validations', () => {
+      const validator = v.string().required().min(3).max(10)
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('hi')).toBe(false) // too short
+      expect(validator.test('hello world')).toBe(false) // too long
+      expect(validator.test('')).toBe(false) // required
+      expect(validator.test(null as any)).toBe(false) // required
+    })
+
+    test('optional string with other validations', () => {
+      const validator = v.string().optional().min(3).max(10)
+      expect(validator.test('hello')).toBe(true)
+      expect(validator.test('hi')).toBe(false) // too short
+      expect(validator.test('hello world')).toBe(false) // too long
+      expect(validator.test('')).toBe(true) // optional
+      expect(validator.test(null as any)).toBe(true) // optional
+      expect(validator.test(undefined as any)).toBe(true) // optional
+    })
+
+    test('required string validation with detailed errors', () => {
+      const validator = v.string().required()
+      const result = validator.validate('')
+      expect(result.valid).toBe(false)
+      if (isValidationErrorArray(result.errors)) {
+        expect(result.errors[0].message).toBe('This field is required')
+      }
+    })
+
+    test('required string validation with null', () => {
+      const validator = v.string().required()
+      const result = validator.validate(null as any)
+      expect(result.valid).toBe(false)
+      if (isValidationErrorArray(result.errors)) {
+        expect(result.errors[0].message).toBe('This field is required')
+      }
+    })
+
+    test('required string validation with undefined', () => {
+      const validator = v.string().required()
+      const result = validator.validate(undefined as any)
+      expect(result.valid).toBe(false)
+      if (isValidationErrorArray(result.errors)) {
+        expect(result.errors[0].message).toBe('This field is required')
+      }
+    })
+
+    test('optional string validation with empty values', () => {
+      const validator = v.string().optional()
+      expect(validator.validate('').valid).toBe(true)
+      expect(validator.validate(null as any).valid).toBe(true)
+      expect(validator.validate(undefined as any).valid).toBe(true)
+    })
+
     test('min length validation', () => {
       const validator = v.string().min(5)
       expect(validator.test('hello')).toBe(true)
