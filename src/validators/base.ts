@@ -30,7 +30,7 @@ export abstract class BaseValidator<T> {
   validate(value: T | undefined | null): ValidationResult {
     const errors: ValidationError[] = []
 
-    if ((value === undefined || value === null)) {
+    if ((value === undefined || value === null || value === '')) {
       if (!this.isRequired) {
         return this.isPartOfShape
           ? { valid: true, errors: {} }
