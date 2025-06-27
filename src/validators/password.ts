@@ -6,7 +6,6 @@ export class PasswordValidator extends BaseValidator<string> implements Password
 
   constructor() {
     super()
-    this.isRequired = false // Make password optional by default
     this.addRule({
       name: 'string',
       test: (value: unknown): value is string => typeof value === 'string',
@@ -36,6 +35,15 @@ export class PasswordValidator extends BaseValidator<string> implements Password
       name: 'maxLength',
       test: (value: string) => value.length <= length,
       message: 'Password must be at most {length} characters long',
+      params: { length },
+    })
+  }
+
+  length(length: number): this {
+    return this.addRule({
+      name: 'length',
+      test: (value: string) => value.length === length,
+      message: 'Must be exactly {length} characters long',
       params: { length },
     })
   }

@@ -35,6 +35,15 @@ export class NumberValidator extends BaseValidator<number> implements NumberVali
     })
   }
 
+  length(length: number): this {
+    return this.addRule({
+      name: 'length',
+      test: (value: number) => value.toString().length === length,
+      message: 'Must be exactly {length} digits',
+      params: { length },
+    })
+  }
+
   integer(options?: IsIntOptions): this {
     return this.addRule({
       name: 'integer',

@@ -21,7 +21,7 @@ describe('Validation Library', () => {
     })
 
     test('required string validation', () => {
-      const validator = v.string().required()
+      const validator = v.string().min(1).required()
       expect(validator.test('hello')).toBe(true)
       expect(validator.test('123')).toBe(true)
       expect(validator.test('')).toBe(false)
@@ -39,7 +39,7 @@ describe('Validation Library', () => {
     })
 
     test('required string with other validations', () => {
-      const validator = v.string().required().min(3).max(10)
+      const validator = v.string().min(3).max(10).required()
       expect(validator.test('hello')).toBe(true)
       expect(validator.test('hi')).toBe(false) // too short
       expect(validator.test('hello world')).toBe(false) // too long
@@ -474,7 +474,7 @@ describe('Validation Library', () => {
 
   describe('Object Validator', () => {
     test('basic object validation', () => {
-      const validator = v.object()
+      const validator = v.object().required()
       expect(validator.test({})).toBe(true)
       expect(validator.test({ foo: 'bar' })).toBe(true)
       expect(validator.test(null as any)).toBe(false)

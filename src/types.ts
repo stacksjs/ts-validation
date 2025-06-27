@@ -277,9 +277,7 @@ export interface StringValidatorType extends Validator<string>, LengthValidator<
   custom: (fn: (value: string) => boolean, message: string) => StringValidator
 }
 
-export interface NumberValidatorType extends Validator<number> {
-  min: (min: number) => NumberValidator
-  max: (max: number) => NumberValidator
+export interface NumberValidatorType extends Validator<number>, LengthValidator<NumberValidator> {
   integer: (options?: IsIntOptions) => NumberValidator
   float: (options?: IsFloatOptions) => NumberValidator
   decimal: (options?: Parameters<typeof isDecimal>[1]) => NumberValidator
@@ -329,10 +327,8 @@ export interface UnixValidatorType extends Validator<number | string> {
   // Unix validator is simple, just implements the base Validator interface
 }
 
-export interface PasswordValidatorType extends Validator<string> {
+export interface PasswordValidatorType extends Validator<string>, LengthValidator<PasswordValidator> {
   matches: (confirmPassword: string) => PasswordValidator
-  min: (length?: number) => PasswordValidator
-  max: (length?: number) => PasswordValidator
   hasUppercase: () => PasswordValidator
   hasLowercase: () => PasswordValidator
   hasNumbers: () => PasswordValidator

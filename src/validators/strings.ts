@@ -11,7 +11,6 @@ export class StringValidator extends BaseValidator<string> implements StringVali
 
   constructor() {
     super()
-    this.isRequired = false // Make string optional by default
     this.addRule({
       name: 'string',
       test: (value: unknown): value is string => typeof value === 'string',
