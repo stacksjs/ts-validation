@@ -1,4 +1,16 @@
 
+## v0.3.6...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.6...main)
+
+### 🏡 Chore
+
+- Include isRequired in Validator ([cf3396a](https://github.com/stacksjs/ts-validation/commit/cf3396a))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.5...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.5...main)
