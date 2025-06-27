@@ -1,4 +1,17 @@
 
+## v0.3.5...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.5...main)
+
+### 🏡 Chore
+
+- Improve validator types ([3a7f2aa](https://github.com/stacksjs/ts-validation/commit/3a7f2aa))
+- Fix enum types ([b7ab496](https://github.com/stacksjs/ts-validation/commit/b7ab496))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.4...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.4...main)
