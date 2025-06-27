@@ -17,6 +17,10 @@ export class EnumValidator<T extends string | number> extends BaseValidator<T> i
     })
   }
 
+  getAllowedValues(): readonly T[] {
+    return this.allowedValues
+  }
+
   custom(fn: (value: T) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',

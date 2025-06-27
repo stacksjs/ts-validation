@@ -306,7 +306,7 @@ export interface BooleanValidatorType extends Validator<boolean> {
 }
 
 export interface EnumValidatorType<T extends string | number> extends Validator<T> {
-  allowedValues: readonly T[]
+  getAllowedValues: () => readonly T[]
   custom: (fn: (value: T) => boolean, message: string) => EnumValidator<T>
 }
 
