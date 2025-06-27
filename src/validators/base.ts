@@ -65,6 +65,10 @@ export abstract class BaseValidator<T> {
     }
   }
 
+  getRules(): ValidationRule<T>[] {
+    return this.rules
+  }
+
   test(value: T): boolean {
     return this.validate(value).valid
   }

@@ -247,10 +247,17 @@ export interface NormalizeEmailOptions {
 
 export interface Validator<T> {
   name: ValidationNames
+  getRules: () => ValidationRule<T>[]
   test: (value: T) => boolean
   validate: (value: T) => ValidationResult
   required: () => this
   optional: () => this
+}
+
+// Internal interface for implementation details
+export interface ValidatorInternal<T> extends Validator<T> {
+  isPartOfShape: boolean
+  rules: ValidationRule<T>[]
 }
 
 export interface ValidationConfig {
@@ -299,6 +306,7 @@ export interface BooleanValidatorType extends Validator<boolean> {
 }
 
 export interface EnumValidatorType<T extends string | number> extends Validator<T> {
+  allowedValues: readonly T[]
   custom: (fn: (value: T) => boolean, message: string) => EnumValidator<T>
 }
 
@@ -351,7 +359,7 @@ export interface ValidationInstance {
   password: () => PasswordValidatorType
 }
 
-export type ValidationType = StringValidatorType | NumberValidatorType | ArrayValidatorType<any> | BooleanValidatorType | EnumValidatorType<any> | DateValidatorType | DatetimeValidatorType | ObjectValidatorType<any> | CustomValidatorType<any> | TimestampValidatorType | UnixValidatorType | PasswordValidatorType
+export type ValidationType = StringValidatorType | NumberValidatorType | ArrayValidatorType<string | number | boolean | Date> | BooleanValidatorType | EnumValidatorType<string | number> | DateValidatorType | DatetimeValidatorType | ObjectValidatorType<Record<string, any>> | CustomValidatorType<Record<string, any>> | TimestampValidatorType | UnixValidatorType | PasswordValidatorType
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
 
