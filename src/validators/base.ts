@@ -2,7 +2,7 @@ import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationRe
 
 export abstract class BaseValidator<T> {
   protected rules: ValidationRule<T>[] = []
-  protected isRequired = false
+  public isRequired = false
   protected fieldName = 'value'
   protected isPartOfShape = false
   public name: ValidationNames = 'base'

@@ -247,6 +247,7 @@ export interface NormalizeEmailOptions {
 
 export interface Validator<T> {
   name: ValidationNames
+  isRequired: boolean
   getRules: () => ValidationRule<T>[]
   test: (value: T) => boolean
   validate: (value: T) => ValidationResult
@@ -359,7 +360,9 @@ export interface ValidationInstance {
   password: () => PasswordValidatorType
 }
 
-export type ValidationType = StringValidatorType | NumberValidatorType | ArrayValidatorType<string | number | boolean | Date> | BooleanValidatorType | EnumValidatorType<string | number> | DateValidatorType | DatetimeValidatorType | ObjectValidatorType<Record<string, any>> | CustomValidatorType<Record<string, any>> | TimestampValidatorType | UnixValidatorType | PasswordValidatorType
+export type ValidationType = {
+  [K in keyof ValidationInstance]: ReturnType<ValidationInstance[K]>
+}[keyof ValidationInstance]
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
 
