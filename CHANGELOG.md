@@ -1,4 +1,16 @@
 
+## v0.3.4...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.4...main)
+
+### 🏡 Chore
+
+- Improve interfaces and types ([370ede9](https://github.com/stacksjs/ts-validation/commit/370ede9))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.3...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.3...main)
