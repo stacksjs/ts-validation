@@ -8,6 +8,6 @@ import rtrim from './rtrim'
  * @param chars - Options object
  * @returns The processed string
  */
-export default function trim(str: string, chars: string): string {
+export default function trim(str: string, chars?: string): string {
   return rtrim(ltrim(str, chars), chars)
 }

@@ -60,7 +60,7 @@ function validateDisplayName(display_name: string): boolean {
   return true
 }
 
-export default function isEmail(str: string, options: any): boolean {
+export default function isEmail(str: string, options: any = {}): boolean {
   assertString(str)
   options = merge(options, default_email_options)
 

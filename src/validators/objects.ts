@@ -7,7 +7,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   private schema: Record<string, Validator<any>> = {}
   private strictMode = false
 
-  constructor() {
+  constructor(schema?: Record<string, Validator<any>>) {
     super()
     this.addRule({
       name: 'object',
@@ -15,6 +15,11 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
         typeof value === 'object' && value !== null && !Array.isArray(value),
       message: 'Must be an object',
     })
+
+    // If schema is provided in constructor, set it up immediately
+    if (schema) {
+      this.shape(schema)
+    }
   }
 
   shape(schema: Record<string, Validator<any>>): this {
@@ -51,6 +56,14 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   strict(strict = true): this {
     this.strictMode = strict
     return this
+  }
+
+  custom(validationFn: (value: T) => boolean, message: string): this {
+    return this.addRule({
+      name: 'custom',
+      test: (value: T) => value === undefined || value === null || validationFn(value),
+      message,
+    })
   }
 
   validate(value: T): ValidationResult {
@@ -97,6 +110,6 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   }
 }
 
-export function object<T extends Record<string, any>>(): ObjectValidator<T> {
-  return new ObjectValidator<T>()
+export function object<T extends Record<string, any>>(schema?: Record<string, Validator<any>>): ObjectValidator<T> {
+  return new ObjectValidator<T>(schema)
 }
