@@ -1,4 +1,4 @@
-import type { IsAfterOptions } from './types'
+import type { IsAfterOptions } from '../types/date'
 import toDate from './toDate'
 
 /**

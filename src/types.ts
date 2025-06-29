@@ -285,6 +285,8 @@ export interface StringValidatorType extends Validator<string>, LengthValidator<
   custom: (fn: (value: string) => boolean, message: string) => StringValidator
 }
 
+export interface TextValidatorType extends StringValidatorType {}
+
 export interface NumberValidatorType extends Validator<number>, LengthValidator<NumberValidator> {
   integer: (options?: IsIntOptions) => NumberValidator
   float: (options?: IsFloatOptions) => NumberValidator
@@ -294,6 +296,8 @@ export interface NumberValidatorType extends Validator<number>, LengthValidator<
   divisibleBy: (divisor: number) => NumberValidator
   custom: (fn: (value: number) => boolean, message: string) => NumberValidator
 }
+
+export interface BigintValidatorType extends NumberValidatorType {}
 
 export interface ArrayValidatorType<T> extends Validator<T[]>, LengthValidator<ArrayValidator<T>> {
   each: (validator: Validator<T>) => ArrayValidator<T>
@@ -347,7 +351,9 @@ export interface PasswordValidatorType extends Validator<string>, LengthValidato
 
 export interface ValidationInstance {
   string: () => StringValidatorType
+  text: () => TextValidatorType
   number: () => NumberValidatorType
+  bigint: () => BigintValidatorType
   array: <T>() => ArrayValidatorType<T>
   boolean: () => BooleanValidatorType
   enum: <T extends string | number>(values: readonly T[]) => EnumValidatorType<T>
@@ -366,4 +372,4 @@ export type ValidationType = {
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
 
-export type ValidationNames = 'base' | 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password'
+export type ValidationNames = 'base' | 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password' | 'text' | 'bigint'
