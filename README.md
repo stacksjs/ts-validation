@@ -42,7 +42,7 @@ pnpm add @stacksjs/ts-validation
 import { v } from '@stacksjs/ts-validation'
 
 // Create a validator for a user object
-const userValidator = v.object().shape({
+const userValidator = v.object({
   name: v.string().min(2).max(50).required(),
   email: v.string().email().required(),
   age: v.number().min(18).integer().required(),
@@ -127,7 +127,7 @@ const coordinatesValidator = v.array().length(2).each(v.number()).required()
 
 ```typescript
 // Object validation
-const addressValidator = v.object().shape({
+const addressValidator = v.object({
   street: v.string().required(),
   city: v.string().required(),
   state: v.string().length(2).required(),
@@ -135,6 +135,7 @@ const addressValidator = v.object().shape({
 })
 
 // Nested object validation
+// .shape() is an alias for .object()
 const userValidator = v.object().shape({
   name: v.string().required(),
   address: addressValidator,
