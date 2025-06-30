@@ -1,4 +1,34 @@
 
+## v0.3.7...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.7...main)
+
+### 🩹 Fixes
+
+- Tests ([e9d9c0e](https://github.com/stacksjs/ts-validation/commit/e9d9c0e))
+- Test types ([ee644aa](https://github.com/stacksjs/ts-validation/commit/ee644aa))
+- Test cases ([73a1be2](https://github.com/stacksjs/ts-validation/commit/73a1be2))
+
+### 🏡 Chore
+
+- Refactor types ([6f4ce71](https://github.com/stacksjs/ts-validation/commit/6f4ce71))
+- Few minor updates ([32f062b](https://github.com/stacksjs/ts-validation/commit/32f062b))
+- Adjust readme ([311e51b](https://github.com/stacksjs/ts-validation/commit/311e51b))
+- Implement timestamptz ([8b897d5](https://github.com/stacksjs/ts-validation/commit/8b897d5))
+- Minor updates ([c678149](https://github.com/stacksjs/ts-validation/commit/c678149))
+- Implement more validators ([fa77c58](https://github.com/stacksjs/ts-validation/commit/fa77c58))
+- Implement smallint ([bb5d305](https://github.com/stacksjs/ts-validation/commit/bb5d305))
+- Implement more types ([31dada6](https://github.com/stacksjs/ts-validation/commit/31dada6))
+- Implement more tests ([9507154](https://github.com/stacksjs/ts-validation/commit/9507154))
+- Update readme.md ([a4f87dd](https://github.com/stacksjs/ts-validation/commit/a4f87dd))
+- Properly format timestamptz ([7baa0af](https://github.com/stacksjs/ts-validation/commit/7baa0af))
+- Remove validation function ([5dc15ff](https://github.com/stacksjs/ts-validation/commit/5dc15ff))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## v0.3.6...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.6...main)
