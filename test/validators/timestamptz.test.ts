@@ -132,11 +132,11 @@ describe('TimestampTzValidator', () => {
     test('should reject non-timestamp types', () => {
       const validator = timestampTz().required()
 
-      expect(validator.test(true)).toBe(false)
-      expect(validator.test(null)).toBe(false)
-      expect(validator.test(undefined)).toBe(false)
-      expect(validator.test({})).toBe(false)
-      expect(validator.test([])).toBe(false)
+      expect(validator.test(true as any)).toBe(false)
+      expect(validator.test(null as any)).toBe(false)
+      expect(validator.test(undefined as any)).toBe(false)
+      expect(validator.test({} as any)).toBe(false)
+      expect(validator.test([] as any)).toBe(false)
     })
   })
 

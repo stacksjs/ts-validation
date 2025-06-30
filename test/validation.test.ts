@@ -676,7 +676,7 @@ describe('Validation Library', () => {
       const result = v.custom(
         (value: string) => value.startsWith('test-'),
         'Must start with "test-"',
-      ).optional().validate(undefined)
+      ).optional().validate(undefined as any)
 
       expect(result.valid).toBe(true)
     })

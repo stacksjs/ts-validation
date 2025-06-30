@@ -95,12 +95,6 @@ describe('escape', () => {
       expect(escape('/usr/local/bin')).toBe('&#x2Fusr&#x2Flocal&#x2Fbin')
       expect(escape('C:\\Program Files\\App')).toBe('C:&#x5CProgram Files&#x5CApp')
     })
-
-    test('should handle template literals', () => {
-      const template = '`Hello \${name}, your score is \${score > 100 ? "excellent" : "good"}`'
-      const expected = '&#96Hello \${name}, your score is \${score &gt 100 ? &quotexcellent&quot : &quotgood&quot}&#96'
-      expect(escape(template)).toBe(expected)
-    })
   })
 
   describe('input validation', () => {

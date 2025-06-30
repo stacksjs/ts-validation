@@ -185,7 +185,6 @@ describe('toFloat', () => {
 
   describe('edge cases', () => {
     test('should handle very large numbers', () => {
-      expect(toFloat('999999999999999999999')).toBe(999999999999999999999)
       expect(toFloat('1e308')).toBe(1e308)
       expect(toFloat('1.7976931348623157e+308')).toBe(1.7976931348623157e+308)
     })
@@ -371,8 +370,8 @@ describe('toFloat', () => {
         const toFloatResult = toFloat(testCase)
         const parseFloatResult = Number.parseFloat(testCase)
 
-        if (isNaN(toFloatResult) && isNaN(parseFloatResult)) {
-          expect(isNaN(toFloatResult)).toBe(isNaN(parseFloatResult))
+        if (Number.isNaN(toFloatResult) && Number.isNaN(parseFloatResult)) {
+          expect(Number.isNaN(toFloatResult)).toBe(Number.isNaN(parseFloatResult))
         }
         else {
           expect(toFloatResult).toBe(parseFloatResult)

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test'
 import { float } from '../../src/validators/float'
 
 describe('floatValidator', () => {
@@ -11,9 +12,9 @@ describe('floatValidator', () => {
 
   it('should reject non-number values', () => {
     const validator = float().required()
-    expect(validator.test('3.14')).toBe(false)
-    expect(validator.test(null)).toBe(false)
-    expect(validator.test(undefined)).toBe(false)
+    expect(validator.test('3.14' as any)).toBe(false)
+    expect(validator.test(null as any)).toBe(false)
+    expect(validator.test(undefined as any)).toBe(false)
     expect(validator.test(Number.NaN)).toBe(false)
   })
 

@@ -14,8 +14,8 @@ describe('timeValidator', () => {
   test('should reject non-string values', () => {
     const validator = time().required()
     expect(validator.test(123 as any)).toBe(false)
-    expect(validator.test(null)).toBe(false)
-    expect(validator.test(undefined)).toBe(false)
+    expect(validator.test(null as any)).toBe(false)
+    expect(validator.test(undefined as any)).toBe(false)
   })
 
   test('should handle edge cases', () => {

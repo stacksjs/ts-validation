@@ -143,7 +143,7 @@ describe('NumberValidator', () => {
   describe('custom validation', () => {
     test('custom() should accept custom validation functions', () => {
       const validator = number().custom(
-        value => value % 2 === 0,
+        value => value != null && value % 2 === 0,
         'Must be even',
       )
       expect(validator.test(2)).toBe(true)
@@ -157,7 +157,7 @@ describe('NumberValidator', () => {
 
     test('should provide custom error messages', () => {
       const validator = number().custom(
-        value => value > 100,
+        value => value != null && value > 100,
         'Must be greater than 100',
       )
       const result = validator.validate(50)
@@ -189,7 +189,7 @@ describe('NumberValidator', () => {
         .min(10)
         .max(1000)
         .divisibleBy(10)
-        .custom(n => n.toString().length <= 3, 'Max 3 digits')
+        .custom(n => n != null && n.toString().length <= 3, 'Max 3 digits')
 
       expect(validator.test(100)).toBe(true)
       expect(validator.test(50)).toBe(true) // 50 is divisible by 10

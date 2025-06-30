@@ -1,4 +1,4 @@
-import type { IsTimeOptions, TimeValidatorType, ValidationNames } from '../types'
+import type { TimeValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class TimeValidator extends BaseValidator<string> implements TimeValidatorType {

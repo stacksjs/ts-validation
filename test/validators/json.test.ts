@@ -1,22 +1,23 @@
+import { describe, expect, test } from 'bun:test'
 import { json } from '../../src/validators/json'
 
 describe('jsonValidator', () => {
-  it('should validate JSON strings', () => {
-    const validator = json()
+  test('should validate JSON strings', () => {
+    const validator = json().required()
     expect(validator.test('{"a":1}')).toBe(true)
     expect(validator.test('[1,2,3]')).toBe(true)
-    expect(validator.test('123')).toBe(false)
-    expect(validator.test('not json')).toBe(false)
+    expect(validator.test('123' as any)).toBe(false)
+    expect(validator.test('not json' as any)).toBe(false)
   })
 
-  it('should reject non-string values', () => {
+  test('should reject non-string values', () => {
     const validator = json().required()
-    expect(validator.test(123)).toBe(false)
-    expect(validator.test(null)).toBe(false)
-    expect(validator.test(undefined)).toBe(false)
+    expect(validator.test(123 as any)).toBe(false)
+    expect(validator.test(null as any)).toBe(false)
+    expect(validator.test(undefined as any)).toBe(false)
   })
 
-  it('should handle edge cases', () => {
+  test('should handle edge cases', () => {
     const validator = json().required()
     expect(validator.test('')).toBe(false)
     expect(validator.test('null')).toBe(false)

@@ -1,6 +1,5 @@
 import type { SmallintValidatorType, ValidationNames } from '../types'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import { BaseValidator } from './base'
 import { NumberValidator } from './numbers'
 
 export class SmallintValidator extends NumberValidator implements SmallintValidatorType {
