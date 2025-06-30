@@ -1,10 +1,14 @@
 import type { ArrayValidatorType } from './array'
+import type { BinaryValidatorType } from './binary'
+import type { BlobValidatorType } from './blob'
 import type { BooleanValidatorType } from './boolean'
 import type { CustomValidatorType } from './custom'
 import type { DatetimeValidatorType, DateValidatorType } from './date'
 import type { DecimalValidatorType } from './decimal'
 import type { EnumValidatorType } from './enum'
 import type { FloatValidatorType } from './float'
+import type { IntegerValidatorType } from './integer'
+import type { JsonValidatorType } from './json'
 import type { BigintValidatorType, NumberValidatorType } from './number'
 import type { ObjectValidatorType } from './object'
 import type { PasswordValidatorType } from './password'
@@ -19,16 +23,19 @@ export * from './array'
 
 // Base types
 export * from './base'
+export * from './binary'
+export * from './blob'
 export * from './boolean'
 export * from './custom'
 export * from './date'
 export * from './decimal'
-export * from './decimal'
 export * from './enum'
 export * from './float'
-export * from './float'
-export * from './number'
 
+export * from './float'
+export * from './integer'
+export * from './json'
+export * from './number'
 export * from './object'
 // Options types
 export * from './options'
@@ -60,6 +67,10 @@ export interface ValidationInstance {
   decimal: () => DecimalValidatorType
   time: () => TimeValidatorType
   smallint: () => SmallintValidatorType
+  integer: () => IntegerValidatorType
+  json: () => JsonValidatorType
+  blob: () => BlobValidatorType
+  binary: () => BinaryValidatorType
 }
 
 export type ValidationType = {

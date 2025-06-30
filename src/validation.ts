@@ -1,6 +1,8 @@
 import type { ValidationInstance } from './types'
 import { array } from './validators/arrays'
 import { bigint } from './validators/bigint'
+import { binary } from './validators/binary'
+import { blob } from './validators/blob'
 import { boolean } from './validators/booleans'
 import { custom } from './validators/custom'
 import { date } from './validators/dates'
@@ -8,6 +10,8 @@ import { datetime } from './validators/datetimes'
 import { decimal } from './validators/decimal'
 import { enum_ } from './validators/enums'
 import { float } from './validators/float'
+import { integer } from './validators/integer'
+import { json } from './validators/json'
 import { number } from './validators/numbers'
 import { object } from './validators/objects'
 import { password } from './validators/password'
@@ -39,4 +43,8 @@ export const v: ValidationInstance = {
   decimal,
   time,
   smallint,
+  integer,
+  json,
+  blob,
+  binary,
 }

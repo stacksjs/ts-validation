@@ -94,6 +94,9 @@ describe('NumberValidator', () => {
       expect(validator.test(50.5)).toBe(false)
     })
 
+    // Note: float() and decimal() methods have been moved to separate validators
+    // Use v.float() and v.decimal() instead of v.number().float() and v.number().decimal()
+
     test('float() should validate floating point numbers', () => {
       const validator = number().float()
       expect(validator.test(3.14)).toBe(true)

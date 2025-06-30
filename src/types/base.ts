@@ -75,6 +75,10 @@ export type ValidationNames = 'base' |
   'float' |
   'decimal' |
   'time' |
-  'smallint'
+  'smallint' |
+  'integer' |
+  'json' |
+  'blob' |
+  'binary'
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
