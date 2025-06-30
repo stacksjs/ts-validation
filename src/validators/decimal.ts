@@ -1,4 +1,4 @@
-import type { DecimalValidatorOptions, DecimalValidatorType, ValidationNames } from '../types'
+import type { DecimalValidatorType, ValidationNames } from '../types'
 import isDivisibleBy from '../lib/isDivisibleBy'
 import { NumberValidator } from './numbers'
 

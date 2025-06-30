@@ -21,8 +21,8 @@ export default function contains(str: string, elem: string, options: ContainsOpt
   options = merge(options, defaultContainsOptions)
 
   if (options.ignoreCase) {
-    return str.toLowerCase().split(toString(elem).toLowerCase()).length > options.minOccurrences
+    return str.toLowerCase().split(toString(elem).toLowerCase()).length > (options.minOccurrences ?? 0)
   }
 
-  return str.split(toString(elem)).length > options.minOccurrences
+  return str.split(toString(elem)).length > (options.minOccurrences ?? 0)
 }

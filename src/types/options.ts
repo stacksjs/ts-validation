@@ -34,6 +34,12 @@ export interface CurrencyOptions {
   allow_space_after_digits: boolean
 }
 
+export interface DecimalValidatorOptions {
+  force_decimal: boolean
+  decimal_digits: string
+  locale: string
+}
+
 export interface IsIMEIOptions {
   allow_hyphens?: boolean | string
 }
