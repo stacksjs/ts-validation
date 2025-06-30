@@ -1,9 +1,8 @@
 import type { DecimalValidatorOptions, DecimalValidatorType, ValidationNames } from '../types'
-import isDecimal from '../lib/isDecimal'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import { BaseValidator } from './base'
+import { NumberValidator } from './numbers'
 
-export class DecimalValidator extends BaseValidator<number> implements DecimalValidatorType {
+export class DecimalValidator extends NumberValidator implements DecimalValidatorType {
   public name: ValidationNames = 'decimal'
 
   constructor() {
@@ -11,13 +10,20 @@ export class DecimalValidator extends BaseValidator<number> implements DecimalVa
     this.addRule({
       name: 'decimal',
       test: (value: unknown): value is number => {
-        if (typeof value !== 'number' || Number.isNaN(value)) {
+        // First check if it's a number
+        if (typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)) {
           return false
         }
-        return isDecimal(String(value), {})
+        // Check if it's a finite number (all numbers in JS are decimals)
+        return true
       },
       message: 'Must be a valid decimal number',
     })
+  }
+
+  // Override test method to handle type checking
+  test(value: unknown): boolean {
+    return this.validate(value as number).valid
   }
 
   min(min: number): this {

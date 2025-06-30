@@ -1,23 +1,32 @@
 import type { FloatOptions, FloatValidatorType, ValidationNames } from '../types'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import isFloat from '../lib/isFloat'
 import { BaseValidator } from './base'
+import { NumberValidator } from './numbers'
 
-export class FloatValidator extends BaseValidator<number> implements FloatValidatorType {
+export class FloatValidator extends NumberValidator implements FloatValidatorType {
   public name: ValidationNames = 'float'
 
   constructor() {
     super()
+    // Override the base number validation to ensure it's a float
+    // Remove the existing number rule and add our own
+    this.rules = this.rules.filter(rule => rule.name !== 'number')
     this.addRule({
-      name: 'float',
+      name: 'number',
       test: (value: unknown): value is number => {
-        if (typeof value !== 'number' || Number.isNaN(value)) {
+        // First check if it's a number
+        if (typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)) {
           return false
         }
-        return isFloat(String(value), {})
+        // All numbers in JavaScript are floats, so just check if it's finite
+        return true
       },
       message: 'Must be a valid float number',
     })
+  }
+
+  test(value: unknown): boolean {
+    return this.validate(value as number).valid
   }
 
   min(min: number): this {

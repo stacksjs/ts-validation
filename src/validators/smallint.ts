@@ -1,21 +1,25 @@
 import type { SmallintValidatorType, ValidationNames } from '../types'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import isInt from '../lib/isInt'
 import { BaseValidator } from './base'
+import { NumberValidator } from './numbers'
 
-export class SmallintValidator extends BaseValidator<number> implements SmallintValidatorType {
+export class SmallintValidator extends NumberValidator implements SmallintValidatorType {
   public name: ValidationNames = 'smallint'
 
   constructor() {
     super()
+    // Override the base number validation to ensure it's a smallint
+    // Remove the existing number rule and add our own
+    this.rules = this.rules.filter(rule => rule.name !== 'number')
     this.addRule({
-      name: 'smallint',
+      name: 'number',
       test: (value: unknown): value is number => {
-        if (typeof value !== 'number' || Number.isNaN(value)) {
+        // First check if it's a number
+        if (typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)) {
           return false
         }
         // Check if it's an integer
-        if (!isInt(String(value), {})) {
+        if (!Number.isInteger(value)) {
           return false
         }
         // Check if it's within smallint range (-32,768 to 32,767)
@@ -83,6 +87,11 @@ export class SmallintValidator extends BaseValidator<number> implements Smallint
       test: fn,
       message,
     })
+  }
+
+  // Override test method to handle type checking
+  test(value: unknown): boolean {
+    return this.validate(value as number).valid
   }
 }
 

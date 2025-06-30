@@ -1,4 +1,4 @@
-import type { TimeValidatorType, ValidationNames } from '../types'
+import type { IsTimeOptions, TimeValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class TimeValidator extends BaseValidator<string> implements TimeValidatorType {
@@ -9,15 +9,27 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
     this.addRule({
       name: 'time',
       test: (value: unknown): value is string => {
+        // First check if it's a string
         if (typeof value !== 'string') {
           return false
         }
-        // Basic time format validation (HH:MM:SS or HH:MM)
+
+        // Check if it's empty
+        if (value.trim() === '') {
+          return false
+        }
+
+        // Default to 24-hour format
         const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/
         return timeRegex.test(value)
       },
-      message: 'Must be a valid time format (HH:MM:SS or HH:MM)',
+      message: 'Must be a valid time format',
     })
+  }
+
+  // Override test method to handle type checking
+  test(value: unknown): boolean {
+    return this.validate(value).valid
   }
 
   min(min: string): this {

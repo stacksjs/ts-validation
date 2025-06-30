@@ -96,32 +96,6 @@ describe('NumberValidator', () => {
 
     // Note: float() and decimal() methods have been moved to separate validators
     // Use v.float() and v.decimal() instead of v.number().float() and v.number().decimal()
-
-    test('float() should validate floating point numbers', () => {
-      const validator = number().float()
-      expect(validator.test(3.14)).toBe(true)
-      expect(validator.test(0.1)).toBe(true)
-      expect(validator.test(-2.5)).toBe(true)
-      expect(validator.test(123)).toBe(true) // integers are valid floats
-      expect(validator.test(0)).toBe(true)
-    })
-
-    test('float() with options', () => {
-      const validator = number().float({ min: 0, max: 10 })
-      expect(validator.test(5.5)).toBe(true)
-      expect(validator.test(0)).toBe(true)
-      expect(validator.test(10)).toBe(true)
-      expect(validator.test(-0.1)).toBe(false)
-      expect(validator.test(10.1)).toBe(false)
-    })
-
-    test('decimal() should validate decimal numbers', () => {
-      const validator = number().decimal()
-      expect(validator.test(123.45)).toBe(true)
-      expect(validator.test(0.1)).toBe(true)
-      expect(validator.test(123)).toBe(true)
-      expect(validator.test(-45.67)).toBe(true)
-    })
   })
 
   describe('sign validation', () => {

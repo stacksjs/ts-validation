@@ -1,4 +1,3 @@
-import type { IntegerValidator } from '../validators/integer'
 import type { NumberValidatorType } from './number'
 
 export interface IntegerValidatorType extends NumberValidatorType {

@@ -1,4 +1,4 @@
-import type { JsonValidatorType, ValidationNames } from '../types'
+import type { IsJSONOptions, JsonValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class JsonValidator extends BaseValidator<string> implements JsonValidatorType {
@@ -9,11 +9,22 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
     this.addRule({
       name: 'json',
       test: (value: unknown): value is string => {
+        // First check if it's a string
         if (typeof value !== 'string') {
           return false
         }
+
+        // Check if it's empty
+        if (value.trim() === '') {
+          return false
+        }
+
         try {
-          JSON.parse(value)
+          const parsed = JSON.parse(value)
+          // By default, reject primitive values
+          if (typeof parsed === 'string' || typeof parsed === 'number' || typeof parsed === 'boolean' || parsed === null) {
+            return false
+          }
           return true
         }
         catch {
@@ -22,6 +33,11 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
       },
       message: 'Must be a valid JSON string',
     })
+  }
+
+  // Override test method to handle type checking
+  test(value: unknown): boolean {
+    return this.validate(value as string).valid
   }
 
   min(min: number): this {
