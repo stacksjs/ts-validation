@@ -1,6 +1,6 @@
-import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule } from '../types'
+import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule, Validator } from '../types'
 
-export abstract class BaseValidator<T> {
+export abstract class BaseValidator<T> implements Validator<T> {
   protected rules: ValidationRule<T>[] = []
   public isRequired = false
   protected fieldName = 'value'

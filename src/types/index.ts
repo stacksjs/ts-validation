@@ -9,6 +9,7 @@ import type { PasswordValidatorType } from './password'
 // Re-export ValidationInstance type
 import type { StringValidatorType, TextValidatorType } from './string'
 import type { TimestampValidatorType, UnixValidatorType } from './timestamp'
+import type { TimestampTzValidatorType } from './timestamptz'
 
 export * from './array'
 
@@ -27,6 +28,7 @@ export * from './password'
 export * from './string'
 
 export * from './timestamp'
+export * from './timestamptz'
 
 export interface ValidationInstance {
   string: () => StringValidatorType
@@ -41,6 +43,7 @@ export interface ValidationInstance {
   object: <T extends Record<string, any>>() => ObjectValidatorType<T>
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidatorType<T>
   timestamp: () => TimestampValidatorType
+  timestampTz: () => TimestampTzValidatorType
   unix: () => UnixValidatorType
   password: () => PasswordValidatorType
 }

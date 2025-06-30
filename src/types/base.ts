@@ -32,7 +32,7 @@ export interface Validator<T> {
   isRequired: boolean
   getRules: () => ValidationRule<T>[]
   test: (value: T) => boolean
-  validate: (value: T) => ValidationResult
+  validate: (value: T | undefined | null) => ValidationResult
   required: () => this
   optional: () => this
 }
@@ -56,6 +56,21 @@ export interface LengthValidator<T> {
   length: (length: number) => T
 }
 
-export type ValidationNames = 'base' | 'string' | 'number' | 'array' | 'boolean' | 'enum' | 'date' | 'datetime' | 'object' | 'custom' | 'timestamp' | 'unix' | 'password' | 'text' | 'bigint'
+export type ValidationNames = 'base' |
+  'string' |
+  'number' |
+  'array' |
+  'boolean' |
+  'enum' |
+  'date' |
+  'datetime' |
+  'object' |
+  'custom' |
+  'timestamp' |
+  'unix' |
+  'password' |
+  'text' |
+  'bigint' |
+  'timestampTz'
 
 export type Infer<T> = T extends Validator<infer U> ? U : never
