@@ -19,6 +19,7 @@ A lightweight, type-safe validation library for TypeScript with blazing-fast per
 - 🧩 **Extendable** - Easy to add custom validators
 - 💾 **Tiny footprint** - Lightweight with no dependencies
 - 🔍 **Detailed errors** - Comprehensive error reporting
+- 🛡️ **Robust validation** - Handles null, undefined, and edge cases properly
 
 ## Installation
 
@@ -45,7 +46,7 @@ import { v } from '@stacksjs/ts-validation'
 const userValidator = v.object({
   name: v.string().min(2).max(50).required(),
   email: v.string().email().required(),
-  age: v.number().min(18).integer().required(),
+  age: v.integer().min(18).max(120).required(),
   website: v.string().url().optional(),
   tags: v.array().each(v.string()).optional(),
 })
@@ -69,6 +70,46 @@ else {
 }
 ```
 
+## Basic Usage
+
+### Simple Validation
+
+```typescript
+import { v } from '@stacksjs/ts-validation'
+
+// Validate a single value
+const emailValidator = v.string().email().required()
+const result = emailValidator.validate('john@example.com')
+
+if (result.valid) {
+  console.log('Email is valid!')
+}
+else {
+  console.log('Validation errors:', result.errors)
+}
+
+// Quick test method
+const isValid = emailValidator.test('john@example.com') // returns boolean
+```
+
+### Error Handling
+
+```typescript
+const result = userValidator.validate(invalidUser)
+
+if (!result.valid) {
+  // For single field validation
+  result.errors.forEach((error) => {
+    console.log(error.message)
+  })
+
+  // For object validation
+  Object.entries(result.errors).forEach(([field, errors]) => {
+    console.log(`${field}:`, errors.map(e => e.message))
+  })
+}
+```
+
 ## Validation Types
 
 ### String Validation
@@ -88,6 +129,9 @@ const zipCodeValidator = v.string().matches(/^\d{5}$/).required()
 
 // Alphanumeric, alpha, or numeric characters
 const usernameValidator = v.string().alphanumeric().required()
+
+// Text validation (specialized for text content)
+const bioValidator = v.text().max(500).optional()
 ```
 
 ### Number Validation
@@ -96,8 +140,17 @@ const usernameValidator = v.string().alphanumeric().required()
 // Basic number validation
 const ageValidator = v.number().min(18).max(120).required()
 
-// Integer validation
-const quantityValidator = v.number().integer().positive().required()
+// Integer validation (whole numbers only)
+const quantityValidator = v.integer().positive().required()
+
+// Float validation (decimal numbers)
+const priceValidator = v.float().min(0.01).required()
+
+// Small integer validation (-32,768 to 32,767)
+const smallNumberValidator = v.smallint().required()
+
+// Decimal validation (with precision control)
+const decimalValidator = v.decimal().min(0).max(999.99).required()
 
 // Negative numbers
 const temperatureValidator = v.number().negative().required()
@@ -135,8 +188,7 @@ const addressValidator = v.object({
 })
 
 // Nested object validation
-// .shape() is an alias for .object()
-const userValidator = v.object().shape({
+const userValidator = v.object({
   name: v.string().required(),
   address: addressValidator,
 })
@@ -146,6 +198,71 @@ const strictValidator = v.object().strict().shape({
   id: v.number().required(),
   name: v.string().required(),
 })
+```
+
+### Date and Time Validation
+
+```typescript
+// Basic date validation
+const dateValidator = v.date()
+expect(dateValidator.test(new Date())).toBe(true)
+expect(dateValidator.test(new Date('invalid'))).toBe(false)
+
+// Datetime validation (MySQL DATETIME compatible)
+const datetimeValidator = v.datetime()
+expect(datetimeValidator.test(new Date('2023-01-01'))).toBe(true)
+
+// Time validation (24-hour format)
+const timeValidator = v.time()
+expect(timeValidator.test('14:30')).toBe(true)
+expect(timeValidator.test('25:00')).toBe(false) // Invalid hour
+
+// Unix timestamp validation
+const unixValidator = v.unix()
+expect(unixValidator.test(1683912345)).toBe(true) // Seconds
+expect(unixValidator.test(1683912345000)).toBe(true) // Milliseconds
+
+// Regular timestamp validation (MySQL TIMESTAMP compatible)
+const timestampValidator = v.timestamp()
+expect(timestampValidator.test(0)).toBe(true) // 1970-01-01 00:00:00 UTC
+
+// Timestamp with timezone
+const timestampTzValidator = v.timestampTz()
+```
+
+### JSON Validation
+
+```typescript
+// JSON string validation
+const jsonValidator = v.json()
+expect(jsonValidator.test('{"name": "John"}')).toBe(true)
+expect(jsonValidator.test('{"a": 1, "b": 2}')).toBe(true)
+expect(jsonValidator.test('123')).toBe(false) // Primitive values are invalid
+expect(jsonValidator.test('not json')).toBe(false)
+```
+
+### Binary and Blob Validation
+
+```typescript
+// Binary data validation
+const binaryValidator = v.binary()
+
+// Blob validation
+const blobValidator = v.blob()
+```
+
+### BigInt Validation
+
+```typescript
+// BigInt validation
+const bigIntValidator = v.bigint().min(0n).max(1000000n).required()
+```
+
+### Enum Validation
+
+```typescript
+// Enum validation
+const statusValidator = v.enum(['active', 'inactive', 'pending']).required()
 ```
 
 ### Custom Validation
@@ -167,12 +284,6 @@ const passwordValidator = v.string()
 ### Password Validation
 
 The password validator provides comprehensive password validation with multiple security rules:
-
-- Minimum and maximum length
-- Must contain both letters and numbers (alphanumeric)
-- Must have uppercase and lowercase letters
-- Must contain special characters
-- Can validate password matches (for confirmation)
 
 ```typescript
 // Basic password validation
@@ -199,38 +310,114 @@ else {
 const confirmPasswordValidator = v.password().matches('MySecureP@ss123')
 ```
 
-### Date and Time Validation
+## Advanced Usage
 
-The library provides several date and time validators to handle different formats:
-
-- Basic JavaScript Date objects
-- MySQL DATETIME format (1000-01-01 to 9999-12-31)
-- Unix timestamps (both seconds and milliseconds)
-- MySQL TIMESTAMP format (1970-01-01 00:00:00 UTC to 2038-01-19 03:14:07 UTC)
+### Conditional Validation
 
 ```typescript
-// Basic date validation
-const dateValidator = v.date()
-expect(dateValidator.test(new Date())).toBe(true)
-expect(dateValidator.test(new Date('invalid'))).toBe(false)
+const userValidator = v.object({
+  name: v.string().required(),
+  email: v.string().email().required(),
+  age: v.integer().min(18).required(),
+  // Conditional validation based on age
+  guardianInfo: v.object({
+    name: v.string().required(),
+    phone: v.string().required(),
+  }).custom((value, data) => {
+    return data.age < 18 ? value !== null : true
+  }, 'Guardian information required for users under 18'),
+})
+```
 
-// Datetime validation (MySQL DATETIME compatible)
-const datetimeValidator = v.datetime()
-expect(datetimeValidator.test(new Date('2023-01-01'))).toBe(true)
-expect(datetimeValidator.test(new Date('0999-12-31'))).toBe(false) // Before 1000-01-01
-expect(datetimeValidator.test(new Date('10000-01-01'))).toBe(false) // After 9999-12-31
+### Reusable Validators
 
-// Unix timestamp validation
-const unixValidator = v.unix()
-expect(unixValidator.test(1683912345)).toBe(true) // Seconds
-expect(unixValidator.test(1683912345000)).toBe(true) // Milliseconds
-expect(unixValidator.test(-1)).toBe(false) // Invalid negative timestamp
+```typescript
+// Create reusable validators
+const emailValidator = v.string().email().required()
+const phoneValidator = v.string().matches(/^\+?[\d\s-()]+$/).required()
 
-// Regular timestamp validation (MySQL TIMESTAMP compatible)
-const timestampValidator = v.timestamp()
-expect(timestampValidator.test(0)).toBe(true) // 1970-01-01 00:00:00 UTC
-expect(timestampValidator.test(2147483647)).toBe(true) // 2038-01-19 03:14:07 UTC
-expect(timestampValidator.test(-1)).toBe(false) // Invalid negative timestamp
+// Use them in multiple places
+const contactFormValidator = v.object({
+  email: emailValidator,
+  phone: phoneValidator,
+})
+
+const userProfileValidator = v.object({
+  primaryEmail: emailValidator,
+  secondaryEmail: emailValidator.optional(),
+  phone: phoneValidator.optional(),
+})
+```
+
+### Validation with Custom Error Messages
+
+```typescript
+const userValidator = v.object({
+  name: v.string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(50, 'Name cannot exceed 50 characters')
+    .required('Name is required'),
+  email: v.string()
+    .email('Please provide a valid email address')
+    .required('Email is required'),
+})
+```
+
+## Error Handling Examples
+
+```typescript
+// Single field validation
+const emailResult = emailValidator.validate('invalid-email')
+if (!emailResult.valid) {
+  emailResult.errors.forEach((error) => {
+    console.log(`Email error: ${error.message}`)
+  })
+}
+
+// Object validation
+const userResult = userValidator.validate(invalidUser)
+if (!userResult.valid) {
+  // userResult.errors is an object with field names as keys
+  Object.entries(userResult.errors).forEach(([field, errors]) => {
+    console.log(`${field}:`)
+    errors.forEach((error) => {
+      console.log(`  - ${error.message}`)
+    })
+  })
+}
+```
+
+## Performance Tips
+
+1. **Reuse validators**: Create validators once and reuse them instead of creating new ones for each validation
+2. **Use specific validators**: Use `v.integer()` instead of `v.number().integer()` for better performance
+3. **Chain efficiently**: Order validation rules from most likely to fail first
+4. **Avoid unnecessary validations**: Use `.optional()` for fields that can be undefined
+
+## TypeScript Integration
+
+```typescript
+import { v } from '@stacksjs/ts-validation'
+
+// Type-safe validation
+interface User {
+  name: string
+  email: string
+  age: number
+}
+
+const userValidator = v.object({
+  name: v.string().required(),
+  email: v.string().email().required(),
+  age: v.integer().min(18).required(),
+})
+
+// The result is fully typed
+const result = userValidator.validate(userData)
+if (result.valid) {
+  // TypeScript knows userData is valid here
+  const validUser: User = userData
+}
 ```
 
 ## Configuration
@@ -255,12 +442,6 @@ const config: ValidationOptions = {
 
 export default config
 ```
-
-## Performance Tips
-
-1. **Use caching**: Enable `cacheResults` in the config for repeated validations
-2. **Early returns**: Set `strictMode: true` to stop on first error when validating complex objects
-3. **Reuse validators**: Create validators once and reuse them instead of creating new ones for each validation
 
 ## Testing
 
