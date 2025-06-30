@@ -5,5 +5,5 @@ export interface TimeValidatorType extends Validator<string> {
   min: (min: string) => TimeValidator
   max: (max: string) => TimeValidator
   length: (length: number) => TimeValidator
-  custom: (fn: (value: string) => boolean, message: string) => TimeValidator
+  custom: (fn: (value: string | null | undefined) => boolean, message: string) => TimeValidator
 }

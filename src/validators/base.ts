@@ -30,18 +30,17 @@ export abstract class BaseValidator<T> implements Validator<T> {
   validate(value: T | undefined | null): ValidationResult {
     const errors: ValidationError[] = []
 
-    if ((value === undefined || value === null || value === '')) {
-      if (!this.isRequired) {
-        return this.isPartOfShape
-          ? { valid: true, errors: {} }
-          : { valid: true, errors: [] }
-      }
-      else {
-        const error = { message: 'This field is required' }
-        return this.isPartOfShape
-          ? { valid: false, errors: { [this.fieldName]: [error] } }
-          : { valid: false, errors: [error] }
-      }
+    if (!this.isRequired && (value === undefined || value === null || value === '')) {
+      return this.isPartOfShape
+        ? { valid: true, errors: {} }
+        : { valid: true, errors: [] }
+    }
+
+    if (this.isRequired && (value === undefined || value === null || value === '')) {
+      const error = { message: 'This field is required' }
+      return this.isPartOfShape
+        ? { valid: false, errors: { [this.fieldName]: [error] } }
+        : { valid: false, errors: [error] }
     }
 
     for (const rule of this.rules) {
@@ -69,7 +68,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
     return this.rules
   }
 
-  test(value: T): boolean {
+  test(value: T | null | undefined): boolean {
     return this.validate(value).valid
   }
 

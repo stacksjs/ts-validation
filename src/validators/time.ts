@@ -8,14 +8,14 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
     super()
     this.addRule({
       name: 'time',
-      test: (value: unknown): value is string => {
+      test: (value: string | null | undefined): value is string => {
         // First check if it's a string
         if (typeof value !== 'string') {
           return false
         }
 
         // Check if it's empty
-        if (value.trim() === '') {
+        if (value.trim() === '' || value === undefined || value === null) {
           return false
         }
 
@@ -23,19 +23,17 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
         const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/
         return timeRegex.test(value)
       },
+
       message: 'Must be a valid time format',
     })
-  }
-
-  // Override test method to handle type checking
-  test(value: unknown): boolean {
-    return this.validate(value).valid
   }
 
   min(min: string): this {
     return this.addRule({
       name: 'min',
-      test: (value: string) => {
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
         const timeToMinutes = (time: string) => {
           const [hours, minutes] = time.split(':').map(Number)
           return hours * 60 + minutes
@@ -50,7 +48,9 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
   max(max: string): this {
     return this.addRule({
       name: 'max',
-      test: (value: string) => {
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
         const timeToMinutes = (time: string) => {
           const [hours, minutes] = time.split(':').map(Number)
           return hours * 60 + minutes
@@ -65,18 +65,34 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: string) => value.length === length,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length === length
+      },
       message: 'Must be exactly {length} characters',
       params: { length },
     })
   }
 
-  custom(fn: (value: string) => boolean, message: string): this {
+  custom(fn: (value: string | null | undefined) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
       message,
     })
+  }
+
+  validate(value: string | undefined | null): any {
+    // Only allow actual strings, and empty strings are invalid for time
+    if (typeof value !== 'string' || value === '') {
+      const error = { message: 'This field is required' }
+      return this.isPartOfShape
+        ? { valid: false, errors: { [this.fieldName]: [error] } }
+        : { valid: false, errors: [error] }
+    }
+    // Otherwise, use the base validation
+    return super.validate(value)
   }
 }
 

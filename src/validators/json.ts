@@ -43,7 +43,11 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
   min(min: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: string) => value.length >= min,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length >= min
+      },
       message: 'Must be at least {min} characters',
       params: { min },
     })
@@ -52,7 +56,11 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
   max(max: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: string) => value.length <= max,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length <= max
+      },
       message: 'Must be at most {max} characters',
       params: { max },
     })
@@ -61,18 +69,34 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: string) => value.length === length,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length === length
+      },
       message: 'Must be exactly {length} characters',
       params: { length },
     })
   }
 
-  custom(fn: (value: string) => boolean, message: string): this {
+  custom(fn: (value: string | null | undefined) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
       message,
     })
+  }
+
+  validate(value: string | undefined | null): any {
+    // Only allow actual strings, and empty strings are invalid for JSON
+    if (typeof value !== 'string' || value === '') {
+      const error = { message: 'This field is required' }
+      return this.isPartOfShape
+        ? { valid: false, errors: { [this.fieldName]: [error] } }
+        : { valid: false, errors: [error] }
+    }
+    // Otherwise, use the base validation
+    return super.validate(value)
   }
 }
 

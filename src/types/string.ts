@@ -81,7 +81,7 @@ export interface StringValidatorType extends Validator<string>, LengthValidator<
   alphanumeric: () => StringValidator
   alpha: () => StringValidator
   numeric: () => StringValidator
-  custom: (fn: (value: string) => boolean, message: string) => StringValidator
+  custom: (fn: (value: string | null | undefined) => boolean, message: string) => StringValidator
 }
 
 export interface TextValidatorType extends StringValidatorType {}

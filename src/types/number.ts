@@ -19,7 +19,7 @@ export interface NumberValidatorType extends Validator<number>, LengthValidator<
   positive: () => NumberValidator
   negative: () => NumberValidator
   divisibleBy: (divisor: number) => NumberValidator
-  custom: (fn: (value: number) => boolean, message: string) => NumberValidator
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => NumberValidator
 }
 
 export interface BigintValidatorType extends Validator<bigint> {

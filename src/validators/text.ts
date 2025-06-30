@@ -8,7 +8,7 @@ export class TextValidator extends StringValidator implements TextValidatorType 
     super()
     this.addRule({
       name: 'text',
-      test: (value: unknown): value is string => typeof value === 'string',
+      test: (value: string | null | undefined): value is string => typeof value === 'string',
       message: 'Must be a text',
     })
   }

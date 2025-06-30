@@ -5,5 +5,5 @@ export interface SmallintValidatorType extends Validator<number>, LengthValidato
   positive: () => SmallintValidator
   negative: () => SmallintValidator
   divisibleBy: (divisor: number) => SmallintValidator
-  custom: (fn: (value: number) => boolean, message: string) => SmallintValidator
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => SmallintValidator
 }

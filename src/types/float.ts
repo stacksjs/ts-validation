@@ -13,5 +13,5 @@ export interface FloatValidatorType extends Validator<number>, LengthValidator<F
   positive: () => FloatValidator
   negative: () => FloatValidator
   divisibleBy: (divisor: number) => FloatValidator
-  custom: (fn: (value: number) => boolean, message: string) => FloatValidator
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => FloatValidator
 }

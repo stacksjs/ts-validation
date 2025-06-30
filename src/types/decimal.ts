@@ -12,5 +12,5 @@ export interface DecimalValidatorType extends Validator<number>, LengthValidator
   positive: () => DecimalValidator
   negative: () => DecimalValidator
   divisibleBy: (divisor: number) => DecimalValidator
-  custom: (fn: (value: number) => boolean, message: string) => DecimalValidator
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => DecimalValidator
 }

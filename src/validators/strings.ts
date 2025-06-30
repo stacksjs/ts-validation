@@ -13,7 +13,7 @@ export class StringValidator extends BaseValidator<string> implements StringVali
     super()
     this.addRule({
       name: 'string',
-      test: (value: unknown): value is string => typeof value === 'string',
+      test: (value: string | null | undefined): value is string => typeof value === 'string',
       message: 'Must be a string',
     })
   }
@@ -21,7 +21,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   min(length: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: string) => value.length >= length,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length >= length
+      },
       message: 'Must be at least {length} characters long',
       params: { length },
     })
@@ -30,7 +34,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   max(length: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: string) => value.length <= length,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length <= length
+      },
       message: 'Must be at most {length} characters long',
       params: { length },
     })
@@ -39,7 +47,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: string) => value.length === length,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value.length === length
+      },
       message: 'Must be exactly {length} characters long',
       params: { length },
     })
@@ -48,7 +60,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   email(options?: Parameters<typeof isEmail>[1]): this {
     return this.addRule({
       name: 'email',
-      test: (value: string) => isEmail(value, options),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return isEmail(value, options)
+      },
       message: 'Must be a valid email address',
     })
   }
@@ -56,7 +72,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   url(options?: Parameters<typeof isURL>[1]): this {
     return this.addRule({
       name: 'url',
-      test: (value: string) => isURL(value, options),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return isURL(value, options)
+      },
       message: 'Must be a valid URL',
     })
   }
@@ -64,7 +84,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   matches(pattern: RegExp): this {
     return this.addRule({
       name: 'matches',
-      test: (value: string) => pattern.test(value),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return pattern.test(value)
+      },
       message: 'Must match pattern {pattern}',
       params: { pattern: pattern.toString() },
     })
@@ -73,7 +97,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   equals(param: string): this {
     return this.addRule({
       name: 'equals',
-      test: (value: string) => value === param,
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return value === param
+      },
       message: 'Must be equal to {param}',
       params: { param },
     })
@@ -82,7 +110,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   alphanumeric(): this {
     return this.addRule({
       name: 'alphanumeric',
-      test: (value: string) => isAlphanumeric(value),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return isAlphanumeric(value)
+      },
       message: 'Must only contain letters and numbers',
     })
   }
@@ -90,7 +122,11 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   alpha(): this {
     return this.addRule({
       name: 'alpha',
-      test: (value: string) => isAlpha(value),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return isAlpha(value)
+      },
       message: 'Must only contain letters',
     })
   }
@@ -98,12 +134,16 @@ export class StringValidator extends BaseValidator<string> implements StringVali
   numeric(): this {
     return this.addRule({
       name: 'numeric',
-      test: (value: string) => isNumeric(value),
+      test: (value: string | null | undefined) => {
+        if (typeof value !== 'string')
+          return false
+        return isNumeric(value)
+      },
       message: 'Must only contain numbers',
     })
   }
 
-  custom(fn: (value: string) => boolean, message: string): this {
+  custom(fn: (value: string | null | undefined) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,

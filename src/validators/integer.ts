@@ -26,7 +26,11 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
   min(min: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: number) => value >= min,
+      test: (value: number | null | undefined) => {
+        if (typeof value !== 'number')
+          return false
+        return value >= min
+      },
       message: 'Must be at least {min}',
       params: { min },
     })
@@ -35,7 +39,11 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
   max(max: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: number) => value <= max,
+      test: (value: number | null | undefined) => {
+        if (typeof value !== 'number')
+          return false
+        return value <= max
+      },
       message: 'Must be at most {max}',
       params: { max },
     })
@@ -44,7 +52,11 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
   positive(): this {
     return this.addRule({
       name: 'positive',
-      test: (value: number) => value > 0,
+      test: (value: number | null | undefined) => {
+        if (typeof value !== 'number')
+          return false
+        return value > 0
+      },
       message: 'Must be a positive integer',
     })
   }
@@ -52,17 +64,33 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
   negative(): this {
     return this.addRule({
       name: 'negative',
-      test: (value: number) => value < 0,
+      test: (value: number | null | undefined) => {
+        if (typeof value !== 'number')
+          return false
+        return value < 0
+      },
       message: 'Must be a negative integer',
     })
   }
 
-  custom(fn: (value: number) => boolean, message: string): this {
+  custom(fn: (value: number | null | undefined) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
       message,
     })
+  }
+
+  validate(value: number | undefined | null): any {
+    // Only allow actual numbers
+    if (typeof value !== 'number' || Number.isNaN(value)) {
+      const error = { message: 'This field is required' }
+      return this.isPartOfShape
+        ? { valid: false, errors: { [this.fieldName]: [error] } }
+        : { valid: false, errors: [error] }
+    }
+    // Otherwise, use the base validation
+    return super.validate(value)
   }
 }
 

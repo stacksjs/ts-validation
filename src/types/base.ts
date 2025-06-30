@@ -22,7 +22,7 @@ export interface ValidationResult {
 
 export interface ValidationRule<T> {
   name: string
-  test: (value: T) => boolean
+  test: (value: T | null | undefined) => boolean
   message: string
   params?: Record<string, any>
 }
@@ -31,7 +31,7 @@ export interface Validator<T> {
   name: ValidationNames
   isRequired: boolean
   getRules: () => ValidationRule<T>[]
-  test: (value: T) => boolean
+  test: (value: T | null | undefined) => boolean
   validate: (value: T | undefined | null) => ValidationResult
   required: () => this
   optional: () => this
