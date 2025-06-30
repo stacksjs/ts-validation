@@ -16,7 +16,7 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   min(length: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: T[] | null | undefined) => {
+      test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
         return value.length >= length
@@ -29,7 +29,7 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   max(length: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: T[] | null | undefined) => {
+      test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
         return value.length <= length
@@ -42,7 +42,7 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: T[] | null | undefined) => {
+      test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
         return value.length === length
@@ -55,7 +55,7 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   each(validator: Validator<T>): this {
     return this.addRule({
       name: 'each',
-      test: (value: T[] | null | undefined) => {
+      test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
         return value.every(item => validator.test(item))
@@ -67,7 +67,7 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   unique(): this {
     return this.addRule({
       name: 'unique',
-      test: (value: T[] | null | undefined) => {
+      test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
         const seen = new Set()

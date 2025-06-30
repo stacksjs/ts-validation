@@ -27,7 +27,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
     return this
   }
 
-  validate(value: T | undefined | null): ValidationResult {
+  validate(value: T): ValidationResult {
     const errors: ValidationError[] = []
 
     if (!this.isRequired && (value === undefined || value === null || value === '')) {
@@ -68,7 +68,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
     return this.rules
   }
 
-  test(value: T | null | undefined): boolean {
+  test(value: T): boolean {
     return this.validate(value).valid
   }
 

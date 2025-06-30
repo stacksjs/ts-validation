@@ -8,7 +8,7 @@ export class DatetimeValidator extends BaseValidator<Date> implements DatetimeVa
     super()
     this.addRule({
       name: 'datetime',
-      test: (value: unknown): value is Date => {
+      test: (value: Date) => {
         if (!(value instanceof Date)) {
           return false
         }

@@ -11,7 +11,7 @@ export class EnumValidator<T extends string | number> extends BaseValidator<T> i
     this.allowedValues = allowedValues
     this.addRule({
       name: 'enum',
-      test: (value: unknown): value is T => this.allowedValues.includes(value as T),
+      test: (value: T) => this.allowedValues.includes(value),
       message: 'Must be one of: {values}',
       params: { values: this.allowedValues.join(', ') },
     })

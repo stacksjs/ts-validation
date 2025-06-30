@@ -66,7 +66,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
     })
   }
 
-  validate(value: T | undefined | null): ValidationResult {
+  validate(value: T): ValidationResult {
     const result = super.validate(value)
     if (!result.valid)
       return result

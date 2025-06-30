@@ -10,7 +10,7 @@ describe('integerValidator', () => {
   })
 
   it('should reject non-number values', () => {
-    const validator = integer()
+    const validator = integer().required()
     expect(validator.test('123')).toBe(false)
     expect(validator.test(null)).toBe(false)
     expect(validator.test(undefined)).toBe(false)
@@ -26,7 +26,7 @@ describe('integerValidator', () => {
   })
 
   it('should handle edge cases', () => {
-    const validator = integer()
+    const validator = integer().required()
     expect(validator.test(Number.POSITIVE_INFINITY)).toBe(false)
     expect(validator.test(Number.NEGATIVE_INFINITY)).toBe(false)
     expect(validator.test(Number.NaN)).toBe(false)

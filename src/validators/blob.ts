@@ -8,7 +8,7 @@ export class BlobValidator extends BaseValidator<string> implements BlobValidato
     super()
     this.addRule({
       name: 'blob',
-      test: (value: unknown): value is string => {
+      test: (value: string) => {
         if (typeof value !== 'string') {
           return false
         }

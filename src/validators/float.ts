@@ -1,6 +1,5 @@
-import type { FloatOptions, FloatValidatorType, ValidationNames } from '../types'
+import type { FloatValidatorType, ValidationNames } from '../types'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import { BaseValidator } from './base'
 import { NumberValidator } from './numbers'
 
 export class FloatValidator extends NumberValidator implements FloatValidatorType {
@@ -25,14 +24,10 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
     })
   }
 
-  test(value: unknown): boolean {
-    return this.validate(value as number).valid
-  }
-
   min(min: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value >= min
@@ -45,7 +40,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
   max(max: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value <= max
@@ -58,7 +53,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value.toString().length === length
@@ -71,7 +66,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
   positive(): this {
     return this.addRule({
       name: 'positive',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value > 0
@@ -83,7 +78,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
   negative(): this {
     return this.addRule({
       name: 'negative',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value < 0
@@ -95,7 +90,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
   divisibleBy(divisor: number): this {
     return this.addRule({
       name: 'divisibleBy',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return isDivisibleBy(String(value), divisor)
@@ -105,24 +100,12 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
     })
   }
 
-  custom(fn: (value: number | null | undefined) => boolean, message: string): this {
+  custom(fn: (value: number) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
       message,
     })
-  }
-
-  validate(value: number | undefined | null): any {
-    // Only allow actual numbers (including Infinity)
-    if (typeof value !== 'number' || Number.isNaN(value)) {
-      const error = { message: 'This field is required' }
-      return this.isPartOfShape
-        ? { valid: false, errors: { [this.fieldName]: [error] } }
-        : { valid: false, errors: [error] }
-    }
-    // Otherwise, use the base validation
-    return super.validate(value)
   }
 }
 

@@ -112,23 +112,6 @@ export class SmallintValidator extends NumberValidator implements SmallintValida
       message,
     })
   }
-
-  validate(value: number | undefined | null): any {
-    // Only allow actual numbers
-    if (typeof value !== 'number' || Number.isNaN(value)) {
-      const error = { message: 'This field is required' }
-      return this.isPartOfShape
-        ? { valid: false, errors: { [this.fieldName]: [error] } }
-        : { valid: false, errors: [error] }
-    }
-    // Otherwise, use the base validation
-    return super.validate(value)
-  }
-
-  // Override test method to handle type checking
-  test(value: unknown): boolean {
-    return this.validate(value as number).valid
-  }
 }
 
 // Export a function to create smallint validators

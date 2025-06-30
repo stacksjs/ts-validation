@@ -82,18 +82,6 @@ export class TimeValidator extends BaseValidator<string> implements TimeValidato
       message,
     })
   }
-
-  validate(value: string | undefined | null): any {
-    // Only allow actual strings, and empty strings are invalid for time
-    if (typeof value !== 'string' || value === '') {
-      const error = { message: 'This field is required' }
-      return this.isPartOfShape
-        ? { valid: false, errors: { [this.fieldName]: [error] } }
-        : { valid: false, errors: [error] }
-    }
-    // Otherwise, use the base validation
-    return super.validate(value)
-  }
 }
 
 // Export a function to create time validators

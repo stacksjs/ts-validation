@@ -9,7 +9,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
     super()
     this.addRule({
       name: 'decimal',
-      test: (value: unknown): value is number => {
+      test: (value: number) => {
         // First check if it's a number
         if (typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)) {
           return false
@@ -21,15 +21,10 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
     })
   }
 
-  // Override test method to handle type checking
-  test(value: unknown): boolean {
-    return this.validate(value as number).valid
-  }
-
   min(min: number): this {
     return this.addRule({
       name: 'min',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value >= min
@@ -42,7 +37,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
   max(max: number): this {
     return this.addRule({
       name: 'max',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value <= max
@@ -55,7 +50,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
   length(length: number): this {
     return this.addRule({
       name: 'length',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value.toString().length === length
@@ -68,7 +63,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
   positive(): this {
     return this.addRule({
       name: 'positive',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value > 0
@@ -80,7 +75,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
   negative(): this {
     return this.addRule({
       name: 'negative',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return value < 0
@@ -92,7 +87,7 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
   divisibleBy(divisor: number): this {
     return this.addRule({
       name: 'divisibleBy',
-      test: (value: number | null | undefined) => {
+      test: (value: number) => {
         if (typeof value !== 'number')
           return false
         return isDivisibleBy(String(value), divisor)
@@ -102,24 +97,12 @@ export class DecimalValidator extends NumberValidator implements DecimalValidato
     })
   }
 
-  custom(fn: (value: number | null | undefined) => boolean, message: string): this {
+  custom(fn: (value: number) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
       message,
     })
-  }
-
-  validate(value: number | undefined | null): any {
-    // Only allow actual numbers
-    if (typeof value !== 'number' || Number.isNaN(value)) {
-      const error = { message: 'This field is required' }
-      return this.isPartOfShape
-        ? { valid: false, errors: { [this.fieldName]: [error] } }
-        : { valid: false, errors: [error] }
-    }
-    // Otherwise, use the base validation
-    return super.validate(value)
   }
 }
 

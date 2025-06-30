@@ -10,7 +10,7 @@ describe('decimalValidator', () => {
   })
 
   it('should reject non-number values', () => {
-    const validator = decimal()
+    const validator = decimal().required()
     expect(validator.test('123.45')).toBe(false)
     expect(validator.test(null)).toBe(false)
     expect(validator.test(undefined)).toBe(false)

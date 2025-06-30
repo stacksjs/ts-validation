@@ -10,14 +10,14 @@ describe('jsonValidator', () => {
   })
 
   it('should reject non-string values', () => {
-    const validator = json()
+    const validator = json().required()
     expect(validator.test(123)).toBe(false)
     expect(validator.test(null)).toBe(false)
     expect(validator.test(undefined)).toBe(false)
   })
 
   it('should handle edge cases', () => {
-    const validator = json()
+    const validator = json().required()
     expect(validator.test('')).toBe(false)
     expect(validator.test('null')).toBe(false)
     expect(validator.test('true')).toBe(false)

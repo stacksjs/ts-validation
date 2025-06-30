@@ -10,7 +10,7 @@ describe('floatValidator', () => {
   })
 
   it('should reject non-number values', () => {
-    const validator = float()
+    const validator = float().required()
     expect(validator.test('3.14')).toBe(false)
     expect(validator.test(null)).toBe(false)
     expect(validator.test(undefined)).toBe(false)

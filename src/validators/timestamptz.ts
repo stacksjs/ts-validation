@@ -86,15 +86,6 @@ export class TimestampTzValidator extends BaseValidator<number | string> {
       message: 'Must be a valid timestamp with timezone information (ISO 8601, RFC 3339, or Unix timestamp)',
     })
   }
-
-  test(value: any): boolean {
-    // Override the base test method to handle null/undefined properlyc
-    if (value === null || value === undefined) {
-      return !this.isRequired
-    }
-
-    return this.validate(value).valid
-  }
 }
 
 export function timestampTz(): TimestampTzValidator {

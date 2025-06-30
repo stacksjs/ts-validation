@@ -1,4 +1,4 @@
-import type { IsJSONOptions, JsonValidatorType, ValidationNames } from '../types'
+import type { JsonValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
 export class JsonValidator extends BaseValidator<string> implements JsonValidatorType {
@@ -8,7 +8,7 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
     super()
     this.addRule({
       name: 'json',
-      test: (value: unknown): value is string => {
+      test: (value: string) => {
         // First check if it's a string
         if (typeof value !== 'string') {
           return false
@@ -33,11 +33,6 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
       },
       message: 'Must be a valid JSON string',
     })
-  }
-
-  // Override test method to handle type checking
-  test(value: unknown): boolean {
-    return this.validate(value as string).valid
   }
 
   min(min: number): this {
@@ -85,18 +80,6 @@ export class JsonValidator extends BaseValidator<string> implements JsonValidato
       test: fn,
       message,
     })
-  }
-
-  validate(value: string | undefined | null): any {
-    // Only allow actual strings, and empty strings are invalid for JSON
-    if (typeof value !== 'string' || value === '') {
-      const error = { message: 'This field is required' }
-      return this.isPartOfShape
-        ? { valid: false, errors: { [this.fieldName]: [error] } }
-        : { valid: false, errors: [error] }
-    }
-    // Otherwise, use the base validation
-    return super.validate(value)
   }
 }
 

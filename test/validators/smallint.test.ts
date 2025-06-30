@@ -11,7 +11,7 @@ describe('smallintValidator', () => {
   })
 
   it('should reject non-number values', () => {
-    const validator = smallint()
+    const validator = smallint().required()
     expect(validator.test('123')).toBe(false)
     expect(validator.test(null)).toBe(false)
     expect(validator.test(undefined)).toBe(false)
@@ -28,7 +28,7 @@ describe('smallintValidator', () => {
   })
 
   it('should handle edge cases', () => {
-    const validator = smallint()
+    const validator = smallint().required()
     expect(validator.test(Number.POSITIVE_INFINITY)).toBe(false)
     expect(validator.test(Number.NEGATIVE_INFINITY)).toBe(false)
     expect(validator.test(Number.NaN)).toBe(false)

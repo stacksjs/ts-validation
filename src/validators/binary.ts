@@ -8,7 +8,7 @@ export class BinaryValidator extends BaseValidator<string> implements BinaryVali
     super()
     this.addRule({
       name: 'binary',
-      test: (value: unknown): value is string => {
+      test: (value: string) => {
         if (typeof value !== 'string') {
           return false
         }
