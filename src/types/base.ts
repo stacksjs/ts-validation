@@ -74,6 +74,7 @@ export type ValidationNames = 'base' |
   'timestampTz' |
   'float' |
   'decimal' |
-  'time'
+  'time' |
+  'smallint'
 
 export type Infer<T> = T extends Validator<infer U> ? U : never

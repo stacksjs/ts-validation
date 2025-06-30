@@ -11,6 +11,7 @@ import { float } from './validators/float'
 import { number } from './validators/numbers'
 import { object } from './validators/objects'
 import { password } from './validators/password'
+import { smallint } from './validators/smallint'
 import { string } from './validators/strings'
 import { text } from './validators/text'
 import { time } from './validators/time'
@@ -37,4 +38,5 @@ export const v: ValidationInstance = {
   float,
   decimal,
   time,
+  smallint,
 }

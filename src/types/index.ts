@@ -8,6 +8,7 @@ import type { FloatValidatorType } from './float'
 import type { BigintValidatorType, NumberValidatorType } from './number'
 import type { ObjectValidatorType } from './object'
 import type { PasswordValidatorType } from './password'
+import type { SmallintValidatorType } from './smallint'
 // Re-export ValidationInstance type
 import type { StringValidatorType, TextValidatorType } from './string'
 import type { TimeValidatorType } from './time'
@@ -22,14 +23,17 @@ export * from './boolean'
 export * from './custom'
 export * from './date'
 export * from './decimal'
+export * from './decimal'
 export * from './enum'
 export * from './float'
+export * from './float'
 export * from './number'
+
 export * from './object'
 // Options types
 export * from './options'
-
 export * from './password'
+export * from './smallint'
 // Validator types
 export * from './string'
 export * from './time'
@@ -55,6 +59,7 @@ export interface ValidationInstance {
   float: () => FloatValidatorType
   decimal: () => DecimalValidatorType
   time: () => TimeValidatorType
+  smallint: () => SmallintValidatorType
 }
 
 export type ValidationType = {
