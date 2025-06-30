@@ -39,4 +39,11 @@ export interface NumberValidatorType extends Validator<number>, LengthValidator<
   custom: (fn: (value: number) => boolean, message: string) => NumberValidator
 }
 
-export interface BigintValidatorType extends NumberValidatorType {}
+export interface BigintValidatorType extends Validator<bigint> {
+  min: (min: bigint) => BigintValidatorType
+  max: (max: bigint) => BigintValidatorType
+  positive: () => BigintValidatorType
+  negative: () => BigintValidatorType
+  divisibleBy: (divisor: bigint) => BigintValidatorType
+  custom: (fn: (value: bigint) => boolean, message: string) => BigintValidatorType
+}

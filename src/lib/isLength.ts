@@ -14,9 +14,12 @@ export default function isLength(str: string, options: IsLengthOptions): boolean
   let min
   let max
 
-  if (typeof (options) === 'object') {
+  if (typeof (options) === 'object' && options !== null) {
     min = options.min || 0
     max = options.max
+    // Handle NaN values
+    if (Number.isNaN(min))
+      min = 0
   }
   else { // backwards compatibility: isLength(str, min [, max])
     min = arguments[1] || 0
@@ -26,7 +29,7 @@ export default function isLength(str: string, options: IsLengthOptions): boolean
   const presentationSequences = str.match(/(\uFE0F|\uFE0E)/g) || []
   const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []
   const len = str.length - presentationSequences.length - surrogatePairs.length
-  const isInsideRange = len >= min && (typeof max === 'undefined' || len <= max)
+  const isInsideRange = len >= min && (typeof max === 'undefined' || Number.isNaN(max) || len <= max)
 
   if (isInsideRange && Array.isArray(options?.discreteLengths)) {
     return options.discreteLengths.includes(len)

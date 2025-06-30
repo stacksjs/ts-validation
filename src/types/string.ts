@@ -5,8 +5,8 @@ import type { StringValidator } from '../validators/strings'
 import type { LengthValidator, Validator } from './base'
 
 export interface ContainsOptions {
-  ignoreCase: boolean
-  minOccurrences: number
+  ignoreCase?: boolean
+  minOccurrences?: number
 }
 
 export interface AlphanumericOptions {
