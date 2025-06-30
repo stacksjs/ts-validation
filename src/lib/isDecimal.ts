@@ -1,10 +1,10 @@
-import type { DecimalOptions } from '../types'
+import type { DecimalValidatorOptions } from '../types'
 import { decimal } from './alpha'
 import assertString from './util/assertString'
 import includes from './util/includesArray'
 import merge from './util/merge'
 
-function decimalRegExp(options: DecimalOptions): RegExp {
+function decimalRegExp(options: DecimalValidatorOptions): RegExp {
   const regExp = new RegExp(`^[-+]?([0-9]+)?(\\${decimal[options.locale]}[0-9]{${options.decimal_digits}})${options.force_decimal ? '' : '?'}$`)
   return regExp
 }
@@ -24,9 +24,9 @@ const blacklist = ['', '-', '+']
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isDecimal(str: string, options: Partial<DecimalOptions>): boolean {
+export default function isDecimal(str: string, options: Partial<DecimalValidatorOptions>): boolean {
   assertString(str)
-  const mergedOptions = merge(options, default_decimal_options) as DecimalOptions
+  const mergedOptions = merge(options, default_decimal_options) as DecimalValidatorOptions
   if (mergedOptions.locale in decimal) {
     return !includes(blacklist, str.replace(/ /g, '')) && decimalRegExp(mergedOptions).test(str)
   }

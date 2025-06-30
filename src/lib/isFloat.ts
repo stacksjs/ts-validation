@@ -1,4 +1,4 @@
-import type { IsFloatOptions } from '../types'
+import type { FloatOptions } from '../types'
 import { decimal } from './alpha'
 import assertString from './util/assertString'
 import isNullOrUndefined from './util/nullUndefinedCheck'
@@ -10,7 +10,7 @@ import isNullOrUndefined from './util/nullUndefinedCheck'
  * @param options - Options object
  * @returns True if the string matches the validation, false otherwise
  */
-export default function isFloat(str: string, options?: IsFloatOptions): boolean {
+export default function isFloat(str: string, options?: FloatOptions): boolean {
   assertString(str)
   const opts = options || {}
   const float = new RegExp(`^(?:[-+])?(?:[0-9]+)?(?:\\${typeof opts.locale === 'string' ? decimal[opts.locale] : '.'}[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$`)

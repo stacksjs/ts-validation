@@ -5,13 +5,17 @@ import { boolean } from './validators/booleans'
 import { custom } from './validators/custom'
 import { date } from './validators/dates'
 import { datetime } from './validators/datetimes'
+import { decimal } from './validators/decimal'
 import { enum_ } from './validators/enums'
+import { float } from './validators/float'
 import { number } from './validators/numbers'
 import { object } from './validators/objects'
 import { password } from './validators/password'
 import { string } from './validators/strings'
 import { text } from './validators/text'
+import { time } from './validators/time'
 import { timestamp } from './validators/timestamps'
+import { timestampTz } from './validators/timestamptz'
 import { unix } from './validators/unix'
 
 export const v: ValidationInstance = {
@@ -27,6 +31,10 @@ export const v: ValidationInstance = {
   object,
   custom,
   timestamp,
+  timestampTz,
   unix,
   password,
+  float,
+  decimal,
+  time,
 }

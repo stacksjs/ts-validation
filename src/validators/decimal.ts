@@ -1,17 +1,22 @@
-import type { IsIntOptions, NumberValidatorType, ValidationNames } from '../types'
+import type { DecimalValidatorOptions, DecimalValidatorType, ValidationNames } from '../types'
+import isDecimal from '../lib/isDecimal'
 import isDivisibleBy from '../lib/isDivisibleBy'
-import isInt from '../lib/isInt'
 import { BaseValidator } from './base'
 
-export class NumberValidator extends BaseValidator<number> implements NumberValidatorType {
-  public name: ValidationNames = 'number'
+export class DecimalValidator extends BaseValidator<number> implements DecimalValidatorType {
+  public name: ValidationNames = 'decimal'
 
   constructor() {
     super()
     this.addRule({
-      name: 'number',
-      test: (value: unknown): value is number => typeof value === 'number' && !Number.isNaN(value),
-      message: 'Must be a number',
+      name: 'decimal',
+      test: (value: unknown): value is number => {
+        if (typeof value !== 'number' || Number.isNaN(value)) {
+          return false
+        }
+        return isDecimal(String(value), {})
+      },
+      message: 'Must be a valid decimal number',
     })
   }
 
@@ -39,14 +44,6 @@ export class NumberValidator extends BaseValidator<number> implements NumberVali
       test: (value: number) => value.toString().length === length,
       message: 'Must be exactly {length} digits',
       params: { length },
-    })
-  }
-
-  integer(options?: IsIntOptions): this {
-    return this.addRule({
-      name: 'integer',
-      test: (value: number) => isInt(String(value), options ?? {}),
-      message: 'Must be an integer',
     })
   }
 
@@ -84,7 +81,7 @@ export class NumberValidator extends BaseValidator<number> implements NumberVali
   }
 }
 
-// Export a function to create number validators
-export function number(): NumberValidator {
-  return new NumberValidator()
+// Export a function to create decimal validators
+export function decimal(): DecimalValidator {
+  return new DecimalValidator()
 }

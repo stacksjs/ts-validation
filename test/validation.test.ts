@@ -315,7 +315,7 @@ describe('Validation Library', () => {
     })
 
     test('float validation', () => {
-      const validator = v.number().float()
+      const validator = v.float()
       expect(validator.test(5.5)).toBe(true)
       expect(validator.test(5)).toBe(true)
     })
