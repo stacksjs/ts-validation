@@ -44,7 +44,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
 
     if (this.isRequired && (value === undefined || value === null || value === '')) {
       const messagesProvider = getCustomMessages()
-      const message = messagesProvider.getMessage('required', this.fieldName)
+      const message = messagesProvider.getMessage('required', undefined, this.fieldName)
       const error = { message }
       return this.isPartOfShape
         ? { valid: false, errors: { [this.fieldName]: [error] } }
@@ -54,7 +54,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
     for (const rule of this.rules) {
       if (!rule.test(value)) {
         const messagesProvider = getCustomMessages()
-        const message = messagesProvider.getMessage(rule.name, this.fieldName, rule.params)
+        const message = messagesProvider.getMessage(rule.name, rule.message, this.fieldName, rule.params)
         errors.push({ message })
       }
     }

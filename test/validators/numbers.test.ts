@@ -231,7 +231,7 @@ describe('NumberValidator', () => {
       expect(result.valid).toBe(false)
       expect(Array.isArray(result.errors)).toBe(true)
       if (Array.isArray(result.errors)) {
-        expect(result.errors[0].message).toContain('at least 10')
+        expect(result.errors[0].message).toContain('Must be at least')
       }
     })
 

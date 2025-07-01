@@ -161,6 +161,7 @@ describe('PasswordValidator', () => {
 
       if (!result.valid && Array.isArray(result.errors)) {
         const errorMessages = result.errors.map(e => e.message)
+
         expect(errorMessages).toContain('Password must be at least 8 characters long')
         expect(errorMessages).toContain('Password must contain at least one uppercase letter')
         expect(errorMessages).toContain('Password must contain at least one number')

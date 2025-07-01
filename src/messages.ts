@@ -1,6 +1,6 @@
 export interface MessageProviderType {
-  getMessage: (rule: string, field?: string, params?: Record<string, any>) => string
-  setMessage: (rule: string, message: string, field?: string) => void
+  getMessage: (ruleName: string, customMessage?: string, field?: string, params?: Record<string, any>) => string
+  setMessage: (ruleName: string, message: string, field?: string) => void
   setMessages: (messages: Record<string, string>) => void
 }
 
@@ -13,28 +13,33 @@ export class MessageProvider implements MessageProviderType {
     }
   }
 
-  getMessage(rule: string, field?: string, params?: Record<string, any>): string {
+  getMessage(ruleName: string, ruleMessage?: string, field?: string, params?: Record<string, any>): string {
     let message: string | undefined
 
     // First try field-specific message
     if (field) {
-      const fieldSpecificKey = `${field}.${rule}`
+      const fieldSpecificKey = `${field}.${ruleName}`
       message = this.messages.get(fieldSpecificKey)
     }
 
     // Fall back to general rule message
     if (!message) {
-      message = this.messages.get(rule)
+      message = this.messages.get(ruleName)
+    }
+
+    // Fall back to rule-specific message (from addRule)
+    if (!message && ruleMessage) {
+      message = ruleMessage
+    }
+
+    // Replace parameters in the message
+    if (message && params) {
+      message = this.replaceParams(message, params)
     }
 
     // Fall back to default message
     if (!message) {
-      message = this.getDefaultMessage(rule)
-    }
-
-    // Replace parameters in the message
-    if (params) {
-      message = this.replaceParams(message, params)
+      message = this.getDefaultMessage(ruleName)
     }
 
     return message

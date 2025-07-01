@@ -31,6 +31,15 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
+  length(length: number): BigintValidatorType {
+    return this.addRule({
+      name: 'length',
+      test: (value: bigint) => value.toString().length === length,
+      message: 'Must be {length} digits',
+      params: { length },
+    })
+  }
+
   positive(): BigintValidatorType {
     return this.addRule({
       name: 'positive',

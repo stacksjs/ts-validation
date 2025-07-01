@@ -23,6 +23,8 @@ export interface NumberValidatorType extends Validator<number>, LengthValidator<
 
 export interface BigintValidatorType extends Validator<bigint> {
   min: (min: bigint) => BigintValidatorType
+  max: (max: bigint) => BigintValidatorType
+  length: (length: number) => BigintValidatorType
   positive: () => BigintValidatorType
   negative: () => BigintValidatorType
   divisibleBy: (divisor: bigint) => BigintValidatorType
