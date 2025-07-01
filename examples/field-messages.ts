@@ -17,8 +17,8 @@ setMessagesProvider(new MessageProvider({
   'password.min': 'Password must be at least {min} characters for security',
 }))
 
-// Create a user validator
-const userValidator = v.object().shape({
+// Create a user validator using direct schema syntax
+const userValidator = v.object({
   username: v.string().min(3).max(20).required(),
   email: v.string().email().required(),
   password: v.string().min(8).required(),

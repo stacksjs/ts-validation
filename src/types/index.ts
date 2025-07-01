@@ -1,4 +1,5 @@
 import type { ArrayValidatorType } from './array'
+import type { Validator } from './base'
 import type { BinaryValidatorType } from './binary'
 import type { BlobValidatorType } from './blob'
 import type { BooleanValidatorType } from './boolean'
@@ -58,7 +59,7 @@ export interface ValidationInstance {
   enum: <T extends string | number>(values: readonly T[]) => EnumValidatorType<T>
   date: () => DateValidatorType
   datetime: () => DatetimeValidatorType
-  object: <T extends Record<string, any>>() => ObjectValidatorType<T>
+  object: <T extends Record<string, any>>(schema?: Record<string, Validator<any>>) => ObjectValidatorType<T>
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidatorType<T>
   timestamp: () => TimestampValidatorType
   timestampTz: () => TimestampTzValidatorType
