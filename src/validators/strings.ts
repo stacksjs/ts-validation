@@ -26,8 +26,8 @@ export class StringValidator extends BaseValidator<string> implements StringVali
           return false
         return value.length >= length
       },
-      message: 'Must be at least {length} characters long',
-      params: { length },
+      message: 'Must be at least {min} characters long',
+      params: { min: length },
     })
   }
 
@@ -39,8 +39,8 @@ export class StringValidator extends BaseValidator<string> implements StringVali
           return false
         return value.length <= length
       },
-      message: 'Must be at most {length} characters long',
-      params: { length },
+      message: 'Must be at most {max} characters long',
+      params: { max: length },
     })
   }
 

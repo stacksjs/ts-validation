@@ -1,4 +1,5 @@
 import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule, Validator } from '../types'
+import { getMessagesProvider } from '../messages'
 
 export abstract class BaseValidator<T> implements Validator<T> {
   protected rules: ValidationRule<T>[] = []
@@ -22,6 +23,11 @@ export abstract class BaseValidator<T> implements Validator<T> {
     return this
   }
 
+  setFieldName(fieldName: string): this {
+    this.fieldName = fieldName
+    return this
+  }
+
   protected addRule(rule: ValidationRule<T>): this {
     this.rules.push(rule)
     return this
@@ -37,7 +43,9 @@ export abstract class BaseValidator<T> implements Validator<T> {
     }
 
     if (this.isRequired && (value === undefined || value === null || value === '')) {
-      const error = { message: 'This field is required' }
+      const messagesProvider = getMessagesProvider()
+      const message = messagesProvider.getMessage('required', this.fieldName)
+      const error = { message }
       return this.isPartOfShape
         ? { valid: false, errors: { [this.fieldName]: [error] } }
         : { valid: false, errors: [error] }
@@ -45,9 +53,9 @@ export abstract class BaseValidator<T> implements Validator<T> {
 
     for (const rule of this.rules) {
       if (!rule.test(value)) {
-        errors.push({
-          message: this.formatMessage(rule.message, rule.params ?? {}),
-        })
+        const messagesProvider = getMessagesProvider()
+        const message = messagesProvider.getMessage(rule.name, this.fieldName, rule.params)
+        errors.push({ message })
       }
     }
 
@@ -70,12 +78,5 @@ export abstract class BaseValidator<T> implements Validator<T> {
 
   test(value: T): boolean {
     return this.validate(value).valid
-  }
-
-  private formatMessage(message: string, params: Record<string, any>): string {
-    return message.replace(/\{([^}]+)\}/g, (_, key) => {
-      const value = key.split('.').reduce((obj: any, k: string) => obj?.[k], params)
-      return value !== undefined ? String(value) : `{${key}}`
-    })
   }
 }

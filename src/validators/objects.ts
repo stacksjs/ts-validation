@@ -25,7 +25,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   shape(schema: Record<string, Validator<any>>): this {
     this.schema = Object.entries(schema).reduce((acc, [key, validator]) => {
       if (validator instanceof BaseValidator) {
-        acc[key] = validator.setIsPartOfShape(true)
+        acc[key] = validator.setIsPartOfShape(true).setFieldName(key)
       }
       else {
         acc[key] = validator
