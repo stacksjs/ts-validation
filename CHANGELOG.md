@@ -1,4 +1,16 @@
 
+## v0.4.0...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.0...main)
+
+### 🏡 Chore
+
+- Implement double validation ([533f8a2](https://github.com/stacksjs/ts-validation/commit/533f8a2))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.3.7...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.3.7...main)
