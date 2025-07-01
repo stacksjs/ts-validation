@@ -1,7 +1,7 @@
-import { MessageProvider, setMessagesProvider, v } from '../src'
+import { MessageProvider, setCustomMessages, v } from '../src'
 
 // Set up custom messages with field-specific overrides
-setMessagesProvider(new MessageProvider({
+setCustomMessages(new MessageProvider({
   // Global messages
   'required': 'The {{ field }} field is required',
   'email': 'Please provide a valid email address',

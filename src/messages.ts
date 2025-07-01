@@ -98,11 +98,11 @@ export class MessageProvider implements MessageProviderType {
 let _globalMessagesProvider: MessageProviderType = new MessageProvider()
 
 // Function to set the global messages provider
-export function setMessagesProvider(provider: MessageProvider): void {
+export function setCustomMessages(provider: MessageProvider): void {
   _globalMessagesProvider = provider
 }
 
 // Function to get the current messages provider
-export function getMessagesProvider(): MessageProviderType {
+export function getCustomMessages(): MessageProviderType {
   return _globalMessagesProvider
 }

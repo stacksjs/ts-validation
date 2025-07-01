@@ -8,6 +8,7 @@ import { custom } from './validators/custom'
 import { date } from './validators/dates'
 import { datetime } from './validators/datetimes'
 import { decimal } from './validators/decimal'
+import { float as double } from './validators/double'
 import { enum_ } from './validators/enums'
 import { float } from './validators/float'
 import { integer } from './validators/integer'
@@ -40,6 +41,7 @@ export const v: ValidationInstance = {
   unix,
   password,
   float,
+  double,
   decimal,
   time,
   smallint,
