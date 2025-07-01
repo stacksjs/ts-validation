@@ -1,4 +1,16 @@
 
+## v0.4.3...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.3...main)
+
+### 🩹 Fixes
+
+- Types and test cases ([1323592](https://github.com/stacksjs/ts-validation/commit/1323592))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.4.2...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.2...main)
