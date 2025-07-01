@@ -50,3 +50,5 @@ export const v: ValidationInstance = {
   blob,
   binary,
 }
+
+export const schema: ValidationInstance = v

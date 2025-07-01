@@ -1,7 +1,6 @@
 import type { alphanumeric } from '../lib/isAlphanumeric'
 import type isEmail from '../lib/isEmail'
 import type isURL from '../lib/isURL'
-import type { StringValidator } from '../validators/strings'
 import type { LengthValidator, Validator } from './base'
 
 export interface ContainsOptions {
@@ -73,15 +72,15 @@ export interface NormalizeEmailOptions {
   yandex_convert_yandexru?: boolean | string
 }
 
-export interface StringValidatorType extends Validator<string>, LengthValidator<StringValidator> {
-  email: (options?: Parameters<typeof isEmail>[1]) => StringValidator
-  url: (options?: Parameters<typeof isURL>[1]) => StringValidator
-  matches: (pattern: RegExp) => StringValidator
-  equals: (param: string) => StringValidator
-  alphanumeric: () => StringValidator
-  alpha: () => StringValidator
-  numeric: () => StringValidator
-  custom: (fn: (value: string | null | undefined) => boolean, message: string) => StringValidator
+export interface StringValidatorType extends Validator<string>, LengthValidator<StringValidatorType> {
+  email: (options?: Parameters<typeof isEmail>[1]) => StringValidatorType
+  url: (options?: Parameters<typeof isURL>[1]) => StringValidatorType
+  matches: (pattern: RegExp) => StringValidatorType
+  equals: (param: string) => StringValidatorType
+  alphanumeric: () => StringValidatorType
+  alpha: () => StringValidatorType
+  numeric: () => StringValidatorType
+  custom: (fn: (value: string | null | undefined) => boolean, message: string) => StringValidatorType
 }
 
 export interface TextValidatorType extends StringValidatorType {}

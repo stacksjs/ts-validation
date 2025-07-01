@@ -1,4 +1,3 @@
-import type { NumberValidator } from '../validators/numbers'
 import type { LengthValidator, Validator } from './base'
 
 export interface IsIntOptions {
@@ -14,17 +13,16 @@ export interface NumericOptions {
   locale?: string
 }
 
-export interface NumberValidatorType extends Validator<number>, LengthValidator<NumberValidator> {
-  integer: (options?: IsIntOptions) => NumberValidator
-  positive: () => NumberValidator
-  negative: () => NumberValidator
-  divisibleBy: (divisor: number) => NumberValidator
-  custom: (fn: (value: number | null | undefined) => boolean, message: string) => NumberValidator
+export interface NumberValidatorType extends Validator<number>, LengthValidator<NumberValidatorType> {
+  integer: (options?: IsIntOptions) => NumberValidatorType
+  positive: () => NumberValidatorType
+  negative: () => NumberValidatorType
+  divisibleBy: (divisor: number) => NumberValidatorType
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => NumberValidatorType
 }
 
 export interface BigintValidatorType extends Validator<bigint> {
   min: (min: bigint) => BigintValidatorType
-  max: (max: bigint) => BigintValidatorType
   positive: () => BigintValidatorType
   negative: () => BigintValidatorType
   divisibleBy: (divisor: bigint) => BigintValidatorType

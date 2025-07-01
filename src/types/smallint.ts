@@ -1,9 +1,8 @@
-import type { SmallintValidator } from '../validators/smallint'
 import type { LengthValidator, Validator } from './base'
 
-export interface SmallintValidatorType extends Validator<number>, LengthValidator<SmallintValidator> {
-  positive: () => SmallintValidator
-  negative: () => SmallintValidator
-  divisibleBy: (divisor: number) => SmallintValidator
-  custom: (fn: (value: number | null | undefined) => boolean, message: string) => SmallintValidator
+export interface SmallintValidatorType extends Validator<number>, LengthValidator<SmallintValidatorType> {
+  positive: () => SmallintValidatorType
+  negative: () => SmallintValidatorType
+  divisibleBy: (divisor: number) => SmallintValidatorType
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => SmallintValidatorType
 }
