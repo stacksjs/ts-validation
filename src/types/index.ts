@@ -5,6 +5,7 @@ import type { BooleanValidatorType } from './boolean'
 import type { CustomValidatorType } from './custom'
 import type { DatetimeValidatorType, DateValidatorType } from './date'
 import type { DecimalValidatorType } from './decimal'
+import type { DoubleValidatorType } from './double'
 import type { EnumValidatorType } from './enum'
 import type { FloatValidatorType } from './float'
 import type { IntegerValidatorType } from './integer'
@@ -29,8 +30,8 @@ export * from './boolean'
 export * from './custom'
 export * from './date'
 export * from './decimal'
+export * from './double'
 export * from './enum'
-export * from './float'
 
 export * from './float'
 export * from './integer'
@@ -64,6 +65,7 @@ export interface ValidationInstance {
   unix: () => UnixValidatorType
   password: () => PasswordValidatorType
   float: () => FloatValidatorType
+  double: () => DoubleValidatorType
   decimal: () => DecimalValidatorType
   time: () => TimeValidatorType
   smallint: () => SmallintValidatorType

@@ -1,25 +1,26 @@
-import type { IntegerValidatorType, ValidationNames } from '../types'
+import type { DoubleValidatorType, ValidationNames } from '../types'
+import isDivisibleBy from '../lib/isDivisibleBy'
 import { NumberValidator } from './numbers'
 
-export class IntegerValidator extends NumberValidator implements IntegerValidatorType {
-  public name: ValidationNames = 'integer'
+export class DoubleValidator extends NumberValidator implements DoubleValidatorType {
+  public name: ValidationNames = 'float'
 
   constructor() {
     super()
-    // Override the base number validation to ensure it's an integer
+    // Override the base number validation to ensure it's a float
     // Remove the existing number rule and add our own
     this.rules = this.rules.filter(rule => rule.name !== 'number')
     this.addRule({
-      name: 'integer',
-      test: (value: number) => {
+      name: 'double',
+      test: (value: unknown): value is number => {
         // First check if it's a number
-        if (typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)) {
+        if (typeof value !== 'number' || Number.isNaN(value)) {
           return false
         }
-        // Then check if it's an integer
-        return Number.isInteger(value)
+        // All numbers in JavaScript are floats, including Infinity
+        return true
       },
-      message: 'Must be a valid integer',
+      message: 'Must be a valid float number',
     })
   }
 
@@ -49,6 +50,19 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
     })
   }
 
+  length(length: number): this {
+    return this.addRule({
+      name: 'length',
+      test: (value: number) => {
+        if (typeof value !== 'number')
+          return false
+        return value.toString().length === length
+      },
+      message: 'Must be exactly {length} digits',
+      params: { length },
+    })
+  }
+
   positive(): this {
     return this.addRule({
       name: 'positive',
@@ -57,7 +71,7 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
           return false
         return value > 0
       },
-      message: 'Must be a positive integer',
+      message: 'Must be a positive number',
     })
   }
 
@@ -69,7 +83,20 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
           return false
         return value < 0
       },
-      message: 'Must be a negative integer',
+      message: 'Must be a negative number',
+    })
+  }
+
+  divisibleBy(divisor: number): this {
+    return this.addRule({
+      name: 'divisibleBy',
+      test: (value: number) => {
+        if (typeof value !== 'number')
+          return false
+        return isDivisibleBy(String(value), divisor)
+      },
+      message: 'Must be divisible by {divisor}',
+      params: { divisor },
     })
   }
 
@@ -82,7 +109,7 @@ export class IntegerValidator extends NumberValidator implements IntegerValidato
   }
 }
 
-// Export a function to create integer validators
-export function integer(): IntegerValidator {
-  return new IntegerValidator()
+// Export a function to create float validators
+export function float(): DoubleValidator {
+  return new DoubleValidator()
 }

@@ -11,7 +11,7 @@ export class FloatValidator extends NumberValidator implements FloatValidatorTyp
     // Remove the existing number rule and add our own
     this.rules = this.rules.filter(rule => rule.name !== 'number')
     this.addRule({
-      name: 'number',
+      name: 'float',
       test: (value: unknown): value is number => {
         // First check if it's a number
         if (typeof value !== 'number' || Number.isNaN(value)) {
