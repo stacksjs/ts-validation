@@ -1,4 +1,23 @@
 
+## v0.4.1...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.1...main)
+
+### 🚀 Enhancements
+
+- Implement message provider ([4d5dfa8](https://github.com/stacksjs/ts-validation/commit/4d5dfa8))
+
+### 🏡 Chore
+
+- Implement custom messagaes ([65590b5](https://github.com/stacksjs/ts-validation/commit/65590b5))
+- Implement schema object ([1ddca25](https://github.com/stacksjs/ts-validation/commit/1ddca25))
+- Remove optional message ([d171f15](https://github.com/stacksjs/ts-validation/commit/d171f15))
+- Test cases ([82bf27e](https://github.com/stacksjs/ts-validation/commit/82bf27e))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.4.0...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.0...main)
