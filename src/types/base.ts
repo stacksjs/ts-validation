@@ -51,9 +51,9 @@ export interface ValidationConfig {
 }
 
 export interface LengthValidator<T> {
-  min: (length: number, message?: string) => T
-  max: (length: number, message?: string) => T
-  length: (length: number, message?: string) => T
+  min: (length: number) => T
+  max: (length: number) => T
+  length: (length: number) => T
 }
 
 export type ValidationNames = 'base' |

@@ -1,5 +1,5 @@
 import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule, Validator } from '../types'
-import { getMessagesProvider } from '../messages'
+import { getCustomMessages } from '../messages'
 
 export abstract class BaseValidator<T> implements Validator<T> {
   protected rules: ValidationRule<T>[] = []
@@ -43,7 +43,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
     }
 
     if (this.isRequired && (value === undefined || value === null || value === '')) {
-      const messagesProvider = getMessagesProvider()
+      const messagesProvider = getCustomMessages()
       const message = messagesProvider.getMessage('required', this.fieldName)
       const error = { message }
       return this.isPartOfShape
@@ -53,7 +53,7 @@ export abstract class BaseValidator<T> implements Validator<T> {
 
     for (const rule of this.rules) {
       if (!rule.test(value)) {
-        const messagesProvider = getMessagesProvider()
+        const messagesProvider = getCustomMessages()
         const message = messagesProvider.getMessage(rule.name, this.fieldName, rule.params)
         errors.push({ message })
       }
