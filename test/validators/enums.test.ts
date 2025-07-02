@@ -4,7 +4,7 @@ import { enum_ } from '../../src/validators/enums'
 describe('EnumValidator', () => {
   describe('basic validation', () => {
     test('should validate string enum values', () => {
-      const validator = enum_(['red', 'green', 'blue'] as const)
+      const validator = enum_(['red', 'green', 'blue'])
       expect(validator.test('red')).toBe(true)
       expect(validator.test('green')).toBe(true)
       expect(validator.test('blue')).toBe(true)
@@ -13,37 +13,24 @@ describe('EnumValidator', () => {
       expect(validator.test('' as any)).toBe(true) // empty string is valid when optional
     })
 
-    test('should validate number enum values', () => {
-      const validator = enum_([1, 2, 3] as const)
-      expect(validator.test(1)).toBe(true)
-      expect(validator.test(2)).toBe(true)
-      expect(validator.test(3)).toBe(true)
-      expect(validator.test(4 as any)).toBe(false)
-      expect(validator.test(0 as any)).toBe(false)
-      expect(validator.test('1' as any)).toBe(false) // type sensitive
-    })
-
     test('should have correct name', () => {
-      const validator = enum_(['a', 'b'] as const)
+      const validator = enum_(['a', 'b'])
       expect(validator.name).toBe('enum')
     })
   })
 
-  describe('mixed type enums', () => {
-    test('should validate mixed string and number enums', () => {
-      const validator = enum_(['active', 'inactive', 1, 2] as const)
+  describe('string enums', () => {
+    test('should validate mixed string enums', () => {
+      const validator = enum_(['active', 'inactive', 'pending', 'completed'])
       expect(validator.test('active')).toBe(true)
       expect(validator.test('inactive')).toBe(true)
-      expect(validator.test(1)).toBe(true)
-      expect(validator.test(2)).toBe(true)
-      expect(validator.test('1' as any)).toBe(false)
-      expect(validator.test('2' as any)).toBe(false)
-      expect(validator.test(3 as any)).toBe(false)
-      expect(validator.test('pending' as any)).toBe(false)
+      expect(validator.test('pending')).toBe(true)
+      expect(validator.test('completed')).toBe(true)
+      expect(validator.test('archived' as any)).toBe(false)
     })
 
     test('should handle string representations of booleans', () => {
-      const validator = enum_(['true', 'false', 'maybe'] as const)
+      const validator = enum_(['true', 'false', 'maybe'])
       expect(validator.test('true')).toBe(true)
       expect(validator.test('false')).toBe(true)
       expect(validator.test('maybe')).toBe(true)
@@ -56,7 +43,7 @@ describe('EnumValidator', () => {
 
   describe('real-world enum scenarios', () => {
     test('should validate user roles', () => {
-      const roleValidator = enum_(['admin', 'user', 'guest', 'moderator'] as const)
+      const roleValidator = enum_(['admin', 'user', 'guest', 'moderator'])
       expect(roleValidator.test('admin')).toBe(true)
       expect(roleValidator.test('user')).toBe(true)
       expect(roleValidator.test('guest')).toBe(true)
@@ -66,16 +53,16 @@ describe('EnumValidator', () => {
     })
 
     test('should validate status codes', () => {
-      const statusValidator = enum_([200, 201, 400, 401, 403, 404, 500] as const)
-      expect(statusValidator.test(200)).toBe(true)
-      expect(statusValidator.test(404)).toBe(true)
-      expect(statusValidator.test(500)).toBe(true)
-      expect(statusValidator.test(418 as any)).toBe(false) // I'm a teapot
-      expect(statusValidator.test('200' as any)).toBe(false)
+      const statusValidator = enum_(['200', '201', '400', '401', '403', '404', '500'])
+      expect(statusValidator.test('200')).toBe(true)
+      expect(statusValidator.test('404')).toBe(true)
+      expect(statusValidator.test('500')).toBe(true)
+      expect(statusValidator.test('418' as any)).toBe(false) // I'm a teapot
+      expect(statusValidator.test(200 as any)).toBe(false)
     })
 
     test('should validate priority levels', () => {
-      const priorityValidator = enum_(['low', 'medium', 'high', 'urgent'] as const)
+      const priorityValidator = enum_(['low', 'medium', 'high', 'urgent'])
       expect(priorityValidator.test('low')).toBe(true)
       expect(priorityValidator.test('medium')).toBe(true)
       expect(priorityValidator.test('high')).toBe(true)
@@ -85,7 +72,7 @@ describe('EnumValidator', () => {
     })
 
     test('should validate file types', () => {
-      const fileTypeValidator = enum_(['.jpg', '.png', '.gif', '.pdf', '.doc'] as const)
+      const fileTypeValidator = enum_(['.jpg', '.png', '.gif', '.pdf', '.doc'])
       expect(fileTypeValidator.test('.jpg')).toBe(true)
       expect(fileTypeValidator.test('.png')).toBe(true)
       expect(fileTypeValidator.test('.pdf')).toBe(true)
@@ -96,7 +83,7 @@ describe('EnumValidator', () => {
 
   describe('custom validation', () => {
     test('custom() should accept custom validation functions', () => {
-      const validator = enum_(['small', 'medium', 'large'] as const).custom(
+      const validator = enum_(['small', 'medium', 'large']).custom(
         value => value !== 'medium',
         'Medium size not available',
       )
@@ -107,7 +94,7 @@ describe('EnumValidator', () => {
     })
 
     test('should provide custom error messages', () => {
-      const validator = enum_(['read', 'write', 'execute'] as const).custom(
+      const validator = enum_(['read', 'write', 'execute']).custom(
         value => value !== 'execute',
         'Execute permission not allowed',
       )
@@ -120,7 +107,7 @@ describe('EnumValidator', () => {
     })
 
     test('should chain enum and custom validations', () => {
-      const validator = enum_(['bronze', 'silver', 'gold', 'platinum'] as const).custom(
+      const validator = enum_(['bronze', 'silver', 'gold', 'platinum']).custom(
         value => value !== 'bronze',
         'Bronze tier not supported',
       )
@@ -134,19 +121,19 @@ describe('EnumValidator', () => {
 
   describe('getAllowedValues method', () => {
     test('should return all allowed values', () => {
-      const values = ['apple', 'banana', 'cherry'] as const
+      const values = ['apple', 'banana', 'cherry']
       const validator = enum_(values)
       expect(validator.getAllowedValues()).toEqual(values)
     })
 
-    test('should return numeric values correctly', () => {
-      const values = [1, 2, 3, 5, 8] as const
+    test('should return string values correctly', () => {
+      const values = ['one', 'two', 'three', 'five', 'eight']
       const validator = enum_(values)
       expect(validator.getAllowedValues()).toEqual(values)
     })
 
-    test('should return mixed type values correctly', () => {
-      const values = ['active', 1, 'inactive', 0] as const
+    test('should return mixed string values correctly', () => {
+      const values = ['active', 'one', 'inactive', 'zero']
       const validator = enum_(values)
       expect(validator.getAllowedValues()).toEqual(values)
     })
@@ -154,7 +141,7 @@ describe('EnumValidator', () => {
 
   describe('required and optional', () => {
     test('required() should reject null/undefined', () => {
-      const validator = enum_(['yes', 'no'] as const).required()
+      const validator = enum_(['yes', 'no']).required()
       expect(validator.test('yes')).toBe(true)
       expect(validator.test('no')).toBe(true)
       expect(validator.test(null as any)).toBe(false) // required validator should reject null
@@ -162,7 +149,7 @@ describe('EnumValidator', () => {
     })
 
     test('optional() should accept null/undefined', () => {
-      const validator = enum_(['yes', 'no'] as const).optional()
+      const validator = enum_(['yes', 'no']).optional()
       expect(validator.test('yes')).toBe(true)
       expect(validator.test('no')).toBe(true)
       expect(validator.test(null as any)).toBe(true)
@@ -170,7 +157,7 @@ describe('EnumValidator', () => {
     })
 
     test('should work with custom validations when optional', () => {
-      const validator = enum_(['small', 'large'] as const)
+      const validator = enum_(['small', 'large'])
         .optional()
         .custom(value => value !== 'small', 'Small not allowed')
 
@@ -184,7 +171,7 @@ describe('EnumValidator', () => {
 
   describe('validation results', () => {
     test('should return detailed validation results', () => {
-      const validator = enum_(['cat', 'dog', 'bird'] as const)
+      const validator = enum_(['cat', 'dog', 'bird'])
       const result = validator.validate('fish' as any)
       expect(result.valid).toBe(false)
       expect(Array.isArray(result.errors)).toBe(true)
@@ -194,7 +181,7 @@ describe('EnumValidator', () => {
     })
 
     test('should return multiple errors for multiple failed validations', () => {
-      const validator = enum_(['xs', 's', 'm', 'l', 'xl'] as const).custom(
+      const validator = enum_(['xs', 's', 'm', 'l', 'xl']).custom(
         value => value !== 'xs',
         'XS size unavailable',
       )
@@ -209,17 +196,17 @@ describe('EnumValidator', () => {
 
   describe('edge cases', () => {
     test('should handle single value enums', () => {
-      const stringValidator = enum_(['only'] as const)
+      const stringValidator = enum_(['only'])
       expect(stringValidator.test('only')).toBe(true)
       expect(stringValidator.test('other' as any)).toBe(false)
 
-      const numberValidator = enum_([42] as const)
-      expect(numberValidator.test(42)).toBe(true)
-      expect(numberValidator.test(41 as any)).toBe(false)
+      const singleValidator = enum_(['single'])
+      expect(singleValidator.test('single')).toBe(true)
+      expect(singleValidator.test('other' as any)).toBe(false)
     })
 
     test('should handle special string values', () => {
-      const validator = enum_(['', ' ', '\n', '\t', 'null', 'undefined'] as const)
+      const validator = enum_(['', ' ', '\n', '\t', 'null', 'undefined'])
       expect(validator.test('')).toBe(true)
       expect(validator.test(' ')).toBe(true)
       expect(validator.test('\n')).toBe(true)
@@ -230,19 +217,19 @@ describe('EnumValidator', () => {
       expect(validator.test(undefined as any)).toBe(true) // undefined is valid when optional
     })
 
-    test('should handle numeric edge cases', () => {
-      const validator = enum_([0, -1, 3.14, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY] as const)
-      expect(validator.test(0)).toBe(true)
-      expect(validator.test(-1)).toBe(true)
-      expect(validator.test(3.14)).toBe(true)
-      expect(validator.test(Number.POSITIVE_INFINITY)).toBe(true)
-      expect(validator.test(Number.NEGATIVE_INFINITY)).toBe(true)
-      expect(validator.test(Number.NaN as any)).toBe(false)
-      expect(validator.test(1 as any)).toBe(false)
+    test('should handle string edge cases', () => {
+      const validator = enum_(['0', '-1', '3.14', 'infinity', '-infinity'])
+      expect(validator.test('0')).toBe(true)
+      expect(validator.test('-1')).toBe(true)
+      expect(validator.test('3.14')).toBe(true)
+      expect(validator.test('infinity')).toBe(true)
+      expect(validator.test('-infinity')).toBe(true)
+      expect(validator.test('NaN' as any)).toBe(false)
+      expect(validator.test('1' as any)).toBe(false)
     })
 
     test('should handle unicode strings', () => {
-      const validator = enum_(['🚀', '🌟', '✨', 'café', 'naïve'] as const)
+      const validator = enum_(['🚀', '🌟', '✨', 'café', 'naïve'])
       expect(validator.test('🚀')).toBe(true)
       expect(validator.test('🌟')).toBe(true)
       expect(validator.test('✨')).toBe(true)
@@ -253,7 +240,7 @@ describe('EnumValidator', () => {
     })
 
     test('should be case and type sensitive', () => {
-      const validator = enum_(['True', 'False', '0', '1'] as const)
+      const validator = enum_(['True', 'False', '0', '1'])
       expect(validator.test('True')).toBe(true)
       expect(validator.test('False')).toBe(true)
       expect(validator.test('0')).toBe(true)
@@ -269,7 +256,7 @@ describe('EnumValidator', () => {
 
   describe('type safety', () => {
     test('should work with readonly arrays', () => {
-      const colors = ['red', 'green', 'blue'] as const
+      const colors = ['red', 'green', 'blue']
       const validator = enum_(colors)
       expect(validator.test('red')).toBe(true)
       expect(validator.test('purple' as any)).toBe(false)
@@ -277,7 +264,7 @@ describe('EnumValidator', () => {
     })
 
     test('should maintain type information', () => {
-      const sizes = ['xs', 's', 'm', 'l', 'xl'] as const
+      const sizes = ['xs', 's', 'm', 'l', 'xl']
       const validator = enum_(sizes)
       // TypeScript would enforce that only these values are valid
       expect(validator.test('m')).toBe(true)

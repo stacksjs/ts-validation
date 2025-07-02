@@ -1,27 +1,27 @@
 import type { EnumValidatorType, ValidationNames } from '../types'
 import { BaseValidator } from './base'
 
-export class EnumValidator<T extends string | number> extends BaseValidator<T> implements EnumValidatorType<T> {
+export class EnumValidator extends BaseValidator<string> implements EnumValidatorType {
   public name: ValidationNames = 'enum'
 
-  private allowedValues: readonly T[]
+  private allowedValues: readonly string[]
 
-  constructor(allowedValues: readonly T[]) {
+  constructor(allowedValues: readonly string[]) {
     super()
     this.allowedValues = allowedValues
     this.addRule({
       name: 'enum',
-      test: (value: T) => this.allowedValues.includes(value),
+      test: (value: string) => this.allowedValues.includes(value),
       message: 'Must be one of: {values}',
       params: { values: this.allowedValues.join(', ') },
     })
   }
 
-  getAllowedValues(): readonly T[] {
+  getAllowedValues(): readonly string[] {
     return this.allowedValues
   }
 
-  custom(fn: (value: T) => boolean, message: string): this {
+  custom(fn: (value: string) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
@@ -30,6 +30,6 @@ export class EnumValidator<T extends string | number> extends BaseValidator<T> i
   }
 }
 
-export function enum_<T extends string | number>(allowedValues: readonly T[]): EnumValidator<T> {
+export function enum_(allowedValues: readonly string[]): EnumValidator {
   return new EnumValidator(allowedValues)
 }

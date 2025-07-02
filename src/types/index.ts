@@ -56,7 +56,7 @@ export interface ValidationInstance {
   bigint: () => BigintValidatorType
   array: <T>() => ArrayValidatorType<T>
   boolean: () => BooleanValidatorType
-  enum: <T extends string | number>(values: readonly T[]) => EnumValidatorType<T>
+  enum: (values: readonly string[]) => EnumValidatorType
   date: () => DateValidatorType
   datetime: () => DatetimeValidatorType
   object: <T extends Record<string, any>>(schema?: Record<string, Validator<any>>) => ObjectValidatorType<T>

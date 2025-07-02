@@ -408,7 +408,7 @@ describe('Validation Library', () => {
 
   describe('Enum Validator', () => {
     test('string enum validation', () => {
-      const validator = v.enum(['red', 'green', 'blue'] as const)
+      const validator = v.enum(['red', 'green', 'blue'])
       expect(validator.test('red')).toBe(true)
       expect(validator.test('green')).toBe(true)
       expect(validator.test('blue')).toBe(true)
@@ -416,17 +416,8 @@ describe('Validation Library', () => {
       expect(validator.test(123 as any)).toBe(false)
     })
 
-    test('number enum validation', () => {
-      const validator = v.enum([1, 2, 3] as const)
-      expect(validator.test(1)).toBe(true)
-      expect(validator.test(2)).toBe(true)
-      expect(validator.test(3)).toBe(true)
-      expect(validator.test(4 as any)).toBe(false)
-      expect(validator.test('1' as any)).toBe(false)
-    })
-
     test('custom enum validation', () => {
-      const validator = v.enum(['admin', 'user', 'guest'] as const).custom(
+      const validator = v.enum(['admin', 'user', 'guest']).custom(
         value => value !== 'guest',
         'Guest access is not allowed',
       )
@@ -436,7 +427,7 @@ describe('Validation Library', () => {
     })
 
     test('enum validation with readonly array', () => {
-      const roles = ['admin', 'user', 'guest'] as const
+      const roles = ['admin', 'user', 'guest']
       const validator = v.enum(roles)
       expect(validator.test('admin')).toBe(true)
       expect(validator.test('invalid' as any)).toBe(false)
