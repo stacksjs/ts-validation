@@ -1,4 +1,16 @@
 
+## v0.4.4...main
+
+[compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.4...main)
+
+### 🩹 Fixes
+
+- Enum types ([728433e](https://github.com/stacksjs/ts-validation/commit/728433e))
+
+### ❤️ Contributors
+
+- Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
+
 ## v0.4.3...main
 
 [compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.3...main)
