@@ -1,3 +1,27 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.6...v0.4.7)
+
+### 🐛 Bug Fixes
+
+- build.ts ([e03cc86](https://github.com/stacksjs/ts-validation/commit/e03cc86))
+
+### 🧹 Chores
+
+- release v0.4.7 ([0dfecce](https://github.com/stacksjs/ts-validation/commit/0dfecce))
+
+### Contributors
+
+- glennmichael123 <gtorregosa@gmail.com>
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.6...HEAD)
+
+### 🐛 Bug Fixes
+
+- build.ts ([e03cc86](https://github.com/stacksjs/ts-validation/commit/e03cc86))
+
+### Contributors
+
+- glennmichael123 <gtorregosa@gmail.com>
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.5...v0.4.6)
 
 ### 🐛 Bug Fixes
