@@ -1,5 +1,6 @@
 import { execSync } from 'node:child_process'
-import { existsSync, rmSync } from 'node:fs'
+import fs, { existsSync, rmSync } from 'node:fs'
+import path from 'node:path'
 import process from 'node:process'
 
 // Clean dist directory
@@ -32,6 +33,20 @@ try {
     stdio: 'inherit',
     cwd: process.cwd(),
   })
+
+  const srcIndexDts = path.join(process.cwd(), 'dist', 'src', 'index.d.ts')
+  const distIndexDts = path.join(process.cwd(), 'dist', 'index.d.ts')
+
+  if (fs.existsSync(srcIndexDts)) {
+    let content = fs.readFileSync(srcIndexDts, 'utf8')
+
+    // Fix relative paths to point to src/ subdirectory
+    content = content.replace(/from '\.\//g, 'from \'./src/')
+
+    fs.writeFileSync(distIndexDts, content)
+    console.log('✅ Copied and fixed main declaration file to dist root')
+  }
+
   console.log('✅ Build completed successfully!')
 }
 catch (error) {

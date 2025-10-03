@@ -33,6 +33,7 @@
   "exclude": [
     "buddy-bot.config.ts",
     "node_modules",
+    "examples",
     "dist",
     "test"
   ]
