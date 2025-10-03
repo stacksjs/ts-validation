@@ -16,12 +16,12 @@
     "types": [
       "bun"
     ],
-    "allowImportingTsExtensions": true,
     "strict": true,
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
-    "noEmit": true,
+    "declarationMap": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedDeclarations": true,
@@ -29,5 +29,11 @@
     "verbatimModuleSyntax": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": [
+    "buddy-bot.config.ts",
+    "node_modules",
+    "dist",
+    "test"
+  ]
 }
