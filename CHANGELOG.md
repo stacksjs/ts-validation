@@ -1,3 +1,78 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.6...v0.4.7)
+
+### 🐛 Bug Fixes
+
+- build.ts ([e03cc86](https://github.com/stacksjs/ts-validation/commit/e03cc86))
+
+### 🧹 Chores
+
+- release v0.4.7 ([0dfecce](https://github.com/stacksjs/ts-validation/commit/0dfecce))
+
+### Contributors
+
+- glennmichael123 <gtorregosa@gmail.com>
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.6...HEAD)
+
+### 🐛 Bug Fixes
+
+- build.ts ([e03cc86](https://github.com/stacksjs/ts-validation/commit/e03cc86))
+
+### Contributors
+
+- glennmichael123 <gtorregosa@gmail.com>
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.5...v0.4.6)
+
+### 🐛 Bug Fixes
+
+- build ([04c80bc](https://github.com/stacksjs/ts-validation/commit/04c80bc))
+
+### 🧹 Chores
+
+- release v0.4.6 ([f78f316](https://github.com/stacksjs/ts-validation/commit/f78f316))
+- use launchpad ([218d149](https://github.com/stacksjs/ts-validation/commit/218d149))
+- update tooling ([9eae961](https://github.com/stacksjs/ts-validation/commit/9eae961))
+
+### Contributors
+
+- Adelino Ngomacha <adelinob335@gmail.com>
+- Chris <chrisbreuer93@gmail.com>
+- glennmichael123 <gtorregosa@gmail.com>
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.5...HEAD)
+
+### 🐛 Bug Fixes
+
+- build ([04c80bc](https://github.com/stacksjs/ts-validation/commit/04c80bc))
+
+### 🧹 Chores
+
+- use launchpad ([218d149](https://github.com/stacksjs/ts-validation/commit/218d149))
+- update tooling ([9eae961](https://github.com/stacksjs/ts-validation/commit/9eae961))
+
+### Contributors
+
+- Adelino Ngomacha <adelinob335@gmail.com>
+- Chris <chrisbreuer93@gmail.com>
+- glennmichael123 <gtorregosa@gmail.com>
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.5...HEAD)
+
+### 🐛 Bug Fixes
+
+- build ([04c80bc](https://github.com/stacksjs/ts-validation/commit/04c80bc))
+
+### 🧹 Chores
+
+- use launchpad ([218d149](https://github.com/stacksjs/ts-validation/commit/218d149))
+- update tooling ([9eae961](https://github.com/stacksjs/ts-validation/commit/9eae961))
+
+### Contributors
+
+- Adelino Ngomacha <adelinob335@gmail.com>
+- Chris <chrisbreuer93@gmail.com>
+- glennmichael123 <gtorregosa@gmail.com>
 
 ## v0.4.4...main
 
@@ -424,7 +499,6 @@
 
 ## ...main
 
-
 ### 🏡 Chore
 
 - Initial commit ([4c1c8c8](https://github.com/stacksjs/ts-validation/commit/4c1c8c8))
@@ -445,4 +519,3 @@
 
 - Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
 - Glennmichael123 ([@glennmichael123](https://github.com/glennmichael123))
-
