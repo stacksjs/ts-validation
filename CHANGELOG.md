@@ -1,3 +1,100 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.7...v0.4.8)
+
+### 🧹 Chores
+
+- release v0.4.8 ([3332471](https://github.com/stacksjs/ts-validation/commit/3332471)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([3f6106e](https://github.com/stacksjs/ts-validation/commit/3f6106e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([87eb235](https://github.com/stacksjs/ts-validation/commit/87eb235)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update all non-major dependencies (#33) ([b266271](https://github.com/stacksjs/ts-validation/commit/b266271)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#33](https://github.com/stacksjs/ts-validation/issues/33), [#33](https://github.com/stacksjs/ts-validation/issues/33))
+- **deps**: update dependency @stacksjs/bumpx to ^0.2.4 (#34) ([660b147](https://github.com/stacksjs/ts-validation/commit/660b147)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#34](https://github.com/stacksjs/ts-validation/issues/34), [#34](https://github.com/stacksjs/ts-validation/issues/34))
+- **deps**: update all non-major dependencies (#32) ([01d128b](https://github.com/stacksjs/ts-validation/commit/01d128b)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#32](https://github.com/stacksjs/ts-validation/issues/32), [#32](https://github.com/stacksjs/ts-validation/issues/32))
+- **deps**: update all non-major dependencies (#30) ([6ec1f79](https://github.com/stacksjs/ts-validation/commit/6ec1f79)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#30](https://github.com/stacksjs/ts-validation/issues/30), [#30](https://github.com/stacksjs/ts-validation/issues/30))
+- **deps**: update all non-major dependencies (#28) ([06d77fa](https://github.com/stacksjs/ts-validation/commit/06d77fa)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#28](https://github.com/stacksjs/ts-validation/issues/28), [#28](https://github.com/stacksjs/ts-validation/issues/28))
+- **deps**: update all non-major dependencies (#27) ([6ca0b30](https://github.com/stacksjs/ts-validation/commit/6ca0b30)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#27](https://github.com/stacksjs/ts-validation/issues/27), [#27](https://github.com/stacksjs/ts-validation/issues/27))
+- **deps**: update dependency buddy-bot to 0.9.7 (#21) ([68b909f](https://github.com/stacksjs/ts-validation/commit/68b909f)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#21](https://github.com/stacksjs/ts-validation/issues/21), [#21](https://github.com/stacksjs/ts-validation/issues/21))
+- **deps**: update dependency actions/checkout to v5.0.0 (#23) ([f0cb8ec](https://github.com/stacksjs/ts-validation/commit/f0cb8ec)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#23](https://github.com/stacksjs/ts-validation/issues/23), [#23](https://github.com/stacksjs/ts-validation/issues/23))
+- add clarity and cursor rules ([6d849af](https://github.com/stacksjs/ts-validation/commit/6d849af)) _(by cab-mikee <mike.cabz32@gmail.com>)_
+- wip ([424e328](https://github.com/stacksjs/ts-validation/commit/424e328)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a8529d4](https://github.com/stacksjs/ts-validation/commit/a8529d4)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update dependency actions/checkout to v5.0.0 (#22) ([ba26be4](https://github.com/stacksjs/ts-validation/commit/ba26be4)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#22](https://github.com/stacksjs/ts-validation/issues/22), [#22](https://github.com/stacksjs/ts-validation/issues/22))
+- **deps**: update dependency @stacksjs/eslint-config to 4.14.0-beta.3 (#14) ([48a864e](https://github.com/stacksjs/ts-validation/commit/48a864e)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#14](https://github.com/stacksjs/ts-validation/issues/14), [#14](https://github.com/stacksjs/ts-validation/issues/14))
+- **deps**: update all non-major dependencies (#12) ([0805fd8](https://github.com/stacksjs/ts-validation/commit/0805fd8)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#12](https://github.com/stacksjs/ts-validation/issues/12), [#12](https://github.com/stacksjs/ts-validation/issues/12))
+
+### 📄 Miscellaneous
+
+- Merge pull request #16 from stacksjs/buddy-bot/update-major-update---bunfig-1756364092688 ([dda08e6](https://github.com/stacksjs/ts-validation/commit/dda08e6)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#16](https://github.com/stacksjs/ts-validation/issues/16), [#16](https://github.com/stacksjs/ts-validation/issues/16))
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _[renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot])_
+- _cab-mikee <mike.cabz32@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.7...HEAD)
+
+### 🧹 Chores
+
+- wip ([3f6106e](https://github.com/stacksjs/ts-validation/commit/3f6106e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([87eb235](https://github.com/stacksjs/ts-validation/commit/87eb235)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update all non-major dependencies (#33) ([b266271](https://github.com/stacksjs/ts-validation/commit/b266271)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#33](https://github.com/stacksjs/ts-validation/issues/33), [#33](https://github.com/stacksjs/ts-validation/issues/33))
+- **deps**: update dependency @stacksjs/bumpx to ^0.2.4 (#34) ([660b147](https://github.com/stacksjs/ts-validation/commit/660b147)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#34](https://github.com/stacksjs/ts-validation/issues/34), [#34](https://github.com/stacksjs/ts-validation/issues/34))
+- **deps**: update all non-major dependencies (#32) ([01d128b](https://github.com/stacksjs/ts-validation/commit/01d128b)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#32](https://github.com/stacksjs/ts-validation/issues/32), [#32](https://github.com/stacksjs/ts-validation/issues/32))
+- **deps**: update all non-major dependencies (#30) ([6ec1f79](https://github.com/stacksjs/ts-validation/commit/6ec1f79)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#30](https://github.com/stacksjs/ts-validation/issues/30), [#30](https://github.com/stacksjs/ts-validation/issues/30))
+- **deps**: update all non-major dependencies (#28) ([06d77fa](https://github.com/stacksjs/ts-validation/commit/06d77fa)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#28](https://github.com/stacksjs/ts-validation/issues/28), [#28](https://github.com/stacksjs/ts-validation/issues/28))
+- **deps**: update all non-major dependencies (#27) ([6ca0b30](https://github.com/stacksjs/ts-validation/commit/6ca0b30)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#27](https://github.com/stacksjs/ts-validation/issues/27), [#27](https://github.com/stacksjs/ts-validation/issues/27))
+- **deps**: update dependency buddy-bot to 0.9.7 (#21) ([68b909f](https://github.com/stacksjs/ts-validation/commit/68b909f)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#21](https://github.com/stacksjs/ts-validation/issues/21), [#21](https://github.com/stacksjs/ts-validation/issues/21))
+- **deps**: update dependency actions/checkout to v5.0.0 (#23) ([f0cb8ec](https://github.com/stacksjs/ts-validation/commit/f0cb8ec)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#23](https://github.com/stacksjs/ts-validation/issues/23), [#23](https://github.com/stacksjs/ts-validation/issues/23))
+- add clarity and cursor rules ([6d849af](https://github.com/stacksjs/ts-validation/commit/6d849af)) _(by cab-mikee <mike.cabz32@gmail.com>)_
+- wip ([424e328](https://github.com/stacksjs/ts-validation/commit/424e328)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a8529d4](https://github.com/stacksjs/ts-validation/commit/a8529d4)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update dependency actions/checkout to v5.0.0 (#22) ([ba26be4](https://github.com/stacksjs/ts-validation/commit/ba26be4)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#22](https://github.com/stacksjs/ts-validation/issues/22), [#22](https://github.com/stacksjs/ts-validation/issues/22))
+- **deps**: update dependency @stacksjs/eslint-config to 4.14.0-beta.3 (#14) ([48a864e](https://github.com/stacksjs/ts-validation/commit/48a864e)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#14](https://github.com/stacksjs/ts-validation/issues/14), [#14](https://github.com/stacksjs/ts-validation/issues/14))
+- **deps**: update all non-major dependencies (#12) ([0805fd8](https://github.com/stacksjs/ts-validation/commit/0805fd8)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#12](https://github.com/stacksjs/ts-validation/issues/12), [#12](https://github.com/stacksjs/ts-validation/issues/12))
+
+### 📄 Miscellaneous
+
+- Merge pull request #16 from stacksjs/buddy-bot/update-major-update---bunfig-1756364092688 ([dda08e6](https://github.com/stacksjs/ts-validation/commit/dda08e6)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#16](https://github.com/stacksjs/ts-validation/issues/16), [#16](https://github.com/stacksjs/ts-validation/issues/16))
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _[renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot])_
+- _cab-mikee <mike.cabz32@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.7...HEAD)
+
+### 🧹 Chores
+
+- wip ([3f6106e](https://github.com/stacksjs/ts-validation/commit/3f6106e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([87eb235](https://github.com/stacksjs/ts-validation/commit/87eb235)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update all non-major dependencies (#33) ([b266271](https://github.com/stacksjs/ts-validation/commit/b266271)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#33](https://github.com/stacksjs/ts-validation/issues/33), [#33](https://github.com/stacksjs/ts-validation/issues/33))
+- **deps**: update dependency @stacksjs/bumpx to ^0.2.4 (#34) ([660b147](https://github.com/stacksjs/ts-validation/commit/660b147)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#34](https://github.com/stacksjs/ts-validation/issues/34), [#34](https://github.com/stacksjs/ts-validation/issues/34))
+- **deps**: update all non-major dependencies (#32) ([01d128b](https://github.com/stacksjs/ts-validation/commit/01d128b)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#32](https://github.com/stacksjs/ts-validation/issues/32), [#32](https://github.com/stacksjs/ts-validation/issues/32))
+- **deps**: update all non-major dependencies (#30) ([6ec1f79](https://github.com/stacksjs/ts-validation/commit/6ec1f79)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#30](https://github.com/stacksjs/ts-validation/issues/30), [#30](https://github.com/stacksjs/ts-validation/issues/30))
+- **deps**: update all non-major dependencies (#28) ([06d77fa](https://github.com/stacksjs/ts-validation/commit/06d77fa)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#28](https://github.com/stacksjs/ts-validation/issues/28), [#28](https://github.com/stacksjs/ts-validation/issues/28))
+- **deps**: update all non-major dependencies (#27) ([6ca0b30](https://github.com/stacksjs/ts-validation/commit/6ca0b30)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#27](https://github.com/stacksjs/ts-validation/issues/27), [#27](https://github.com/stacksjs/ts-validation/issues/27))
+- **deps**: update dependency buddy-bot to 0.9.7 (#21) ([68b909f](https://github.com/stacksjs/ts-validation/commit/68b909f)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#21](https://github.com/stacksjs/ts-validation/issues/21), [#21](https://github.com/stacksjs/ts-validation/issues/21))
+- **deps**: update dependency actions/checkout to v5.0.0 (#23) ([f0cb8ec](https://github.com/stacksjs/ts-validation/commit/f0cb8ec)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#23](https://github.com/stacksjs/ts-validation/issues/23), [#23](https://github.com/stacksjs/ts-validation/issues/23))
+- add clarity and cursor rules ([6d849af](https://github.com/stacksjs/ts-validation/commit/6d849af)) _(by cab-mikee <mike.cabz32@gmail.com>)_
+- wip ([424e328](https://github.com/stacksjs/ts-validation/commit/424e328)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a8529d4](https://github.com/stacksjs/ts-validation/commit/a8529d4)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update dependency actions/checkout to v5.0.0 (#22) ([ba26be4](https://github.com/stacksjs/ts-validation/commit/ba26be4)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#22](https://github.com/stacksjs/ts-validation/issues/22), [#22](https://github.com/stacksjs/ts-validation/issues/22))
+- **deps**: update dependency @stacksjs/eslint-config to 4.14.0-beta.3 (#14) ([48a864e](https://github.com/stacksjs/ts-validation/commit/48a864e)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#14](https://github.com/stacksjs/ts-validation/issues/14), [#14](https://github.com/stacksjs/ts-validation/issues/14))
+- **deps**: update all non-major dependencies (#12) ([0805fd8](https://github.com/stacksjs/ts-validation/commit/0805fd8)) _(by [renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot]))_ ([#12](https://github.com/stacksjs/ts-validation/issues/12), [#12](https://github.com/stacksjs/ts-validation/issues/12))
+
+### 📄 Miscellaneous
+
+- Merge pull request #16 from stacksjs/buddy-bot/update-major-update---bunfig-1756364092688 ([dda08e6](https://github.com/stacksjs/ts-validation/commit/dda08e6)) _(by Chris <chrisbreuer93@gmail.com>)_ ([#16](https://github.com/stacksjs/ts-validation/issues/16), [#16](https://github.com/stacksjs/ts-validation/issues/16))
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _[renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>](https://github.com/renovate[bot])_
+- _cab-mikee <mike.cabz32@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.6...v0.4.7)
 
 ### 🐛 Bug Fixes
