@@ -27,8 +27,18 @@ export const defaultConfig: ValidationConfig = {
   },
 }
 
-// eslint-disable-next-line antfu/no-top-level-await
-export const config: ValidationConfig = await loadConfig({
-  name: 'validation',
-  defaultConfig,
-})
+// Lazy-loaded config to avoid top-level await (enables bun --compile)
+let _config: ValidationConfig | null = null
+
+export async function getConfig(): Promise<ValidationConfig> {
+  if (!_config) {
+    _config = await loadConfig({
+      name: 'validation',
+      defaultConfig,
+    })
+  }
+  return _config
+}
+
+// For backwards compatibility - synchronous access with default fallback
+export const config: ValidationConfig = defaultConfig
