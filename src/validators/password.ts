@@ -75,7 +75,7 @@ export class PasswordValidator extends BaseValidator<string> implements Password
   hasSpecialCharacters(): this {
     return this.addRule({
       name: 'hasSpecialCharacters',
-      test: (value: string) => /[!@#$%^&*(),.?":{}|<>]/.test(value),
+      test: (value: string) => /[!@#$%^&*(),.?\x22:{}|<>]/.test(value),
       message: 'Password must contain at least one special character',
     })
   }
