@@ -47,7 +47,7 @@ function PT(str: string): boolean {
   return checksum === Number.parseInt(tin[8], 10)
 }
 
-type VatMatcher = (str: string) => boolean
+type VatMatcher = (_str: string) => boolean
 type VatMatchers = Record<string, VatMatcher>
 
 export const vatMatchers: VatMatchers = {

@@ -1,6 +1,6 @@
 import assertString from './util/assertString'
 
-type ValidatorFunction = (str: string) => boolean
+type ValidatorFunction = (_str: string) => boolean
 interface Validators { [key: string]: ValidatorFunction }
 
 const validators: Validators = {
