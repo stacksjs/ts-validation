@@ -1,3 +1,48 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.9...v0.4.10)
+
+### 🧹 Chores
+
+- release v0.4.10 ([f067805](https://github.com/stacksjs/ts-validation/commit/f067805)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([226cc4f](https://github.com/stacksjs/ts-validation/commit/226cc4f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([ecadf54](https://github.com/stacksjs/ts-validation/commit/ecadf54)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([ed0716f](https://github.com/stacksjs/ts-validation/commit/ed0716f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([260588f](https://github.com/stacksjs/ts-validation/commit/260588f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c15dfe6](https://github.com/stacksjs/ts-validation/commit/c15dfe6)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([95b3db0](https://github.com/stacksjs/ts-validation/commit/95b3db0)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([39b92bc](https://github.com/stacksjs/ts-validation/commit/39b92bc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([8b9ad59](https://github.com/stacksjs/ts-validation/commit/8b9ad59)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([8d7126c](https://github.com/stacksjs/ts-validation/commit/8d7126c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a946824](https://github.com/stacksjs/ts-validation/commit/a946824)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c1a92a2](https://github.com/stacksjs/ts-validation/commit/c1a92a2)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([d4d6076](https://github.com/stacksjs/ts-validation/commit/d4d6076)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.9...HEAD)
+
+### 🧹 Chores
+
+- wip ([226cc4f](https://github.com/stacksjs/ts-validation/commit/226cc4f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([ecadf54](https://github.com/stacksjs/ts-validation/commit/ecadf54)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([ed0716f](https://github.com/stacksjs/ts-validation/commit/ed0716f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([260588f](https://github.com/stacksjs/ts-validation/commit/260588f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c15dfe6](https://github.com/stacksjs/ts-validation/commit/c15dfe6)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([95b3db0](https://github.com/stacksjs/ts-validation/commit/95b3db0)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([39b92bc](https://github.com/stacksjs/ts-validation/commit/39b92bc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([8b9ad59](https://github.com/stacksjs/ts-validation/commit/8b9ad59)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([8d7126c](https://github.com/stacksjs/ts-validation/commit/8d7126c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a946824](https://github.com/stacksjs/ts-validation/commit/a946824)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c1a92a2](https://github.com/stacksjs/ts-validation/commit/c1a92a2)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([d4d6076](https://github.com/stacksjs/ts-validation/commit/d4d6076)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.7...v0.4.8)
 
 ### 🧹 Chores
