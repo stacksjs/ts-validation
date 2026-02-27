@@ -1,4 +1,4 @@
-import type { IsAlphaOptions } from './types'
+import type { IsAlphaOptions } from './lib-types'
 import { alpha } from './alpha'
 import assertString from './util/assertString'
 
