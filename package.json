@@ -53,7 +53,7 @@
     "typecheck": "bun --bun tsc --noEmit"
   },
   "dependencies": {
-    "dompurify": "^3.3.2"
+    "dompurify": "^3.3.3"
   },
   "devDependencies": {
     "@stacksjs/docs": "^0.70.23",
