@@ -2,7 +2,7 @@
 
 ## About
 
-A TypeScript validation library.
+ts-validation is a lightweight, zero-dependency, type-safe validation library for TypeScript built for Bun. It provides a fluent chainable API (`v.string()`, `v.number()`, `v.object()`, etc.) supporting strings, numbers, booleans, arrays, objects, dates, JSON, enums, passwords, BigInts, and custom validators. Features include nested/conditional validation, composable reusable validators, custom error messages, and detailed error reporting.
 
 ## Linting
 
