@@ -56,7 +56,6 @@
     "dompurify": "^3.3.3"
   },
   "devDependencies": {
-    "@stacksjs/docs": "^0.70.23",
     "better-dx": "^0.2.7"
   },
   "overrides": {
