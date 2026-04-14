@@ -25,6 +25,7 @@ isEmail('user@localhost', {
 ```
 
 **Options:**
+
 - `allow_display_name` - Allow display name (default: false)
 - `require_display_name` - Require display name (default: false)
 - `allow_utf8_local_part` - Allow UTF-8 in local part (default: true)
@@ -54,6 +55,7 @@ isURL('https://example.com', {
 ```
 
 **Options:**
+
 - `protocols` - Allowed protocols (default: ['http', 'https', 'ftp'])
 - `require_tld` - Require TLD (default: true)
 - `require_protocol` - Require protocol (default: false)

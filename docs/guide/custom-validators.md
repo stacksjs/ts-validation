@@ -499,16 +499,22 @@ function isValidUsername(value: string | null | undefined): boolean {
 
 ```typescript
 /**
- * Validates a company registration number.
- *
- * @param value - The registration number to validate
- * @param countryCode - ISO 3166-1 alpha-2 country code
- * @returns true if valid, false otherwise
- *
- * @example
- * isCompanyRegistration('12345678', 'GB') // true
- * isCompanyRegistration('SC123456', 'GB') // true (Scottish company)
- */
+
+ _ Validates a company registration number.
+
+ _
+
+ _ @param value - The registration number to validate
+ _ @param countryCode - ISO 3166-1 alpha-2 country code
+ _ @returns true if valid, false otherwise
+
+ _
+
+ _ @example
+ _ isCompanyRegistration('12345678', 'GB') // true
+ _ isCompanyRegistration('SC123456', 'GB') // true (Scottish company)
+
+ _/
 function isCompanyRegistration(value: string, countryCode: string): boolean {
   // Implementation
 }
