@@ -85,7 +85,8 @@ function isBusinessEmail(
     return false
   }
 
-  const domain = value.split('@')[1].toLowerCase()
+  const parts = value.split('@')
+  const domain = parts[1].toLowerCase()
 
   // Check against allowed domains if specified
   if (allowedDomains && allowedDomains.length > 0) {
