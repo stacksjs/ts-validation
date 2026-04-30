@@ -9,7 +9,7 @@ const extlang = '([A-Za-z]{3}(-[A-Za-z]{3}){0,2})'
 /*
   = 2*3ALPHA             shortest ISO 639 code
     ["-" extlang]        sometimes followed by
-                         extended language subtags
+                        extended language subtags
   / 4ALPHA               or reserved for future use
   / 5*8ALPHA             or registered language subtag
  */
@@ -43,8 +43,8 @@ const singleton = '(\\d|[A-W]|[Y-Z]|[a-w]|[y-z])'
 
 /*
   = singleton 1*("-" (2*8alphanum))
-                         Single alphanumerics
-                         "x" reserved for private use
+                        Single alphanumerics
+                        "x" reserved for private use
  */
 const extension = `(${singleton}(-[A-Za-z0-9]{2,8})+)`
 
