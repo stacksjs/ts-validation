@@ -4,7 +4,7 @@
 
 > A TypeScript Starter Kit that will help you bootstrap your next project without minimal opinion.
 
-# ts-validation
+## ts-validation
 
 This is an opinionated TypeScript Starter kit to help kick-start development of your next Bun package.
 
@@ -90,4 +90,3 @@ Made with 💙
 <!-- Badges -->
 
 <!-- [codecov-src]: https://img.shields.io/codecov/c/gh/stacksjs/rpx/main?style=flat-square
-[codecov-href]: https://codecov.io/gh/stacksjs/rpx -->
