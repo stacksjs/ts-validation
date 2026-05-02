@@ -53,10 +53,10 @@
     "typecheck": "bun --bun tsc --noEmit"
   },
   "dependencies": {
-    "dompurify": "^3.3.3"
+    "dompurify": "^3.4.2"
   },
   "devDependencies": {
-    "better-dx": "^0.2.7"
+    "better-dx": "^0.2.11"
   },
   "git-hooks": {
     "pre-commit": {
