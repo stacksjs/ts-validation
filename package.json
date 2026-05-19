@@ -56,7 +56,7 @@
     "dompurify": "^3.3.3"
   },
   "devDependencies": {
-    "better-dx": "^0.2.7"
+    "better-dx": "^0.2.15"
   },
   "git-hooks": {
     "pre-commit": {
