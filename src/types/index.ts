@@ -8,6 +8,7 @@ import type { DatetimeValidatorType, DateValidatorType } from './date'
 import type { DecimalValidatorType } from './decimal'
 import type { DoubleValidatorType } from './double'
 import type { EnumValidatorType } from './enum'
+import type { FileValidatorType } from './file'
 import type { FloatValidatorType } from './float'
 import type { IntegerValidatorType } from './integer'
 import type { JsonValidatorType } from './json'
@@ -33,6 +34,7 @@ export * from './date'
 export * from './decimal'
 export * from './double'
 export * from './enum'
+export * from './file'
 
 export * from './float'
 export * from './integer'
@@ -74,6 +76,7 @@ export interface ValidationInstance {
   json: () => JsonValidatorType
   blob: () => BlobValidatorType
   binary: () => BinaryValidatorType
+  file: () => FileValidatorType
 }
 
 export type ValidationType = {

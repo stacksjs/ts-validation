@@ -10,6 +10,7 @@ import { datetime } from './validators/datetimes'
 import { decimal } from './validators/decimal'
 import { float as double } from './validators/double'
 import { enum_ } from './validators/enums'
+import { file } from './validators/file'
 import { float } from './validators/float'
 import { integer } from './validators/integer'
 import { json } from './validators/json'
@@ -49,6 +50,7 @@ export const v: ValidationInstance = {
   json,
   blob,
   binary,
+  file,
 }
 
 export const schema: ValidationInstance = v
