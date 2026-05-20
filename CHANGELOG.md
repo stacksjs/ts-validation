@@ -1,3 +1,126 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.10...v0.5.0)
+
+### 🚀 Features
+
+- **validators**: add file() primitive for UploadedFile validation ([fd3aa31](https://github.com/stacksjs/ts-validation/commit/fd3aa31)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🐛 Bug Fixes
+
+- add setup-bun to publish-commit job ([205f5b5](https://github.com/stacksjs/ts-validation/commit/205f5b5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add missing typecheck job and fix corrupted checkout versions ([8bae753](https://github.com/stacksjs/ts-validation/commit/8bae753)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🤖 Continuous Integration
+
+- drop redundant setup-bun (pantry installs bun via deps.yaml) ([768e279](https://github.com/stacksjs/ts-validation/commit/768e279)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🧹 Chores
+
+- release v0.5.0 ([8d7c67c](https://github.com/stacksjs/ts-validation/commit/8d7c67c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: bump better-dx to ^0.2.15 ([4be931c](https://github.com/stacksjs/ts-validation/commit/4be931c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up bun-plugin-dtsx@0.9.18 ([c3f5a29](https://github.com/stacksjs/ts-validation/commit/c3f5a29)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock and apply pickier --fix ([6e5b54a](https://github.com/stacksjs/ts-validation/commit/6e5b54a)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock ([e596161](https://github.com/stacksjs/ts-validation/commit/e596161)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- lint:fix ([90575e2](https://github.com/stacksjs/ts-validation/commit/90575e2)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up latest pickier ([5df7b89](https://github.com/stacksjs/ts-validation/commit/5df7b89)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up dtsx 0.9.14 and bunfig 0.15.9 ([9b3d6f8](https://github.com/stacksjs/ts-validation/commit/9b3d6f8)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up pickier 0.1.21 ([cba5f6d](https://github.com/stacksjs/ts-validation/commit/cba5f6d)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint errors ([df1bf1a](https://github.com/stacksjs/ts-validation/commit/df1bf1a)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- gitignore pantry directory ([052f0ac](https://github.com/stacksjs/ts-validation/commit/052f0ac)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- auto-fix lint errors ([473c27e](https://github.com/stacksjs/ts-validation/commit/473c27e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- include md in pickier lint extensions ([fcfeebc](https://github.com/stacksjs/ts-validation/commit/fcfeebc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update vscode config ([3971f86](https://github.com/stacksjs/ts-validation/commit/3971f86)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- repo cleanup and modernization ([4c82e23](https://github.com/stacksjs/ts-validation/commit/4c82e23)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- repo cleanup and modernization ([34ae1fd](https://github.com/stacksjs/ts-validation/commit/34ae1fd)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove @stacksjs/docs ([864bfe3](https://github.com/stacksjs/ts-validation/commit/864bfe3)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove redundant docs/.vitepress ([6f51738](https://github.com/stacksjs/ts-validation/commit/6f51738)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- use Pantry action for publish-commit and add job dependencies ([dd6fbab](https://github.com/stacksjs/ts-validation/commit/dd6fbab)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: update all non-major dependencies (rebased) (#1100) ([f248460](https://github.com/stacksjs/ts-validation/commit/f248460)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1100](https://github.com/stacksjs/ts-validation/issues/1100), [#1100](https://github.com/stacksjs/ts-validation/issues/1100))
+- remove file ignores from pickier config ([d20798b](https://github.com/stacksjs/ts-validation/commit/d20798b)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add CLAUDE.md and CHANGELOG.md to pickier ignores ([8106352](https://github.com/stacksjs/ts-validation/commit/8106352)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove .pickierignore ([d7a6660](https://github.com/stacksjs/ts-validation/commit/d7a6660)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update better-dx to ^0.2.7 ([a5f7b4f](https://github.com/stacksjs/ts-validation/commit/a5f7b4f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- enrich CLAUDE.md with detailed project context from README ([fbca060](https://github.com/stacksjs/ts-validation/commit/fbca060)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update CLAUDE.md with project context and crosswind details ([4ee6de5](https://github.com/stacksjs/ts-validation/commit/4ee6de5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add proper claude code guidelines ([a6075c1](https://github.com/stacksjs/ts-validation/commit/a6075c1)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- use pantry monorepo action instead of pantry-setup ([d448f9c](https://github.com/stacksjs/ts-validation/commit/d448f9c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- ignore claude config in linter ([a246b38](https://github.com/stacksjs/ts-validation/commit/a246b38)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add claude code guidelines ([d5e7f60](https://github.com/stacksjs/ts-validation/commit/d5e7f60)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update all non-major dependencies (#1098) ([5995066](https://github.com/stacksjs/ts-validation/commit/5995066)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1098](https://github.com/stacksjs/ts-validation/issues/1098), [#1098](https://github.com/stacksjs/ts-validation/issues/1098))
+- **deps**: update all non-major dependencies (rebased) (#1097) ([0152386](https://github.com/stacksjs/ts-validation/commit/0152386)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1097](https://github.com/stacksjs/ts-validation/issues/1097), [#1097](https://github.com/stacksjs/ts-validation/issues/1097))
+- wip ([596a6e0](https://github.com/stacksjs/ts-validation/commit/596a6e0)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([09e9812](https://github.com/stacksjs/ts-validation/commit/09e9812)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([b844651](https://github.com/stacksjs/ts-validation/commit/b844651)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c23df36](https://github.com/stacksjs/ts-validation/commit/c23df36)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([ab3b43c](https://github.com/stacksjs/ts-validation/commit/ab3b43c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a4a4701](https://github.com/stacksjs/ts-validation/commit/a4a4701)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([155fe30](https://github.com/stacksjs/ts-validation/commit/155fe30)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.10...HEAD)
+
+### 🚀 Features
+
+- **validators**: add file() primitive for UploadedFile validation ([fd3aa31](https://github.com/stacksjs/ts-validation/commit/fd3aa31)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🐛 Bug Fixes
+
+- add setup-bun to publish-commit job ([205f5b5](https://github.com/stacksjs/ts-validation/commit/205f5b5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add missing typecheck job and fix corrupted checkout versions ([8bae753](https://github.com/stacksjs/ts-validation/commit/8bae753)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🤖 Continuous Integration
+
+- drop redundant setup-bun (pantry installs bun via deps.yaml) ([768e279](https://github.com/stacksjs/ts-validation/commit/768e279)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### 🧹 Chores
+
+- **deps**: bump better-dx to ^0.2.15 ([4be931c](https://github.com/stacksjs/ts-validation/commit/4be931c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up bun-plugin-dtsx@0.9.18 ([c3f5a29](https://github.com/stacksjs/ts-validation/commit/c3f5a29)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock and apply pickier --fix ([6e5b54a](https://github.com/stacksjs/ts-validation/commit/6e5b54a)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock ([e596161](https://github.com/stacksjs/ts-validation/commit/e596161)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- lint:fix ([90575e2](https://github.com/stacksjs/ts-validation/commit/90575e2)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up latest pickier ([5df7b89](https://github.com/stacksjs/ts-validation/commit/5df7b89)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up dtsx 0.9.14 and bunfig 0.15.9 ([9b3d6f8](https://github.com/stacksjs/ts-validation/commit/9b3d6f8)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up pickier 0.1.21 ([cba5f6d](https://github.com/stacksjs/ts-validation/commit/cba5f6d)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint errors ([df1bf1a](https://github.com/stacksjs/ts-validation/commit/df1bf1a)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- gitignore pantry directory ([052f0ac](https://github.com/stacksjs/ts-validation/commit/052f0ac)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- auto-fix lint errors ([473c27e](https://github.com/stacksjs/ts-validation/commit/473c27e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- include md in pickier lint extensions ([fcfeebc](https://github.com/stacksjs/ts-validation/commit/fcfeebc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update vscode config ([3971f86](https://github.com/stacksjs/ts-validation/commit/3971f86)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- repo cleanup and modernization ([4c82e23](https://github.com/stacksjs/ts-validation/commit/4c82e23)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- repo cleanup and modernization ([34ae1fd](https://github.com/stacksjs/ts-validation/commit/34ae1fd)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove @stacksjs/docs ([864bfe3](https://github.com/stacksjs/ts-validation/commit/864bfe3)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove redundant docs/.vitepress ([6f51738](https://github.com/stacksjs/ts-validation/commit/6f51738)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- use Pantry action for publish-commit and add job dependencies ([dd6fbab](https://github.com/stacksjs/ts-validation/commit/dd6fbab)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: update all non-major dependencies (rebased) (#1100) ([f248460](https://github.com/stacksjs/ts-validation/commit/f248460)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1100](https://github.com/stacksjs/ts-validation/issues/1100), [#1100](https://github.com/stacksjs/ts-validation/issues/1100))
+- remove file ignores from pickier config ([d20798b](https://github.com/stacksjs/ts-validation/commit/d20798b)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add CLAUDE.md and CHANGELOG.md to pickier ignores ([8106352](https://github.com/stacksjs/ts-validation/commit/8106352)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove .pickierignore ([d7a6660](https://github.com/stacksjs/ts-validation/commit/d7a6660)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update better-dx to ^0.2.7 ([a5f7b4f](https://github.com/stacksjs/ts-validation/commit/a5f7b4f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- enrich CLAUDE.md with detailed project context from README ([fbca060](https://github.com/stacksjs/ts-validation/commit/fbca060)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update CLAUDE.md with project context and crosswind details ([4ee6de5](https://github.com/stacksjs/ts-validation/commit/4ee6de5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add proper claude code guidelines ([a6075c1](https://github.com/stacksjs/ts-validation/commit/a6075c1)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- use pantry monorepo action instead of pantry-setup ([d448f9c](https://github.com/stacksjs/ts-validation/commit/d448f9c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- ignore claude config in linter ([a246b38](https://github.com/stacksjs/ts-validation/commit/a246b38)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add claude code guidelines ([d5e7f60](https://github.com/stacksjs/ts-validation/commit/d5e7f60)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: update all non-major dependencies (#1098) ([5995066](https://github.com/stacksjs/ts-validation/commit/5995066)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1098](https://github.com/stacksjs/ts-validation/issues/1098), [#1098](https://github.com/stacksjs/ts-validation/issues/1098))
+- **deps**: update all non-major dependencies (rebased) (#1097) ([0152386](https://github.com/stacksjs/ts-validation/commit/0152386)) _(by [github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>](https://github.com/github-actions[bot]))_ ([#1097](https://github.com/stacksjs/ts-validation/issues/1097), [#1097](https://github.com/stacksjs/ts-validation/issues/1097))
+- wip ([596a6e0](https://github.com/stacksjs/ts-validation/commit/596a6e0)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([09e9812](https://github.com/stacksjs/ts-validation/commit/09e9812)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([b844651](https://github.com/stacksjs/ts-validation/commit/b844651)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([c23df36](https://github.com/stacksjs/ts-validation/commit/c23df36)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([ab3b43c](https://github.com/stacksjs/ts-validation/commit/ab3b43c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([a4a4701](https://github.com/stacksjs/ts-validation/commit/a4a4701)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- wip ([155fe30](https://github.com/stacksjs/ts-validation/commit/155fe30)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.9...v0.4.10)
 
 ### 🧹 Chores
