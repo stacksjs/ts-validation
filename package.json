@@ -1,7 +1,7 @@
 {
   "name": "@stacksjs/ts-validation",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A simple TypeScript starter kit using Bun.",
   "author": "Chris Breuer <chris@stacksjs.org>",
   "license": "MIT",
@@ -47,14 +47,13 @@
     "changelog": "bunx logsmith --verbose",
     "changelog:generate": "bunx logsmith --output CHANGELOG.md",
     "release": "bunx --bun bumpx prompt --recursive",
+    "release:patch": "bunx --bun bumpx patch --recursive --commit --tag --push --yes",
     "dev:docs": "bun --bun vitepress dev docs",
     "build:docs": "bun --bun vitepress build docs",
     "preview:docs": "bun --bun vitepress preview docs",
     "typecheck": "bun --bun tsc --noEmit"
   },
-  "dependencies": {
-    "dompurify": "^3.3.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "better-dx": "^0.2.15"
   },

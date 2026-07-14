@@ -1,3 +1,30 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.0...v0.5.1)
+
+## 🐛 Bug Fixes
+
+- **scripts**: stop double-generating CHANGELOG on release ([745c04e](https://github.com/stacksjs/ts-validation/commit/745c04e)) _(by Glenn Michael Torregosa <gtorregosa@gmail.com>)_
+
+## 🤖 Continuous Integration
+
+- **buddy-bot**: add daily cleanup cron to workflow ([44a6d18](https://github.com/stacksjs/ts-validation/commit/44a6d18)) _(by Glenn Michael Torregosa <gtorregosa@gmail.com>)_
+- **buddy-bot**: regenerate workflow from current template ([13bb240](https://github.com/stacksjs/ts-validation/commit/13bb240)) _(by Glenn Michael Torregosa <gtorregosa@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.1 ([e979955](https://github.com/stacksjs/ts-validation/commit/e979955)) _(by Chris <chrisbreuer93@gmail.com>)_
+- upgrade to TypeScript 7 ([c5b9c8b](https://github.com/stacksjs/ts-validation/commit/c5b9c8b)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.37 ([75174b7](https://github.com/stacksjs/ts-validation/commit/75174b7)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.35 ([a878126](https://github.com/stacksjs/ts-validation/commit/a878126)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.33 ([1728c89](https://github.com/stacksjs/ts-validation/commit/1728c89)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up @stacksjs/logsmith 0.2.3 ([e9bb615](https://github.com/stacksjs/ts-validation/commit/e9bb615)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up buddy-bot 0.9.20 ([50a8c08](https://github.com/stacksjs/ts-validation/commit/50a8c08)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _Glenn Michael Torregosa <gtorregosa@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.4.10...v0.5.0)
 
 ### 🚀 Features
