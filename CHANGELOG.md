@@ -1,3 +1,13 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.1...v0.5.2)
+
+## 🧹 Chores
+
+- release v0.5.2 ([6d1f71a](https://github.com/stacksjs/ts-validation/commit/6d1f71a)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.0...v0.5.1)
 
 ## 🐛 Bug Fixes
