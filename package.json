@@ -55,7 +55,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "better-dx": "^0.2.15"
+    "better-dx": "^0.2.20"
   },
   "git-hooks": {
     "pre-commit": {
