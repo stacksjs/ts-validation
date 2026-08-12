@@ -1,3 +1,22 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.2...v0.5.3)
+
+## 🚀 Features
+
+- **types**: infer enum array and object values ([b0f413a](https://github.com/stacksjs/ts-validation/commit/b0f413a)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 📚 Documentation
+
+- link the community as stacksjs.com/discord ([7908a9c](https://github.com/stacksjs/ts-validation/commit/7908a9c)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.3 ([a2c41a5](https://github.com/stacksjs/ts-validation/commit/a2c41a5)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: declare bun ^1.3.14 in deps.yaml ([ecd1e53](https://github.com/stacksjs/ts-validation/commit/ecd1e53)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.1...v0.5.2)
 
 ## 🧹 Chores
