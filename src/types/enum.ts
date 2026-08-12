@@ -1,6 +1,7 @@
 import type { Validator } from './base'
 
-export interface EnumValidatorType extends Validator<string> {
-  getAllowedValues: () => readonly string[]
-  custom: (fn: (value: string) => boolean, message: string) => EnumValidatorType
+export interface EnumValidatorType<T extends string = string> extends Validator<T> {
+  readonly name: 'enum'
+  getAllowedValues: () => readonly T[]
+  custom: (fn: (value: T) => boolean, message: string) => EnumValidatorType<T>
 }

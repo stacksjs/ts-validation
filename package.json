@@ -51,7 +51,7 @@
     "dev:docs": "bun --bun vitepress dev docs",
     "build:docs": "bun --bun vitepress build docs",
     "preview:docs": "bun --bun vitepress preview docs",
-    "typecheck": "bun --bun tsc --noEmit"
+    "typecheck": "bun --bun tsc --noEmit && bun --bun tsc -p tsconfig.type-tests.json"
   },
   "dependencies": {},
   "devDependencies": {

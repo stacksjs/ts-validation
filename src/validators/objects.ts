@@ -1,7 +1,7 @@
-import type { ObjectValidatorType, ValidationErrorMap, ValidationNames, ValidationResult, Validator } from '../types'
+import type { InferShape, ObjectValidatorType, ValidationErrorMap, ValidationNames, ValidationResult, Validator, ValidatorShape } from '../types'
 import { BaseValidator } from './base'
 
-export class ObjectValidator<T extends Record<string, any>> extends BaseValidator<T> implements ObjectValidatorType<T> {
+export class ObjectValidator<T extends Record<string, unknown>> extends BaseValidator<T> implements ObjectValidatorType<T> {
   public name: ValidationNames = 'object'
 
   private schema: Record<string, Validator<any>> = {}
@@ -22,7 +22,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
     }
   }
 
-  shape(schema: Record<string, Validator<any>>): this {
+  shape<const TSchema extends ValidatorShape>(schema: TSchema): ObjectValidator<InferShape<TSchema>> {
     this.schema = Object.entries(schema).reduce((acc, [key, validator]) => {
       if (validator instanceof BaseValidator) {
         acc[key] = validator.setIsPartOfShape(true).setFieldName(key)
@@ -33,7 +33,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
       return acc
     }, {} as Record<string, Validator<any>>)
 
-    return this.addRule({
+    this.addRule({
       name: 'shape',
       test: (value: T) => {
         // If value is null/undefined, let the required/optional rules handle it
@@ -51,6 +51,7 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
       },
       message: 'Invalid object shape',
     })
+    return this as unknown as ObjectValidator<InferShape<TSchema>>
   }
 
   strict(strict = true): this {
@@ -110,6 +111,8 @@ export class ObjectValidator<T extends Record<string, any>> extends BaseValidato
   }
 }
 
-export function object<T extends Record<string, any>>(schema?: Record<string, Validator<any>>): ObjectValidator<T> {
-  return new ObjectValidator<T>(schema)
+export function object<const TSchema extends ValidatorShape>(schema: TSchema): ObjectValidator<InferShape<TSchema>>
+export function object<T extends Record<string, unknown> = Record<string, unknown>>(): ObjectValidator<T>
+export function object(schema?: ValidatorShape): ObjectValidator<Record<string, unknown>> {
+  return new ObjectValidator<Record<string, unknown>>(schema)
 }

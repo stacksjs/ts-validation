@@ -52,16 +52,17 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
     })
   }
 
-  each(validator: Validator<T>): this {
-    return this.addRule({
+  each<U>(validator: Validator<U>): ArrayValidator<U> {
+    this.addRule({
       name: 'each',
       test: (value: T[]) => {
         if (value === null || value === undefined)
           return false
-        return value.every(item => validator.test(item))
+        return value.every(item => validator.test(item as unknown as U))
       },
       message: 'Each item in array is invalid',
     })
+    return this as unknown as ArrayValidator<U>
   }
 
   unique(): this {
@@ -84,6 +85,6 @@ export class ArrayValidator<T> extends BaseValidator<T[]> implements ArrayValida
   }
 }
 
-export function array<T>(): ArrayValidator<T> {
+export function array<T = unknown>(): ArrayValidator<T> {
   return new ArrayValidator<T>()
 }

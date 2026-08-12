@@ -13,7 +13,7 @@ import type { FloatValidatorType } from './float'
 import type { IntegerValidatorType } from './integer'
 import type { JsonValidatorType } from './json'
 import type { BigintValidatorType, NumberValidatorType } from './number'
-import type { ObjectValidatorType } from './object'
+import type { InferShape, ObjectValidatorType, ValidatorShape } from './object'
 import type { PasswordValidatorType } from './password'
 import type { SmallintValidatorType } from './smallint'
 // Re-export ValidationInstance type
@@ -56,12 +56,15 @@ export interface ValidationInstance {
   text: () => TextValidatorType
   number: () => NumberValidatorType
   bigint: () => BigintValidatorType
-  array: <T>() => ArrayValidatorType<T>
+  array: <T = unknown>() => ArrayValidatorType<T>
   boolean: () => BooleanValidatorType
-  enum: (values: readonly string[]) => EnumValidatorType
+  enum: <const TValues extends readonly string[]>(values: TValues) => EnumValidatorType<TValues[number]>
   date: () => DateValidatorType
   datetime: () => DatetimeValidatorType
-  object: <T extends Record<string, any>>(schema?: Record<string, Validator<any>>) => ObjectValidatorType<T>
+  object: {
+    <const TSchema extends ValidatorShape>(schema: TSchema): ObjectValidatorType<InferShape<TSchema>>
+    <T extends Record<string, unknown> = Record<string, unknown>>(): ObjectValidatorType<T>
+  }
   custom: <T>(validationFn: (value: T) => boolean, message: string) => CustomValidatorType<T>
   timestamp: () => TimestampValidatorType
   timestampTz: () => TimestampTzValidatorType

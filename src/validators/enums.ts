@@ -1,27 +1,27 @@
-import type { EnumValidatorType, ValidationNames } from '../types'
+import type { EnumValidatorType } from '../types'
 import { BaseValidator } from './base'
 
-export class EnumValidator extends BaseValidator<string> implements EnumValidatorType {
-  public name: ValidationNames = 'enum'
+export class EnumValidator<T extends string = string> extends BaseValidator<T> implements EnumValidatorType<T> {
+  public readonly name = 'enum' as const
 
-  private allowedValues: readonly string[]
+  private allowedValues: readonly T[]
 
-  constructor(allowedValues: readonly string[]) {
+  constructor(allowedValues: readonly T[]) {
     super()
     this.allowedValues = allowedValues
     this.addRule({
       name: 'enum',
-      test: (value: string) => this.allowedValues.includes(value),
+      test: (value: T) => this.allowedValues.includes(value),
       message: 'Must be one of: {values}',
       params: { values: this.allowedValues.join(', ') },
     })
   }
 
-  getAllowedValues(): readonly string[] {
+  getAllowedValues(): readonly T[] {
     return this.allowedValues
   }
 
-  custom(fn: (value: string) => boolean, message: string): this {
+  custom(fn: (value: T) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,
@@ -30,6 +30,6 @@ export class EnumValidator extends BaseValidator<string> implements EnumValidato
   }
 }
 
-export function enum_(allowedValues: readonly string[]): EnumValidator {
-  return new EnumValidator(allowedValues)
+export function enum_<const TValues extends readonly string[]>(allowedValues: TValues): EnumValidator<TValues[number]> {
+  return new EnumValidator<TValues[number]>(allowedValues)
 }
