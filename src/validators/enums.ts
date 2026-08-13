@@ -2,7 +2,17 @@ import type { EnumValidatorType } from '../types'
 import { BaseValidator } from './base'
 
 export class EnumValidator<T extends string = string> extends BaseValidator<T> implements EnumValidatorType<T> {
-  public readonly name = 'enum' as const
+  /*
+   * Annotated rather than inferred from `'enum' as const`.
+   *
+   * The declaration emitter widened the inferred form to `unknown` - the base
+   * class declares `name: ValidationNames` and a `readonly` narrowing of it is
+   * more than it could describe - so the published type said an EnumValidator
+   * has a `name` of `unknown`, and nothing that asks for `EnumValidatorType`
+   * accepted one. Downstream that reads as `schema.enum([...])` not being an
+   * enum validator, which is a confusing way to be told about a `.d.ts` bug.
+   */
+  public readonly name: 'enum' = 'enum'
 
   private allowedValues: readonly T[]
 
