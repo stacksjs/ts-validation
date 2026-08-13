@@ -1,3 +1,17 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.3...v0.5.4)
+
+## 🐛 Bug Fixes
+
+- **types**: an enum validator satisfies EnumValidatorType again ([4cfb285](https://github.com/stacksjs/ts-validation/commit/4cfb285)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.4 ([98ca55f](https://github.com/stacksjs/ts-validation/commit/98ca55f)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.2...v0.5.3)
 
 ## 🚀 Features
