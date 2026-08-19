@@ -1,11 +1,9 @@
-import type { BunpressConfig } from 'bunpress'
+import type { BunPressConfig } from '@stacksjs/bunpress'
 
-const config: BunpressConfig = {
-  name: 'ts-validation',
+const config: BunPressConfig = {
+  title: 'ts-validation',
   description: 'A comprehensive string validation library for TypeScript',
   url: 'https://ts-validation.stacksjs.org',
-  theme: 'docs',
-
   nav: [
     { text: 'Guide', link: '/guide/getting-started' },
     { text: 'Rules', link: '/guide/rules' },
@@ -48,9 +46,11 @@ const config: BunpressConfig = {
     },
   ],
 
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/stacksjs/ts-validation' },
-  ],
+  themeConfig: {
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/stacksjs/ts-validation' },
+    ],
+  },
 }
 
 export default config
