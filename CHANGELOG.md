@@ -1,3 +1,17 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.4...v0.5.5)
+
+## ⚡ Performance Improvements
+
+- **build**: minify the published bundles ([780de49](https://github.com/stacksjs/ts-validation/commit/780de49)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.5 ([00edc0f](https://github.com/stacksjs/ts-validation/commit/00edc0f)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.3...v0.5.4)
 
 ## 🐛 Bug Fixes
