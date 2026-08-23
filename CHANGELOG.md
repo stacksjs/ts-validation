@@ -1,3 +1,21 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.5...v0.5.6)
+
+## 🚀 Features
+
+- **types**: track required() in the type system ([6dcb0a8](https://github.com/stacksjs/ts-validation/commit/6dcb0a8)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🐛 Bug Fixes
+
+- **docs**: use the config keys bunpress actually has ([8a70b0f](https://github.com/stacksjs/ts-validation/commit/8a70b0f)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.6 ([4652fc9](https://github.com/stacksjs/ts-validation/commit/4652fc9)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.4...v0.5.5)
 
 ## ⚡ Performance Improvements
