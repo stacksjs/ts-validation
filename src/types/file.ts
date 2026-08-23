@@ -21,19 +21,19 @@ export interface FileLike {
 
 export interface FileValidatorType extends Validator<FileLike> {
   /** Restrict to one of the listed MIME types (exact match). */
-  mimeTypes: (types: string[]) => FileValidatorType
+  mimeTypes: (types: string[]) => this
   /** Restrict to common image MIME types (jpeg/png/webp/gif/svg/avif). */
-  image: () => FileValidatorType
+  image: () => this
   /** Reject files larger than the given byte count. */
-  maxBytes: (max: number) => FileValidatorType
+  maxBytes: (max: number) => this
   /** Reject files smaller than the given byte count. */
-  minBytes: (min: number) => FileValidatorType
+  minBytes: (min: number) => this
   /**
    * Restrict to one of the listed file extensions (derived from
    * `originalName`; case-insensitive). Bypasses any `originalName` that
    * doesn't include an extension.
    */
-  extensions: (exts: string[]) => FileValidatorType
+  extensions: (exts: string[]) => this
   /** Custom predicate over the full file value. */
-  custom: (fn: (file: FileLike) => boolean, message: string) => FileValidatorType
+  custom: (fn: (file: FileLike) => boolean, message: string) => this
 }

@@ -9,8 +9,8 @@ export interface FloatOptions {
 }
 
 export interface FloatValidatorType extends Validator<number>, LengthValidator<FloatValidatorType> {
-  positive: () => FloatValidatorType
-  negative: () => FloatValidatorType
-  divisibleBy: (divisor: number) => FloatValidatorType
-  custom: (fn: (value: number | null | undefined) => boolean, message: string) => FloatValidatorType
+  positive: () => this
+  negative: () => this
+  divisibleBy: (divisor: number) => this
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => this
 }

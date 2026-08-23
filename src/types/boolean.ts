@@ -5,7 +5,7 @@ export interface IsBooleanOptions {
 }
 
 export interface BooleanValidatorType extends Validator<boolean> {
-  isTrue: () => BooleanValidatorType
-  isFalse: () => BooleanValidatorType
-  custom: (fn: (value: boolean) => boolean, message: string) => BooleanValidatorType
+  isTrue: () => this
+  isFalse: () => this
+  custom: (fn: (value: boolean) => boolean, message: string) => this
 }

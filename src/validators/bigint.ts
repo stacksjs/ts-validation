@@ -13,7 +13,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  min(min: bigint): BigintValidatorType {
+  min(min: bigint): this {
     return this.addRule({
       name: 'min',
       test: (value: bigint) => value >= min,
@@ -22,7 +22,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  max(max: bigint): BigintValidatorType {
+  max(max: bigint): this {
     return this.addRule({
       name: 'max',
       test: (value: bigint) => value <= max,
@@ -31,7 +31,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  length(length: number): BigintValidatorType {
+  length(length: number): this {
     return this.addRule({
       name: 'length',
       test: (value: bigint) => value.toString().length === length,
@@ -40,7 +40,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  positive(): BigintValidatorType {
+  positive(): this {
     return this.addRule({
       name: 'positive',
       test: (value: bigint) => value > 0n,
@@ -48,7 +48,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  negative(): BigintValidatorType {
+  negative(): this {
     return this.addRule({
       name: 'negative',
       test: (value: bigint) => value < 0n,
@@ -56,7 +56,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  divisibleBy(divisor: bigint): BigintValidatorType {
+  divisibleBy(divisor: bigint): this {
     return this.addRule({
       name: 'divisibleBy',
       test: (value: bigint) => value % divisor === 0n,
@@ -65,7 +65,7 @@ export class BigintValidator extends BaseValidator<bigint> implements BigintVali
     })
   }
 
-  custom(fn: (value: bigint) => boolean, message: string): BigintValidatorType {
+  custom(fn: (value: bigint) => boolean, message: string): this {
     return this.addRule({
       name: 'custom',
       test: fn,

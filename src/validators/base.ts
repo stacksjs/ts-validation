@@ -1,4 +1,4 @@
-import type { ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule, Validator } from '../types'
+import type { RequiredMarker, ValidationError, ValidationErrorMap, ValidationNames, ValidationResult, ValidationRule, Validator } from '../types'
 import { getCustomMessages } from '../messages'
 
 export abstract class BaseValidator<T> implements Validator<T> {
@@ -8,9 +8,15 @@ export abstract class BaseValidator<T> implements Validator<T> {
   protected isPartOfShape = false
   public name: ValidationNames = 'base'
 
-  required(): this {
+  /*
+   * The return type carries a phantom `REQUIRED` marker so a rule set can be
+   * read at the type level - see `types/base.ts`. Nothing is added at runtime;
+   * the cast is the whole implementation of the marker, which is why it is
+   * here and not scattered across the concrete validators.
+   */
+  required(): this & RequiredMarker {
     this.isRequired = true
-    return this
+    return this as this & RequiredMarker
   }
 
   optional(): this {

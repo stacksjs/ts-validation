@@ -10,10 +10,10 @@ export interface PasswordAnalysis {
 }
 
 export interface PasswordValidatorType extends Validator<string>, LengthValidator<PasswordValidatorType> {
-  matches: (confirmPassword: string) => PasswordValidatorType
-  hasUppercase: () => PasswordValidatorType
-  hasLowercase: () => PasswordValidatorType
-  hasNumbers: () => PasswordValidatorType
-  hasSpecialCharacters: () => PasswordValidatorType
-  alphanumeric: () => PasswordValidatorType
+  matches: (confirmPassword: string) => this
+  hasUppercase: () => this
+  hasLowercase: () => this
+  hasNumbers: () => this
+  hasSpecialCharacters: () => this
+  alphanumeric: () => this
 }

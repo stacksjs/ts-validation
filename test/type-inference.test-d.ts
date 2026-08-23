@@ -1,5 +1,5 @@
 import { schema } from '../src'
-import type { EnumValidatorType, Infer } from '../src'
+import type { EnumValidatorType, Infer, IsRequired } from '../src'
 
 type Equal<A, B> =
   (<T>() => T extends A ? 1 : 2) extends
@@ -40,3 +40,52 @@ const asInterface: EnumValidatorType<'smtp' | 'ses' | 'log'> = driver
 type EnumName = Expect<Equal<typeof driver.name, 'enum'>>
 
 void asInterface
+
+// ── required(), at the type level ─────────────────────────────────────────
+//
+// `isRequired` is a runtime boolean and `required()` returned `this`, so
+// nothing distinguished `string()` from `string().required()` in the type
+// system. Anything building a shape out of a rule set - a request body, an
+// event payload - therefore typed every field as present, including the ones
+// that are not: the type saying something the runtime does not.
+//
+// The marker is a phantom property and the chainable methods return `this`, so
+// it survives whatever comes after `.required()`. That is the part worth
+// pinning: an earlier version put the marker on `required()` alone, and
+// `.required().min(5)` handed back the plain validator and dropped it - so
+// whether a field read as required depended on where in the chain it was
+// written.
+
+const optionalName = schema.string()
+type OptionalName = Expect<Equal<IsRequired<typeof optionalName>, false>>
+
+const requiredLast = schema.string().min(5).required()
+type RequiredLast = Expect<Equal<IsRequired<typeof requiredLast>, true>>
+
+const requiredFirst = schema.string().required().min(5).max(100)
+type RequiredFirst = Expect<Equal<IsRequired<typeof requiredFirst>, true>>
+
+const numberRequiredLast = schema.number().integer().positive().required()
+type NumberRequiredLast = Expect<Equal<IsRequired<typeof numberRequiredLast>, true>>
+
+const numberRequiredFirst = schema.number().required().integer().positive()
+type NumberRequiredFirst = Expect<Equal<IsRequired<typeof numberRequiredFirst>, true>>
+
+// `.optional()` does not add the marker, and does not remove what is not there.
+const explicitlyOptional = schema.string().optional()
+type ExplicitlyOptional = Expect<Equal<IsRequired<typeof explicitlyOptional>, false>>
+
+// The marker must not disturb what the validator infers.
+type StillString = Expect<Equal<Infer<typeof requiredFirst>, string>>
+type StillNumber = Expect<Equal<Infer<typeof numberRequiredFirst>, number>>
+
+export type RequiredChecks = [
+  OptionalName,
+  RequiredLast,
+  RequiredFirst,
+  NumberRequiredLast,
+  NumberRequiredFirst,
+  ExplicitlyOptional,
+  StillString,
+  StillNumber,
+]

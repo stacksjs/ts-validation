@@ -73,14 +73,14 @@ export interface NormalizeEmailOptions {
 }
 
 export interface StringValidatorType extends Validator<string>, LengthValidator<StringValidatorType> {
-  email: (options?: Parameters<typeof isEmail>[1]) => StringValidatorType
-  url: (options?: Parameters<typeof isURL>[1]) => StringValidatorType
-  matches: (pattern: RegExp) => StringValidatorType
-  equals: (param: string) => StringValidatorType
-  alphanumeric: () => StringValidatorType
-  alpha: () => StringValidatorType
-  numeric: () => StringValidatorType
-  custom: (fn: (value: string | null | undefined) => boolean, message: string) => StringValidatorType
+  email: (options?: Parameters<typeof isEmail>[1]) => this
+  url: (options?: Parameters<typeof isURL>[1]) => this
+  matches: (pattern: RegExp) => this
+  equals: (param: string) => this
+  alphanumeric: () => this
+  alpha: () => this
+  numeric: () => this
+  custom: (fn: (value: string | null | undefined) => boolean, message: string) => this
 }
 
 export interface TextValidatorType extends StringValidatorType {}

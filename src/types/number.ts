@@ -14,19 +14,19 @@ export interface NumericOptions {
 }
 
 export interface NumberValidatorType extends Validator<number>, LengthValidator<NumberValidatorType> {
-  integer: (options?: IsIntOptions) => NumberValidatorType
-  positive: () => NumberValidatorType
-  negative: () => NumberValidatorType
-  divisibleBy: (divisor: number) => NumberValidatorType
-  custom: (fn: (value: number | null | undefined) => boolean, message: string) => NumberValidatorType
+  integer: (options?: IsIntOptions) => this
+  positive: () => this
+  negative: () => this
+  divisibleBy: (divisor: number) => this
+  custom: (fn: (value: number | null | undefined) => boolean, message: string) => this
 }
 
 export interface BigintValidatorType extends Validator<bigint> {
-  min: (min: bigint) => BigintValidatorType
-  max: (max: bigint) => BigintValidatorType
-  length: (length: number) => BigintValidatorType
-  positive: () => BigintValidatorType
-  negative: () => BigintValidatorType
-  divisibleBy: (divisor: bigint) => BigintValidatorType
-  custom: (fn: (value: bigint) => boolean, message: string) => BigintValidatorType
+  min: (min: bigint) => this
+  max: (max: bigint) => this
+  length: (length: number) => this
+  positive: () => this
+  negative: () => this
+  divisibleBy: (divisor: bigint) => this
+  custom: (fn: (value: bigint) => boolean, message: string) => this
 }
