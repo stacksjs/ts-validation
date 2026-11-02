@@ -1,3 +1,20 @@
+[Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.6...v0.5.7)
+
+## 🐛 Bug Fixes
+
+- expose the published validation entry to Bun loading ([5cb539e](https://github.com/stacksjs/ts-validation/commit/5cb539e)) _(by Chris Breuer <chrisbreuer93@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.5.7 ([e54aca3](https://github.com/stacksjs/ts-validation/commit/e54aca3)) _(by Chris Breuer <chrisbreuer93@gmail.com>)_
+- run @stacksjs/logsmith, not the unrelated npm 'logsmith' ([410a774](https://github.com/stacksjs/ts-validation/commit/410a774)) _(by Chris <chrisbreuer93@gmail.com>)_
+- release through @stacksjs/bumpx, not the unrelated npm 'bumpx' ([10e4992](https://github.com/stacksjs/ts-validation/commit/10e4992)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _Chris Breuer <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/ts-validation/compare/v0.5.5...v0.5.6)
 
 ## 🚀 Features
